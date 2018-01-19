@@ -62,7 +62,7 @@ app.layout = html.Div(
                 },
             ),
             html.H1(
-                'ORCa System Analysis',
+                'ORCa System',
                 className='eight columns',
                 style={'text-align': 'center'}
             )
