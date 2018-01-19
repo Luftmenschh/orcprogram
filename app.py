@@ -20,7 +20,7 @@ app = dash.Dash(__name__)
 server = app.server
 app.config['suppress_callback_exceptions']=True
 
-image_filename = '/Users/nialdaly/orcprogram/orcschematic2.png' # replace with your own image
+image_filename = 'https://github.com/ndaly06/orcprogram/blob/master/orcschematic2.png' # replace with your own image
 encoded_image = base64.b64encode(open(image_filename, 'rb').read())
 
 df = pd.read_csv('https://github.com/ndaly06/orcprogram/blob/master/refrig_data_3.csv?raw=true')
