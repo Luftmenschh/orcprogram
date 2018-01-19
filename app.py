@@ -14,12 +14,14 @@ import dash_table_experiments as dt
 import plotly
 import base64
 
-image_filename = '/Users/nialdaly/orcprogram/orcschematic2.png' # replace with your own image
-encoded_image = base64.b64encode(open(image_filename, 'rb').read())
+
 
 app = dash.Dash(__name__)
 server = app.server
 #app.config['suppress_callback_exceptions']=True
+
+image_filename = '/Users/nialdaly/orcprogram/orcschematic2.png' # replace with your own image
+encoded_image = base64.b64encode(open(image_filename, 'rb').read())
 
 df = pd.read_csv('https://github.com/ndaly06/orcprogram/blob/master/refrig_data_3.csv?raw=true')
 df2 = df[['REFRIGERANT', 'T_1_K', 'T_3_K', 'H_1', 'H_2_ISENTROPIC', 'H_3', 'H_4_ISENTROPIC']]
