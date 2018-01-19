@@ -18,7 +18,7 @@ import base64
 
 app = dash.Dash(__name__)
 server = app.server
-#app.config['suppress_callback_exceptions']=True
+app.config['suppress_callback_exceptions']=True
 
 image_filename = '/Users/nialdaly/orcprogram/orcschematic2.png' # replace with your own image
 encoded_image = base64.b64encode(open(image_filename, 'rb').read())
@@ -62,7 +62,7 @@ app.layout = html.Div(
                 },
             ),
             html.H1(
-                'ORCa System Analysis ®',
+                'ORCa System Analysis',
                 className='eight columns',
                 style={'text-align': 'center'}
             )
