@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-
 #ENABLES CORRECT DIVISION IN PYTHON
 from __future__ import division
 
@@ -15,13 +14,10 @@ import plotly
 import base64
 
 
-
 app = dash.Dash(__name__)
 server = app.server
 app.config['suppress_callback_exceptions']=True
 
-#image_filename = src='https://github.com/ndaly06/orcprogram/blob/master/orcschematic2.png?raw=true'
-#encoded_image = base64.b64encode(open(image_filename, 'rb').read())
 
 df = pd.read_csv('https://github.com/ndaly06/orcprogram/blob/master/refrig_data_3.csv?raw=true')
 df2 = df[['REFRIGERANT', 'T_1_K', 'T_3_K', 'H_1', 'H_2_ISENTROPIC', 'H_3', 'H_4_ISENTROPIC']]
@@ -40,6 +36,7 @@ def generate_table(dataframe, max_rows=9):
         ]) for i in range(min(len(dataframe), max_rows))]
         )
 
+#
 external_css = ["https://fonts.googleapis.com/css?family=Overpass:300,300i",
                 "https://cdn.rawgit.com/plotly/dash-app-stylesheets/dab6f937fd5548cebf4c6dc7e93a10ac438f5efb/dash-technical-charting.css"]
 
@@ -55,7 +52,7 @@ app.layout = html.Div(
                 src="http://www.qub.ac.uk/qol/qollogin-files/Queens-shield-logo-red.png",
                 className='two columns',
                 style={
-                    'height': '70px',
+                    'height': '65px',
                     'width': '180px',
                     'float': 'left',
                     'position': 'relative',
@@ -63,7 +60,7 @@ app.layout = html.Div(
             ),
             html.H1(
                 'ORCa System',
-                className='eight columns',
+                className='seven columns',
                 style={'text-align': 'center'}
             )
         ],
@@ -95,20 +92,31 @@ app.layout = html.Div(
                     multi=True,
                     value=['R134a', 'R141b', 'R123'],
                 ),
+                html.Label('Model Results'),
+                html.Div(id='table-container',
+                    style={
+                    'max-height': '250',
+                    'max-width': '450',
+                    'float': 'left',
+                    'position': 'left',
+                    'display' : 'left'}
+                    ),
+                html.Label('Parameter Selection'),
+                dcc.Dropdown(
+                    id='dropdown_4',
+                    placeholder='Select Parameter',
+                    options=[
+                    {'label': 'Turbine Power (kW)', 'value': 'TURBINE_POWER'},
+                    {'label': 'Pump Power (kW)', 'value': 'PUMP_POWER'},
+                    {'label': 'Net Power (kW)', 'value': 'NET_POWER'},
+                    {'label': 'Heat Input (kJ/K)', 'value': 'HEAT_INPUT'},
+                    {'label': 'Thermal Efficiency (%)', 'value': 'EFFICIENCY'}
+                    ],
+                    value='NET_POWER'
+                ),
+
             ],
                 className='six columns',
-            ),
-            html.Div([
-                html.Label('Mass Flow Rate (kg/s)',style={'width': '200'}),
-                        dcc.Input(
-                            id='input_1',
-                            type='number',
-                            value='12',
-                            min='1',
-                            style={'max-width': '150px'}
-                        )
-            ],
-                className='two columns',
             ),
             html.Div([
                 html.Div([
@@ -154,8 +162,35 @@ app.layout = html.Div(
                     )
                 ]),
 
+                html.Div([
+                html.Label('Mass Flow Rate (kg/s)',style={'width': '200'}),
+                        dcc.Input(
+                            id='input_1',
+                            type='number',
+                            value='12',
+                            min='1',
+                            style={'max-width': '150px'}
+                        )
+                        ]),
+                html.Div([
+                html.Label('ORC System Schematic'),
+                html.Img(src='https://github.com/ndaly06/orcprogram/blob/master/orcschematic2.png?raw=true',
+                    style={
+                    'max-height': '240',
+                    'max-width': '500',
+                    'float': 'right',
+                    'position': 'right',
+                    'display' : 'right',
+                    'padding': '1'}
+                    ),
+                ],
+                className='seven columns',
+                style={'margin-bottom': '10', 'float': 'right'}
+                ),
+
             ],
-                className='four columns'
+                className='six columns',
+                style={'margin-bottom': '10', 'float': 'right'}
             ),
         ],
             className='row',
@@ -163,58 +198,16 @@ app.layout = html.Div(
         ),
         html.Div([
             html.Div([
-                html.Label('Model Results'),
-                html.Div(id='table-container',
-                    style={
-                    'max-height': '250',
-                    'max-width': '450',
-                    'float': 'left',
-                    'position': 'left',
-                    'display' : 'left'}
-                    ),
-                #html.Label('Parametric Analysis'),
-                dcc.Dropdown(
-                    id='dropdown_4',
-                    placeholder='Select Parameter',
-                    options=[
-                    {'label': 'Turbine Power (kW)', 'value': 'TURBINE_POWER'},
-                    {'label': 'Pump Power (kW)', 'value': 'PUMP_POWER'},
-                    {'label': 'Net Power (kW)', 'value': 'NET_POWER'},
-                    {'label': 'Heat Input (kJ/K)', 'value': 'HEAT_INPUT'},
-                    {'label': 'Thermal Efficiency (%)', 'value': 'EFFICIENCY'}
-                    ],
-                    value='NET_POWER'
-                ),
-
-
-
-
-
 
             ],
                 className='six columns',
                 style={'display': 'inline-block'}
             ),
-            html.Div([
-                html.Img(src='https://github.com/ndaly06/orcprogram/blob/master/orcschematic2.png?raw=true',
-                #html.Img(src='data:image/png;base64,{}'.format(encoded_image),
-                    style={
-                    'max-height': '250',
-                    'max-width': '500',
-                    'float': 'right',
-                    'position': 'right',
-                    'display' : 'right'}
-                    )
-
-            ],
-                className='six columns'
-
-            ),
         ],
             className='row'
         ),
 
-        html.Hr(style={'margin': '5', 'margin-bottom': '5'}),
+        #html.Hr(style={'margin': '5', 'margin-bottom': '5'}),
 
         html.Div([
             dcc.Graph(id='graph3', config={'displayModeBar': False}, style={'max-height': '400', 'height': '60vh'}),
