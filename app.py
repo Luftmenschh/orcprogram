@@ -20,8 +20,8 @@ app = dash.Dash(__name__)
 server = app.server
 app.config['suppress_callback_exceptions']=True
 
-image_filename = 'https://github.com/ndaly06/orcprogram/blob/master/orcschematic2.png' # replace with your own image
-encoded_image = base64.b64encode(open(image_filename, 'rb').read())
+#image_filename = src='https://github.com/ndaly06/orcprogram/blob/master/orcschematic2.png?raw=true'
+#encoded_image = base64.b64encode(open(image_filename, 'rb').read())
 
 df = pd.read_csv('https://github.com/ndaly06/orcprogram/blob/master/refrig_data_3.csv?raw=true')
 df2 = df[['REFRIGERANT', 'T_1_K', 'T_3_K', 'H_1', 'H_2_ISENTROPIC', 'H_3', 'H_4_ISENTROPIC']]
@@ -196,7 +196,8 @@ app.layout = html.Div(
                 style={'display': 'inline-block'}
             ),
             html.Div([
-                html.Img(src='data:image/png;base64,{}'.format(encoded_image),
+                html.Img(src='https://github.com/ndaly06/orcprogram/blob/master/orcschematic2.png?raw=true',
+                #html.Img(src='data:image/png;base64,{}'.format(encoded_image),
                     style={
                     'max-height': '250',
                     'max-width': '500',
