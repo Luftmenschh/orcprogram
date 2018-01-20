@@ -19,7 +19,7 @@ server = app.server
 app.config['suppress_callback_exceptions']=True
 
 
-df = pd.read_csv('https://github.com/ndaly06/orcprogram/blob/master/refrig_data_3.csv?raw=true')
+df = pd.read_csv('https://github.com/ndaly06/orcprogram/blob/master/refrigerant_data.csv?raw=true')
 df2 = df[['REFRIGERANT', 'T_1_K', 'T_3_K', 'H_1', 'H_2_ISENTROPIC', 'H_3', 'H_4_ISENTROPIC']]
 df2 = df2.round(2)
 
@@ -90,7 +90,7 @@ app.layout = html.Div(
                     options=[{'label': i, 'value': i} for i in df.REFRIGERANT.unique()],
                     placeholder='Select Refrigerant',
                     multi=True,
-                    value=['R134a', 'R141b', 'R123'],
+                    value=['R134a', 'R141b', 'R113'],
                 ),
                 html.Label('Model Results'),
                 html.Div(id='table-container',
@@ -453,6 +453,7 @@ def produce_graph(slider_1, slider_2, slider_3, slider_4, dropdown_3, input_1):
     dz2 = dff3[dff3['REFRIGERANT'] == 'R141b']
     dz3 = dff3[dff3['REFRIGERANT'] == 'R123']
     dz4 = dff3[dff3['REFRIGERANT'] == 'R134a']
+    dz5 = dff3[dff3['REFRIGERANT'] == 'R113']
 
 
 
@@ -462,6 +463,7 @@ def produce_graph(slider_1, slider_2, slider_3, slider_4, dropdown_3, input_1):
                 {'x': dz2['EFFICIENCY'], 'y': dz2['REFRIGERANT'], 'type': 'bar', 'orientation': 'h', 'width': '0.5', 'name': 'R141b'},
                 {'x': dz3['EFFICIENCY'], 'y': dz3['REFRIGERANT'], 'type': 'bar', 'orientation': 'h', 'width': '0.5', 'name': 'R123'},
                 {'x': dz4['EFFICIENCY'], 'y': dz4['REFRIGERANT'], 'type': 'bar', 'orientation': 'h', 'width': '0.5', 'name': 'R134a'}
+                {'x': dz5['EFFICIENCY'], 'y': dz5['REFRIGERANT'], 'type': 'bar', 'orientation': 'h', 'width': '0.5', 'name': 'R113'}
 
                 ],
                 'layout': {
@@ -528,6 +530,7 @@ def produce_graph(slider_1, slider_2, slider_3, slider_4, dropdown_3, dropdown_4
     dz2 = dff3[dff3['REFRIGERANT'] == 'R141b']
     dz3 = dff3[dff3['REFRIGERANT'] == 'R123']
     dz4 = dff3[dff3['REFRIGERANT'] == 'R134a']
+    dz5 = dff3[dff3['REFRIGERANT'] == 'R113']
 
     return {
         'data': [
@@ -536,6 +539,7 @@ def produce_graph(slider_1, slider_2, slider_3, slider_4, dropdown_3, dropdown_4
             {'x': dz2['T_3'], 'y': dz2[y], 'type': 'line', 'name': 'R141b'},
             {'x': dz3['T_3'], 'y': dz3[y], 'type': 'line', 'name': 'R123'},
             {'x': dz4['T_3'], 'y': dz4[y], 'type': 'line', 'name': 'R134a'}
+            {'x': dz5['T_3'], 'y': dz5[y], 'type': 'line', 'name': 'R113'}
             ],
         'layout':
         {
