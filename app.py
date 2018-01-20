@@ -90,7 +90,7 @@ app.layout = html.Div(
                     options=[{'label': i, 'value': i} for i in df.REFRIGERANT.unique()],
                     placeholder='Select Refrigerant',
                     multi=True,
-                    value=['R134a', 'R141b', 'R113'],
+                    value=['R134a', 'R141b', 'R11'],
                 ),
                 html.Label('Model Results'),
                 html.Div(id='table-container',
