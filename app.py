@@ -457,6 +457,7 @@ def produce_graph(slider_1, slider_2, slider_3, slider_4, dropdown_3, input_1):
     dz6 = dff3[dff3['REFRIGERANT'] == 'R410a']
     dz7 = dff3[dff3['REFRIGERANT'] == 'R236ea']
     dz8 = dff3[dff3['REFRIGERANT'] == 'R227ea']
+    dz9 = dff3[dff3['REFRIGERANT'] == 'R245ca']
 
 
 
@@ -469,7 +470,8 @@ def produce_graph(slider_1, slider_2, slider_3, slider_4, dropdown_3, input_1):
                 {'x': dz5['EFFICIENCY'], 'y': dz5['REFRIGERANT'], 'type': 'bar', 'orientation': 'h', 'width': '0.5', 'name': 'R113'},
                 {'x': dz6['EFFICIENCY'], 'y': dz6['REFRIGERANT'], 'type': 'bar', 'orientation': 'h', 'width': '0.5', 'name': 'R410a'},
                 {'x': dz7['EFFICIENCY'], 'y': dz7['REFRIGERANT'], 'type': 'bar', 'orientation': 'h', 'width': '0.5', 'name': 'R236ea'},
-                {'x': dz8['EFFICIENCY'], 'y': dz8['REFRIGERANT'], 'type': 'bar', 'orientation': 'h', 'width': '0.5', 'name': 'R227ea'}
+                {'x': dz8['EFFICIENCY'], 'y': dz8['REFRIGERANT'], 'type': 'bar', 'orientation': 'h', 'width': '0.5', 'name': 'R227ea'},
+                {'x': dz9['EFFICIENCY'], 'y': dz9['REFRIGERANT'], 'type': 'bar', 'orientation': 'h', 'width': '0.5', 'name': 'R245ca'}
 
 
                 ],
@@ -541,6 +543,7 @@ def produce_graph(slider_1, slider_2, slider_3, slider_4, dropdown_3, dropdown_4
     dz6 = dff3[dff3['REFRIGERANT'] == 'R410a']
     dz7 = dff3[dff3['REFRIGERANT'] == 'R236ea']
     dz8 = dff3[dff3['REFRIGERANT'] == 'R227ea']
+    dz9 = dff3[dff3['REFRIGERANT'] == 'R245ca']
 
     return {
         'data': [
@@ -551,7 +554,9 @@ def produce_graph(slider_1, slider_2, slider_3, slider_4, dropdown_3, dropdown_4
             {'x': dz5['T_3'], 'y': dz5[y], 'type': 'line', 'name': 'R113'},
             {'x': dz6['T_3'], 'y': dz6[y], 'type': 'line', 'name': 'R410a'},
             {'x': dz7['T_3'], 'y': dz7[y], 'type': 'line', 'name': 'R236ea'},
-            {'x': dz8['T_3'], 'y': dz8[y], 'type': 'line', 'name': 'R227ea'}
+            {'x': dz8['T_3'], 'y': dz8[y], 'type': 'line', 'name': 'R227ea'},
+            {'x': dz9['T_3'], 'y': dz9[y], 'type': 'line', 'name': 'R245ca'}
+
             ],
         'layout':
         {
