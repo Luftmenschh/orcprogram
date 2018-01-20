@@ -534,7 +534,6 @@ def produce_graph(slider_1, slider_2, slider_3, slider_4, dropdown_3, dropdown_4
 
     return {
         'data': [
-            #x=dff4['T_3'],
             {'x': dz1['T_3'], 'y': dz1[y], 'type': 'line', 'name': 'R11'},
             {'x': dz2['T_3'], 'y': dz2[y], 'type': 'line', 'name': 'R141b'},
             {'x': dz3['T_3'], 'y': dz3[y], 'type': 'line', 'name': 'R218'},
@@ -545,8 +544,7 @@ def produce_graph(slider_1, slider_2, slider_3, slider_4, dropdown_3, dropdown_4
         {
         'title': 'Refrigerant Performance Comparison',
         "xaxis": { "title": "Turbine Inlet Temperature, T1 (°C)", "fixedrange": True, 'showline':False, 'zeroline':True},
-        "yaxis": { "title": dropdown_4, "fixedrange": True, 'zeroline':True, 'showline':True},
-        #"height": '450'
+        "yaxis": { "title": dropdown_4, "fixedrange": True, 'zeroline':True, 'showline':True}
         }
 }
 
