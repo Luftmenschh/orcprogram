@@ -112,7 +112,7 @@ app.layout = html.Div(
                     {'label': 'Heat Input (kJ/K)', 'value': 'HEAT_INPUT'},
                     {'label': 'Thermal Efficiency (%)', 'value': 'EFFICIENCY'}
                     ],
-                    value='NET_POWER'
+                    value='TURBINE_POWER'
                 ),
 
             ],
