@@ -454,6 +454,9 @@ def produce_graph(slider_1, slider_2, slider_3, slider_4, dropdown_3, input_1):
     dz3 = dff3[dff3['REFRIGERANT'] == 'R218']
     dz4 = dff3[dff3['REFRIGERANT'] == 'R134a']
     dz5 = dff3[dff3['REFRIGERANT'] == 'R113']
+    dz6 = dff3[dff3['REFRIGERANT'] == 'R410a']
+    dz7 = dff3[dff3['REFRIGERANT'] == 'R236ea']
+    dz8 = dff3[dff3['REFRIGERANT'] == 'R227ea']
 
 
 
@@ -463,7 +466,11 @@ def produce_graph(slider_1, slider_2, slider_3, slider_4, dropdown_3, input_1):
                 {'x': dz2['EFFICIENCY'], 'y': dz2['REFRIGERANT'], 'type': 'bar', 'orientation': 'h', 'width': '0.5', 'name': 'R141b'},
                 {'x': dz3['EFFICIENCY'], 'y': dz3['REFRIGERANT'], 'type': 'bar', 'orientation': 'h', 'width': '0.5', 'name': 'R218'},
                 {'x': dz4['EFFICIENCY'], 'y': dz4['REFRIGERANT'], 'type': 'bar', 'orientation': 'h', 'width': '0.5', 'name': 'R134a'},
-                {'x': dz5['EFFICIENCY'], 'y': dz5['REFRIGERANT'], 'type': 'bar', 'orientation': 'h', 'width': '0.5', 'name': 'R113'}
+                {'x': dz5['EFFICIENCY'], 'y': dz5['REFRIGERANT'], 'type': 'bar', 'orientation': 'h', 'width': '0.5', 'name': 'R113'},
+                {'x': dz6['EFFICIENCY'], 'y': dz6['REFRIGERANT'], 'type': 'bar', 'orientation': 'h', 'width': '0.5', 'name': 'R410a'},
+                {'x': dz7['EFFICIENCY'], 'y': dz7['REFRIGERANT'], 'type': 'bar', 'orientation': 'h', 'width': '0.5', 'name': 'R236ea'},
+                {'x': dz8['EFFICIENCY'], 'y': dz8['REFRIGERANT'], 'type': 'bar', 'orientation': 'h', 'width': '0.5', 'name': 'R227ea'}
+
 
                 ],
                 'layout': {
@@ -531,6 +538,9 @@ def produce_graph(slider_1, slider_2, slider_3, slider_4, dropdown_3, dropdown_4
     dz3 = dff3[dff3['REFRIGERANT'] == 'R218']
     dz4 = dff3[dff3['REFRIGERANT'] == 'R134a']
     dz5 = dff3[dff3['REFRIGERANT'] == 'R113']
+    dz6 = dff3[dff3['REFRIGERANT'] == 'R410a']
+    dz7 = dff3[dff3['REFRIGERANT'] == 'R236ea']
+    dz8 = dff3[dff3['REFRIGERANT'] == 'R227ea']
 
     return {
         'data': [
@@ -538,7 +548,10 @@ def produce_graph(slider_1, slider_2, slider_3, slider_4, dropdown_3, dropdown_4
             {'x': dz2['T_3'], 'y': dz2[y], 'type': 'line', 'name': 'R141b'},
             {'x': dz3['T_3'], 'y': dz3[y], 'type': 'line', 'name': 'R218'},
             {'x': dz4['T_3'], 'y': dz4[y], 'type': 'line', 'name': 'R134a'},
-            {'x': dz5['T_3'], 'y': dz5[y], 'type': 'line', 'name': 'R113'}
+            {'x': dz5['T_3'], 'y': dz5[y], 'type': 'line', 'name': 'R113'},
+            {'x': dz6['T_3'], 'y': dz6[y], 'type': 'line', 'name': 'R410a'},
+            {'x': dz7['T_3'], 'y': dz7[y], 'type': 'line', 'name': 'R236ea'},
+            {'x': dz8['T_3'], 'y': dz8[y], 'type': 'line', 'name': 'R227ea'}
             ],
         'layout':
         {
