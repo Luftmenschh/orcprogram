@@ -19,7 +19,7 @@ server = app.server
 app.config['suppress_callback_exceptions']=True
 
 
-df = pd.read_csv('https://github.com/ndaly06/orcprogram/blob/master/refrig_data_3.csv?raw=true')
+df = pd.read_csv('https://github.com/ndaly06/orcprogram/blob/master/refrigerant_data.csv?raw=true')
 df2 = df[['REFRIGERANT', 'T_1_K', 'T_3_K', 'H_1', 'H_2_ISENTROPIC', 'H_3', 'H_4_ISENTROPIC']]
 df2 = df2.round(2)
 
@@ -462,7 +462,7 @@ def produce_graph(slider_1, slider_2, slider_3, slider_4, dropdown_3, input_1):
                 {'x': dz1['EFFICIENCY'], 'y': dz1['REFRIGERANT'], 'type': 'bar', 'orientation': 'h', 'width': '0.5', 'name': 'R11'},
                 {'x': dz2['EFFICIENCY'], 'y': dz2['REFRIGERANT'], 'type': 'bar', 'orientation': 'h', 'width': '0.5', 'name': 'R141b'},
                 {'x': dz3['EFFICIENCY'], 'y': dz3['REFRIGERANT'], 'type': 'bar', 'orientation': 'h', 'width': '0.5', 'name': 'R218'},
-                {'x': dz4['EFFICIENCY'], 'y': dz4['REFRIGERANT'], 'type': 'bar', 'orientation': 'h', 'width': '0.5', 'name': 'R134a'}
+                {'x': dz4['EFFICIENCY'], 'y': dz4['REFRIGERANT'], 'type': 'bar', 'orientation': 'h', 'width': '0.5', 'name': 'R134a'},
                 {'x': dz5['EFFICIENCY'], 'y': dz5['REFRIGERANT'], 'type': 'bar', 'orientation': 'h', 'width': '0.5', 'name': 'R113'}
 
                 ],
@@ -538,7 +538,7 @@ def produce_graph(slider_1, slider_2, slider_3, slider_4, dropdown_3, dropdown_4
             {'x': dz1['T_3'], 'y': dz1[y], 'type': 'line', 'name': 'R11'},
             {'x': dz2['T_3'], 'y': dz2[y], 'type': 'line', 'name': 'R141b'},
             {'x': dz3['T_3'], 'y': dz3[y], 'type': 'line', 'name': 'R218'},
-            {'x': dz4['T_3'], 'y': dz4[y], 'type': 'line', 'name': 'R134a'}
+            {'x': dz4['T_3'], 'y': dz4[y], 'type': 'line', 'name': 'R134a'},
             {'x': dz5['T_3'], 'y': dz5[y], 'type': 'line', 'name': 'R113'}
             ],
         'layout':
