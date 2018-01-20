@@ -94,12 +94,12 @@ app.layout = html.Div(
                 ),
                 html.Label('Model Results'),
                 html.Div(id='table-container',
-                    style={
-                    'max-height': '250',
-                    'max-width': '450',
-                    'float': 'left',
-                    'position': 'left',
-                    'display' : 'left'}
+                    #style={
+                    #'max-height': '250',
+                    #'max-width': '450',
+                    #'float': 'left',
+                    #'position': 'left',
+                    #'display' : 'left'}
                     ),
                 html.Label('Parameter Selection'),
                 dcc.Dropdown(
