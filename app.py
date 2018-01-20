@@ -19,7 +19,7 @@ server = app.server
 app.config['suppress_callback_exceptions']=True
 
 
-df = pd.read_csv('https://github.com/ndaly06/orcprogram/blob/master/refrigerant_data.csv?raw=true')
+df = pd.read_csv('https://github.com/ndaly06/orcprogram/blob/master/refrig_data_3.csv?raw=true')
 df2 = df[['REFRIGERANT', 'T_1_K', 'T_3_K', 'H_1', 'H_2_ISENTROPIC', 'H_3', 'H_4_ISENTROPIC']]
 df2 = df2.round(2)
 
