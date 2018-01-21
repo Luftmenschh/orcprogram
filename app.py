@@ -340,7 +340,7 @@ def display_table(slider_1, slider_2, slider_3, slider_4, dropdown_3, input_1):
     dff3['EFFICIENCY'] = (dff3['NET_POWER'] / dff3['HEAT_INPUT']) * 100
 
     #
-    dff3 = dff3[['REFRIGERANT', 'NET_POWER', 'TURBINE_POWER', 'HEAT_INPUT']]
+    dff3 = dff3[['REFRIGERANT', 'PUMP_POWER', 'TURBINE_POWER', 'HEAT_INPUT']]
 
     dff3 = dff3.round(3)
 
