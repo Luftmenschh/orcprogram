@@ -309,7 +309,8 @@ def display_table(slider_1, slider_2, slider_3, slider_4, dropdown_3, input_1):
 
 
     #CALCULATES ENTHALPY AT STATE 2
-    dff3['H_2'] = dff3['H_2_ISENTROPIC'] + (PUMP_EFF / 100) * (dff3['H_2_ISENTROPIC'] - dff3['H_1'])
+    dff3['H_2'] = dff3['H_2_ISENTROPIC'] + (PUMP_EFF / 100) / (dff3['H_2_ISENTROPIC'] - dff3['H_1'])
+    #dff3['H_2'] = dff3['H_2_ISENTROPIC'] + (PUMP_EFF / 100) * (dff3['H_2_ISENTROPIC'] - dff3['H_1'])
     #dff3['H_2'] = dff3['H_1'] + (PUMP_EFF / 100) * (dff3['H_2_ISENTROPIC'] - dff3['H_1'])
 
     #CALCULATES ENTHALPY AT STATE 4
@@ -369,7 +370,8 @@ def produce_graph(slider_1, slider_2, slider_3, slider_4, dropdown_3, input_1):
     TURBINE_EFF = float(slider_4)
 
     #CALCULATES ENTHALPY AT STATE 2
-    dff3['H_2'] = dff3['H_2_ISENTROPIC'] + (PUMP_EFF / 100) * (dff3['H_2_ISENTROPIC'] - dff3['H_1'])
+    dff3['H_2'] = dff3['H_2_ISENTROPIC'] + (PUMP_EFF / 100) / (dff3['H_2_ISENTROPIC'] - dff3['H_1'])
+    #dff3['H_2'] = dff3['H_2_ISENTROPIC'] + (PUMP_EFF / 100) * (dff3['H_2_ISENTROPIC'] - dff3['H_1'])
     #dff3['H_2'] = dff3['H_1'] + (PUMP_EFF / 100) * (dff3['H_2_ISENTROPIC'] - dff3['H_1'])
 
     #CALCULATES ENTHALPY AT STATE 4
@@ -429,7 +431,8 @@ def produce_graph(slider_1, slider_2, slider_3, slider_4, dropdown_3, input_1):
     TURBINE_EFF = float(slider_4)
 
     #CALCULATES ENTHALPY AT STATE 2
-    dff3['H_2'] = dff3['H_2_ISENTROPIC'] + (PUMP_EFF / 100) * (dff3['H_2_ISENTROPIC'] - dff3['H_1'])
+    dff3['H_2'] = dff3['H_2_ISENTROPIC'] + (PUMP_EFF / 100) / (dff3['H_2_ISENTROPIC'] - dff3['H_1'])
+    #dff3['H_2'] = dff3['H_2_ISENTROPIC'] + (PUMP_EFF / 100) * (dff3['H_2_ISENTROPIC'] - dff3['H_1'])
     #dff3['H_2'] = dff3['H_1'] + (PUMP_EFF / 100) * (dff3['H_2_ISENTROPIC'] - dff3['H_1'])
 
     #CALCULATES ENTHALPY AT STATE 4
@@ -512,7 +515,8 @@ def produce_graph(slider_1, slider_2, slider_3, slider_4, dropdown_3, dropdown_4
 
     dff3 = dff2
     #CALCULATES ENTHALPY AT STATE 2
-    dff3['H_2'] = dff3['H_2_ISENTROPIC'] + (PUMP_EFF / 100) * (dff3['H_2_ISENTROPIC'] - dff3['H_1'])
+    dff3['H_2'] = dff3['H_2_ISENTROPIC'] + (PUMP_EFF / 100) / (dff3['H_2_ISENTROPIC'] - dff3['H_1'])
+    #dff3['H_2'] = dff3['H_2_ISENTROPIC'] + (PUMP_EFF / 100) * (dff3['H_2_ISENTROPIC'] - dff3['H_1'])
     #dff3['H_2'] = dff3['H_1'] + (PUMP_EFF / 100) * (dff3['H_2_ISENTROPIC'] - dff3['H_1'])
 
     #CALCULATES ENTHALPY AT STATE 4
