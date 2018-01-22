@@ -91,7 +91,7 @@ app.layout = html.Div(
                     options=[{'label': i, 'value': i} for i in df.REFRIGERANT.unique()],
                     placeholder='Select Refrigerant',
                     multi=True,
-                    value=['R134a', 'R141b', 'R410a'],
+                    value=['R134a', 'R141b', 'R410a', 'R113'],
                 ),
 
                 html.Label('Mass Flow Rate (kg/s)',style={'width': '200'}),
