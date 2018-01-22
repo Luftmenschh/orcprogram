@@ -570,7 +570,7 @@ def produce_graph(slider_1, slider_2, slider_3, slider_4, dropdown_3, dropdown_4
         'layout':
         {
         'title': 'Refrigerant Performance Comparison',
-        "xaxis": { "title": "Turbine Inlet Temperature, T1 (°C)", "fixedrange": True, 'showline':False, 'zeroline':True},
+        "xaxis": { "title": "Turbine Inlet Temperature, T3 (°C)", "fixedrange": True, 'showline':False, 'zeroline':True},
         "yaxis": { "title": dropdown_4, "fixedrange": True, 'zeroline':True, 'showline':True}
         }
 }
