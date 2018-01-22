@@ -298,7 +298,7 @@ def compute_amount(slider_4):
 
 def display_table(slider_1, slider_2, slider_3, slider_4, dropdown_3, input_1):
     if dropdown_3 is None:
-        #return generate_table(dff3)
+        return generate_table(dff3)
 
     dff = df[df.REFRIGERANT.str.contains('|'.join(dropdown_3))]
     dff2 = dff[dff['T_1'] == slider_1]
