@@ -165,18 +165,18 @@ app.layout = html.Div(
 
         html.Div([
             html.Div([
-                dcc.Graph(id='graph2', config={'displayModeBar': False}, style={'max-height': '450', 'height': '50vh'}),
+                dcc.Graph(id='graph2', config={'displayModeBar': False}, style={'max-height': '400', 'height': '50vh'}),
             ],
                 className='five columns'
             ),
             html.Div([
-                dcc.Graph(id='graph1', config={'displayModeBar': False}, style={'max-height': '450', 'height': '50vh'}),
+                dcc.Graph(id='graph1', config={'displayModeBar': False}, style={'max-height': '400', 'height': '50vh'}),
             ],
                 className='seven columns'
             ),
 
             html.Div([
-            html.H6('Parameter Analysis'),
+            html.H6('Parameteric Analysis'),
                 dcc.Dropdown(
                     id='dropdown_4',
                     placeholder='Select Parameter',
@@ -196,8 +196,6 @@ app.layout = html.Div(
             className='row',
             style={'margin-bottom': '30'}
         ),
-
-
 
 
         html.Div([
