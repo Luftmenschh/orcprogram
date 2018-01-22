@@ -125,7 +125,7 @@ app.layout = html.Div(
                     dcc.Slider(
                         id='slider_1',
                         min=1,
-                        max=100,
+                        max=200,
                         step=1,
                         value=10
                         )
@@ -136,7 +136,7 @@ app.layout = html.Div(
                     dcc.Slider(
                         id='slider_2',
                         min=1,
-                        max=100,
+                        max=200,
                         value=60,
                     )
                 ]),
