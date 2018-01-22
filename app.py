@@ -125,7 +125,7 @@ app.layout = html.Div(
                     dcc.Slider(
                         id='slider_1',
                         min=1,
-                        max=70,
+                        max=100,
                         step=1,
                         value=10
                         )
@@ -136,7 +136,7 @@ app.layout = html.Div(
                     dcc.Slider(
                         id='slider_2',
                         min=1,
-                        max=70,
+                        max=100,
                         value=60,
                     )
                 ]),
@@ -540,6 +540,7 @@ def produce_graph(slider_1, slider_2, slider_3, slider_4, dropdown_3, dropdown_4
     dff3 = dff3[dff3['EFFICIENCY'] > 0]
 
     dff3 = dff3[dff3['T_1'] == x]
+
 
     dff3 = dff3.round(2)
 
