@@ -101,19 +101,7 @@ app.layout = html.Div(
                     #'position': 'left',
                     #'display' : 'left'}
                     ),
-                html.Label('Parameter Selection'),
-                dcc.Dropdown(
-                    id='dropdown_4',
-                    placeholder='Select Parameter',
-                    options=[
-                    {'label': 'Turbine Power (kW)', 'value': 'TURBINE_POWER'},
-                    {'label': 'Pump Power (kW)', 'value': 'PUMP_POWER'},
-                    {'label': 'Net Power (kW)', 'value': 'NET_POWER'},
-                    {'label': 'Heat Input (kJ/K)', 'value': 'HEAT_INPUT'},
-                    {'label': 'Thermal Efficiency (%)', 'value': 'EFFICIENCY'}
-                    ],
-                    value='TURBINE_POWER'
-                ),
+
 
             ],
                 className='six columns',
@@ -210,13 +198,6 @@ app.layout = html.Div(
         #html.Hr(style={'margin': '5', 'margin-bottom': '5'}),
 
         html.Div([
-            dcc.Graph(id='graph3', config={'displayModeBar': False}, style={'max-height': '400', 'height': '60vh'}),
-
-        ],
-            className='row',
-            style={'margin-bottom': '30'}
-        ),
-        html.Div([
             html.Div([
                 dcc.Graph(id='graph2', config={'displayModeBar': False}, style={'max-height': '450', 'height': '50vh'}),
             ],
@@ -226,10 +207,42 @@ app.layout = html.Div(
                 dcc.Graph(id='graph1', config={'displayModeBar': False}, style={'max-height': '450', 'height': '50vh'}),
             ],
                 className='seven columns'
-            )
+            ),
+
+            html.Div([
+            html.Label('Parameter Selection'),
+                dcc.Dropdown(
+                    id='dropdown_4',
+                    placeholder='Select Parameter',
+                    options=[
+                    {'label': 'Turbine Power (kW)', 'value': 'TURBINE_POWER'},
+                    {'label': 'Pump Power (kW)', 'value': 'PUMP_POWER'},
+                    {'label': 'Net Power (kW)', 'value': 'NET_POWER'},
+                    {'label': 'Heat Input (kJ/K)', 'value': 'HEAT_INPUT'},
+                    {'label': 'Thermal Efficiency (%)', 'value': 'EFFICIENCY'}
+                    ],
+                    value='TURBINE_POWER'
+                )
+                ],
+                className='row'),
+
         ],
-            className='row'
+            className='row',
+            style={'margin-bottom': '30'}
         ),
+
+
+
+
+        html.Div([
+            dcc.Graph(id='graph3', config={'displayModeBar': False}, style={'max-height': '400', 'height': '60vh'}),
+
+        ],
+            className='row',
+            style={'margin-bottom': '20'}
+        ),
+
+
 
         html.P(
             hidden='',
