@@ -84,6 +84,7 @@ app.layout = html.Div(
                     disabled=True,
                 ),
 
+                html.Div([
                 html.Label('Select Refrigerant:'),
                 dcc.Dropdown(
                     id='dropdown_3',
@@ -92,65 +93,7 @@ app.layout = html.Div(
                     multi=True,
                     value=['R134a', 'R141b', 'R410a'],
                 ),
-                html.Label('Model Results'),
-                html.Div(id='table-container',
-                    #style={
-                    #'max-height': '250',
-                    #'max-width': '450',
-                    #'float': 'left',
-                    #'position': 'left',
-                    #'display' : 'left'}
-                    ),
 
-
-            ],
-                className='six columns',
-            ),
-            html.Div([
-                html.Div([
-                    html.Label(
-                        id='pump_temp_value'),
-                    dcc.Slider(
-                        id='slider_1',
-                        min=1,
-                        max=200,
-                        step=1,
-                        value=10
-                        )
-                ]),
-                html.Div([
-                    html.Label(
-                        id='turbine_temp_value'),
-                    dcc.Slider(
-                        id='slider_2',
-                        min=1,
-                        max=200,
-                        value=60,
-                    )
-                ]),
-                html.Div([
-                    html.Label(
-                        id='pump_eff_value'),
-                    dcc.Slider(
-                        id='slider_3',
-                        min=1,
-                        max=100,
-                        value=60,
-                    )
-                ]),
-
-                html.Div([
-                    html.Label(
-                        id='turbine_eff_value'),
-                    dcc.Slider(
-                        id='slider_4',
-                        min=1,
-                        max=100,
-                        value=80,
-                    )
-                ]),
-
-                html.Div([
                 html.Label('Mass Flow Rate (kg/s)',style={'width': '200'}),
                         dcc.Input(
                             id='input_1',
@@ -159,43 +102,66 @@ app.layout = html.Div(
                             min='1',
                             style={'max-width': '150px'}
                         )
-                        ]),
-                html.Div([
-                html.Label('ORC System Schematic'),
-                html.Img(src='https://github.com/ndaly06/orcprogram/blob/master/orcschematic2.png?raw=true',
-                    style={
-                    'max-height': '240',
-                    'max-width': '500',
-                    'float': 'right',
-                    'position': 'right',
-                    'display' : 'right',
-                    'padding': '1'}
-                    ),
                 ],
-                className='seven columns',
-                style={'margin-bottom': '10', 'float': 'right'}
+
                 ),
+
+                html.Label(id='pump_temp_value'),
+                dcc.Slider(
+                        id='slider_1',
+                        min=1,
+                        max=200,
+                        step=1,
+                        value=10
+                        ),
+
+                html.Label(
+                        id='turbine_temp_value'),
+                    dcc.Slider(
+                        id='slider_2',
+                        min=1,
+                        max=200,
+                        value=60,
+                    ),
+
+                html.Label(
+                        id='pump_eff_value'),
+                    dcc.Slider(
+                        id='slider_3',
+                        min=1,
+                        max=100,
+                        value=60,
+                    ),
+
+                html.Label(
+                        id='turbine_eff_value'),
+                    dcc.Slider(
+                        id='slider_4',
+                        min=1,
+                        max=100,
+                        value=80,
+                    ),
 
             ],
                 className='six columns',
-                style={'margin-bottom': '10', 'float': 'right'}
+            ),
+
+            html.Div([
+                html.Label('ORC System Schematic'),
+                html.Img(src='https://github.com/ndaly06/orcprogram/blob/master/orcschematic2.png?raw=true',
+                    style={
+                    'max-height': '250',
+                    'max-width': '500'}),
+
+            ],
+                className='ten columns',
+                style={'display': 'inline-block', 'position': 'absolute'}
             ),
         ],
             className='row',
             style={'margin-bottom': '10'}
         ),
-        html.Div([
-            html.Div([
 
-            ],
-                className='six columns',
-                style={'display': 'inline-block'}
-            ),
-        ],
-            className='row'
-        ),
-
-        #html.Hr(style={'margin': '5', 'margin-bottom': '5'}),
 
         html.Div([
             html.Div([
@@ -210,7 +176,7 @@ app.layout = html.Div(
             ),
 
             html.Div([
-            html.Label('Parameter Selection'),
+            html.H6('Parameter Analysis'),
                 dcc.Dropdown(
                     id='dropdown_4',
                     placeholder='Select Parameter',
@@ -241,6 +207,19 @@ app.layout = html.Div(
             className='row',
             style={'margin-bottom': '20'}
         ),
+
+        html.Div([
+    html.H6('ORC Model Results'),
+    dt.DataTable(
+
+        # optional - sets the order of columns
+        rows=[{}],
+        row_selectable=True,
+        filterable=False,
+        sortable=True,
+        selected_row_indices=[],
+        id='table'
+    )]),
 
 
 
@@ -300,7 +279,7 @@ def compute_amount(slider_4):
 
 
 @app.callback(
-    dash.dependencies.Output('table-container', 'children'),
+    dash.dependencies.Output('table', 'rows'),
     [dash.dependencies.Input('slider_1', 'value'),
     dash.dependencies.Input('slider_2', 'value'),
     dash.dependencies.Input('slider_3', 'value'),
@@ -311,7 +290,7 @@ def compute_amount(slider_4):
 
 def display_table(slider_1, slider_2, slider_3, slider_4, dropdown_3, input_1):
     if dropdown_3 is None:
-        return generate_table(dff3)
+        return df.to_dict('records')
 
     dff = df[df.REFRIGERANT.str.contains('|'.join(dropdown_3))]
     dff2 = dff[dff['T_1'] == slider_1]
@@ -353,12 +332,12 @@ def display_table(slider_1, slider_2, slider_3, slider_4, dropdown_3, input_1):
     dff3['EFFICIENCY'] = (dff3['NET_POWER'] / dff3['HEAT_INPUT']) * 100
 
     #
-    dff3 = dff3[['REFRIGERANT', 'PUMP_POWER', 'TURBINE_POWER', 'HEAT_INPUT']]
+    dff3 = dff3[['REFRIGERANT', 'TURBINE_POWER', 'PUMP_POWER', 'HEAT_INPUT', 'EFFICIENCY']]
 
     dff3 = dff3.round(3)
 
     #DATASET
-    return generate_table(dff3)
+    return dff3.to_dict('records')
 
 
 
