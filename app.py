@@ -165,12 +165,12 @@ app.layout = html.Div(
 
         html.Div([
             html.Div([
-                dcc.Graph(id='graph2', config={'displayModeBar': False}, style={'max-height': '400', 'height': '50vh'}),
+                dcc.Graph(id='graph2', config={'displayModeBar': False}, style={'max-height': '350', 'height': '50vh'}),
             ],
                 className='five columns'
             ),
             html.Div([
-                dcc.Graph(id='graph1', config={'displayModeBar': False}, style={'max-height': '400', 'height': '50vh'}),
+                dcc.Graph(id='graph1', config={'displayModeBar': False}, style={'max-height': '350', 'height': '50vh'}),
             ],
                 className='seven columns'
             ),
