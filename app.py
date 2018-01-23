@@ -157,12 +157,12 @@ app.layout = html.Div(
                 html.Label('ORC System Schematic'),
                 html.Img(src='https://github.com/ndaly06/orcprogram/blob/master/orcschematic2.png?raw=true',
                     style={
-                    'max-height': '250',
-                    'max-width': '500',
+                    'max-height': '250px',
+                    'max-width': '500px',
                     'position':'relative'}),
 
             ],
-                className='ten columns',
+                className=' columns',
                 style={'display': 'inline-block', 'position': 'absolute'}
             ),
         ],
@@ -225,21 +225,22 @@ app.layout = html.Div(
         selected_row_indices=[],
         id='table'
     ),
-    html.Div([
-    html.A('EXPORT CSV',
-        id='download_button',
+
+    #html.Div([
+    #html.A('EXPORT CSV',
+        #id='download_button',
 
         #download="orc_model_data.csv",
-        href="",
-        download="123.csv",
+        #href="",
+        #download="123.csv",
         #download="https://github.com/ndaly06/orcprogram/blob/master/orc_model_data.csv?raw=true",
         #href="https://github.com/ndaly06/orcprogram/blob/master/orc_model_data.csv?raw=true",
-        target="_blank"
-        )
-    ],
-    style={'display': 'inline-block', 'float':'right', 'padding-top': '5'}
-    )
-    ]),
+        #target="_blank"
+        #)
+    #],
+    #style={'display': 'inline-block', 'float':'right', 'padding-top': '5'}
+    #)
+]),
 
 
 
@@ -593,8 +594,6 @@ def produce_graph(slider_1, slider_2, slider_3, slider_4, dropdown_3, dropdown_4
 }
 
 
-
-
 @app.callback(
     dash.dependencies.Output('download_button', 'href'),
     [dash.dependencies.Input('slider_1', 'value'),
@@ -655,31 +654,12 @@ def update_download_button(slider_1, slider_2, slider_3, slider_4, dropdown_3, d
 
     dff3 = dff3.round(3)
 
-    csv_string = dff3.to_csv(index=False, encoding='utf-8')
-
-    csv_string = "data:text/csv;charset=utf-8," + urllib.quote(csv_string)
-
-
-    #csv_string = dff3.to_csv(index=False, encoding='utf-8')
-    #csv_string = "data:text/csv;charset=utf-8," + urllib.quote(csv_string)
-    return csv_string
-
-
-
-    #csv_string = "data:text/csv;charset=utf-8," + urllib.parse.quote(csv_string)
-
-
     #csv_string = dff3.to_csv(index=False, encoding='utf-8')
 
     #csv_string = "data:text/csv;charset=utf-8," + urllib.quote(csv_string)
-    #delimiter=',', encoding="utf-8")
-
-    #return "data:text/csv;charset=utf-8," + urllib.parse.quote(csv_string)
-    #try:
-     #   from urllib.parse import quote
-    #except ImportError:
-    #    from urllib import quote
     #return csv_string
+
+
 
 
 if __name__ == '__main__':
