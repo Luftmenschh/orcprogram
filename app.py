@@ -12,7 +12,7 @@ from dash.dependencies import Input, Output, State
 import dash_table_experiments as dt
 import plotly
 import base64
-import urllib
+import urllib3
 
 
 app = dash.Dash(__name__)
