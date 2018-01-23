@@ -223,9 +223,11 @@ app.layout = html.Div(
         id='table'
     ),
     html.Div([
-    html.A('EXPORT CSV', id='download_button',
+    html.A('EXPORT CSV',
+        id='download_button',
         download="orc_model_data.csv",
         href="",
+        target="_blank"
         )
     ],
     style={'display': 'inline-block', 'float':'right', 'padding-top': '5'}
