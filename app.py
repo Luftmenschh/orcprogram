@@ -228,8 +228,12 @@ app.layout = html.Div(
     html.Div([
     html.A('EXPORT CSV',
         id='download_button',
-        download="orc_model_data.csv",
-        href="https://github.com/ndaly06/orcprogram/blob/master/orc_model_data.csv",
+
+        #download="orc_model_data.csv",
+        href="",
+        download="123.csv",
+        #download="https://github.com/ndaly06/orcprogram/blob/master/orc_model_data.csv?raw=true",
+        #href="https://github.com/ndaly06/orcprogram/blob/master/orc_model_data.csv?raw=true",
         target="_blank"
         )
     ],
@@ -602,7 +606,7 @@ def produce_graph(slider_1, slider_2, slider_3, slider_4, dropdown_3, dropdown_4
         dash.dependencies.Input('input_1', 'value')
         ])
 
-def update_download_link(slider_1, slider_2, slider_3, slider_4, dropdown_3, dropdown_4, input_1):
+def update_download_button(slider_1, slider_2, slider_3, slider_4, dropdown_3, dropdown_4, input_1):
 
     dff = df[df.REFRIGERANT.str.contains('|'.join(dropdown_3))]
     dff2 = dff[dff['T_1'] == slider_1]
@@ -651,7 +655,9 @@ def update_download_link(slider_1, slider_2, slider_3, slider_4, dropdown_3, dro
 
     dff3 = dff3.round(3)
 
-    csv_string = dff3.to_csv('https://github.com/ndaly06/orcprogram/blob/master/orc_model_data.csv', index=False, encoding='utf-8')
+    csv_string = dff3.to_csv(index=False, encoding='utf-8')
+
+    csv_string = "data:text/csv;charset=utf-8," + urllib.quote(csv_string)
 
 
     #csv_string = dff3.to_csv(index=False, encoding='utf-8')
