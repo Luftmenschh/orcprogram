@@ -210,14 +210,15 @@ app.layout = html.Div(
     html.H6('ORC Model Results'),
     dt.DataTable(
 
-        # optional - sets the order of columns
         rows=[{}],
         row_selectable=False,
         filterable=False,
         sortable=False,
         selected_row_indices=[],
         id='table'
-    )]),
+    ),
+    html.Button('Download Results', id='button')
+    ]),
 
 
 
@@ -275,7 +276,7 @@ def compute_amount(slider_3):
 def compute_amount(slider_4):
     return u'Turbine Isentropic Efficiency: {} (%)'.format(slider_4)
 
-
+#ORC MODEL TABLE CALLBACK FUNCTION
 @app.callback(
     dash.dependencies.Output('table', 'rows'),
     [dash.dependencies.Input('slider_1', 'value'),
@@ -334,12 +335,12 @@ def display_table(slider_1, slider_2, slider_3, slider_4, dropdown_3, input_1):
 
     dff3 = dff3.round(3)
 
-    #DATASET
+    #RETURNS CALCULATED DATA TO THE TABLEFRAME
     return dff3.to_dict('records')
 
 
 
-
+#ENTHALPY COMPARISONGRAPH CALLBACK FUNCTION
 @app.callback(
     dash.dependencies.Output('graph1', 'figure'),
     [dash.dependencies.Input('slider_1', 'value'),
