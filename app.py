@@ -225,7 +225,7 @@ app.layout = html.Div(
     html.Div([
     html.A('EXPORT CSV',
         id='download_button',
-        download="orc_model_data.csv",
+        download=csv_string,
         href="",
         target="_blank"
         )
