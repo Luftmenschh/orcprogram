@@ -229,7 +229,7 @@ app.layout = html.Div(
     html.A('EXPORT CSV',
         id='download_button',
         download="orc_model_data.csv",
-        href="",
+        href="https://github.com/ndaly06/orcprogram/blob/master/orc_model_data.csv",
         target="_blank"
         )
     ],
@@ -651,9 +651,11 @@ def update_download_link(slider_1, slider_2, slider_3, slider_4, dropdown_3, dro
 
     dff3 = dff3.round(3)
 
+    csv_string = dff3.to_csv('https://github.com/ndaly06/orcprogram/blob/master/orc_model_data.csv', index=False, encoding='utf-8')
 
-    csv_string = dff3.to_csv(index=False, encoding='utf-8')
-    csv_string = "data:text/csv;charset=utf-8," + urllib.quote(csv_string)
+
+    #csv_string = dff3.to_csv(index=False, encoding='utf-8')
+    #csv_string = "data:text/csv;charset=utf-8," + urllib.quote(csv_string)
     return csv_string
 
 
