@@ -222,7 +222,6 @@ app.layout = html.Div(
     html.A('EXPORT CSV', id='download_button',
         download="orc_model_data.csv",
         href="",
-        target="_blank"
         )
     ],
     style={'display': 'inline-block', 'float':'right', 'padding-top': '5'}
@@ -600,6 +599,9 @@ def update_download_link(slider_1, slider_2, slider_3, slider_4, dropdown_3, dro
     PUMP_EFF = float(slider_3)
     TURBINE_EFF = float(slider_4)
 
+    dff3['PUMP_EFF'] = float(slider_3)
+    dff3['TURBINE_EFF'] = float(slider_4)
+
 
     #CALCULATES ENTHALPY AT STATE 2
     #dff3['H_2'] = dff3['H_2_ISENTROPIC'] + (PUMP_EFF / 100) / (dff3['H_2_ISENTROPIC'] - dff3['H_1'])
@@ -633,7 +635,7 @@ def update_download_link(slider_1, slider_2, slider_3, slider_4, dropdown_3, dro
     dff3['EFFICIENCY'] = (dff3['NET_POWER'] / dff3['HEAT_INPUT']) * 100
 
     #
-    dff3 = dff3[['REFRIGERANT', 'T_1', 'T_3', 'TURBINE_POWER', 'PUMP_POWER', 'NET_POWER','HEAT_INPUT', 'EFFICIENCY']]
+    dff3 = dff3[['REFRIGERANT', 'T_1', 'T_3', 'PUMP_EFF', 'TURBINE_EFF', 'TURBINE_POWER', 'PUMP_POWER', 'NET_POWER','HEAT_INPUT', 'EFFICIENCY']]
 
     dff3 = dff3.round(3)
 
