@@ -156,7 +156,8 @@ app.layout = html.Div(
                 html.Img(src='https://github.com/ndaly06/orcprogram/blob/master/orcschematic2.png?raw=true',
                     style={
                     'max-height': '250',
-                    'max-width': '500'}),
+                    'max-width': '500',
+                    'position':'relative'}),
 
             ],
                 className='ten columns',
@@ -585,9 +586,12 @@ def produce_graph(slider_1, slider_2, slider_3, slider_4, dropdown_3, dropdown_4
         }
 }
 
+
+
+
 @app.callback(
-        dash.dependencies.Output('download_button', 'href'),
-        [dash.dependencies.Input('slider_1', 'value'),
+    dash.dependencies.Output('download_button', 'href'),
+    [dash.dependencies.Input('slider_1', 'value'),
         dash.dependencies.Input('slider_2', 'value'),
         dash.dependencies.Input('slider_3', 'value'),
         dash.dependencies.Input('slider_4', 'value'),
@@ -647,14 +651,24 @@ def update_download_link(slider_1, slider_2, slider_3, slider_4, dropdown_3, dro
 
 
     csv_string = dff3.to_csv(index=False, encoding='utf-8')
+    csv_string = "data:text/csv;charset=utf-8," + urllib.quote(csv_string)
+    return csv_string
+
+
+
+    #csv_string = "data:text/csv;charset=utf-8," + urllib.parse.quote(csv_string)
+
+
+    #csv_string = dff3.to_csv(index=False, encoding='utf-8')
 
     #csv_string = "data:text/csv;charset=utf-8," + urllib.quote(csv_string)
+    #delimiter=',', encoding="utf-8")
 
-    return "data:text/csv;charset=utf-8," + urllib.quote(csv_string)
-    try:
-        from urllib.parse import quote
-    except ImportError:
-        from urllib import quote
+    #return "data:text/csv;charset=utf-8," + urllib.parse.quote(csv_string)
+    #try:
+     #   from urllib.parse import quote
+    #except ImportError:
+    #    from urllib import quote
     #return csv_string
 
 
