@@ -12,8 +12,11 @@ from dash.dependencies import Input, Output, State
 import dash_table_experiments as dt
 import plotly
 import base64
-import urllib3
-from urllib import parse as urlparse
+import urllib
+#from urllib.parse import quote
+
+#import urllib3.parse
+#from urllib import parse as urlparse
 
 
 app = dash.Dash(__name__)
@@ -641,8 +644,14 @@ def update_download_link(slider_1, slider_2, slider_3, slider_4, dropdown_3, dro
     dff3 = dff3.round(3)
 
     csv_string = dff3.to_csv(index=False, encoding='utf-8')
-    csv_string = "data:text/csv;charset=utf-8," + urllib3.quote(csv_string)
-    return csv_string
+    #csv_string = "data:text/csv;charset=utf-8," + urllib.quote(csv_string)
+
+    return "data:text/csv;charset=utf-8," + urllib.quote(csv_string)
+    try:
+        from urllib.parse import quote
+    except ImportError:
+        from urllib import quote
+    #return csv_string
 
 
 if __name__ == '__main__':
