@@ -12,6 +12,7 @@ from dash.dependencies import Input, Output, State
 import dash_table_experiments as dt
 import plotly
 import base64
+import urllib
 
 
 app = dash.Dash(__name__)
@@ -218,7 +219,11 @@ app.layout = html.Div(
         id='table'
     ),
     html.Div([
-    html.Button('EXPORT CSV', id='button')
+    html.A('EXPORT CSV', id='download_button',
+        download="orc_model_data.csv",
+        href="",
+        target="_blank"
+        )
     ],
     style={'display': 'inline-block', 'float':'right', 'padding-top': '5'}
     )
@@ -289,7 +294,9 @@ def compute_amount(slider_4):
     dash.dependencies.Input('slider_3', 'value'),
     dash.dependencies.Input('slider_4', 'value'),
     dash.dependencies.Input('dropdown_3', 'value'),
-    dash.dependencies.Input('input_1', 'value')
+    dash.dependencies.Input('input_1', 'value'),
+    #dash.dependencies.Input('table', 'selected_row_indices')
+
     ])
 
 def display_table(slider_1, slider_2, slider_3, slider_4, dropdown_3, input_1):
@@ -342,6 +349,8 @@ def display_table(slider_1, slider_2, slider_3, slider_4, dropdown_3, input_1):
 
     #RETURNS CALCULATED DATA TO THE TABLEFRAME
     return dff3.to_dict('records')
+
+
 
 
 
@@ -570,6 +579,67 @@ def produce_graph(slider_1, slider_2, slider_3, slider_4, dropdown_3, dropdown_4
         "yaxis": { "title": dropdown_4, "fixedrange": True, 'zeroline':True, 'showline':True}
         }
 }
+
+@app.callback(
+        dash.dependencies.Output('download_button', 'href'),
+        [dash.dependencies.Input('slider_1', 'value'),
+        dash.dependencies.Input('slider_2', 'value'),
+        dash.dependencies.Input('slider_3', 'value'),
+        dash.dependencies.Input('slider_4', 'value'),
+        dash.dependencies.Input('dropdown_3', 'value'),
+        dash.dependencies.Input('dropdown_4', 'value'),
+        dash.dependencies.Input('input_1', 'value')
+        ])
+
+def update_download_link(slider_1, slider_2, slider_3, slider_4, dropdown_3, dropdown_4, input_1):
+
+    dff = df[df.REFRIGERANT.str.contains('|'.join(dropdown_3))]
+    dff2 = dff[dff['T_1'] == slider_1]
+    dff3 = dff2[dff2['T_3'] == slider_2]
+    MFR = float(input_1)
+    PUMP_EFF = float(slider_3)
+    TURBINE_EFF = float(slider_4)
+
+
+    #CALCULATES ENTHALPY AT STATE 2
+    #dff3['H_2'] = dff3['H_2_ISENTROPIC'] + (PUMP_EFF / 100) / (dff3['H_2_ISENTROPIC'] - dff3['H_1'])
+    dff3['H_2'] = dff3['H_2_ISENTROPIC'] + (PUMP_EFF / 100) * (dff3['H_2_ISENTROPIC'] - dff3['H_1'])
+    #dff3['H_2'] = dff3['H_1'] + (PUMP_EFF / 100) * (dff3['H_2_ISENTROPIC'] - dff3['H_1'])
+
+    #CALCULATES ENTHALPY AT STATE 4
+    dff3['H_4'] = (dff3['H_3'] - (TURBINE_EFF / 100) * (dff3['H_3'] - dff3['H_4_ISENTROPIC']))
+
+    #dff3 = dff3.round(2)
+
+    #CALCULATES ENTHALPY AT STATE 2
+    dff3['H_2'] = dff3['H_1'] + (PUMP_EFF / 100) * (dff3['H_2_ISENTROPIC'] - dff3['H_1'])
+
+    #CALCULATES ENTHALPY AT STATE 4
+    dff3['H_4'] = (dff3['H_3'] - (TURBINE_EFF / 100) * (dff3['H_3'] - dff3['H_4_ISENTROPIC']))
+
+    #TURBINE POWER CALCULATION (kW)
+    dff3['TURBINE_POWER'] = MFR * (dff3['H_3'] - dff3['H_4'])
+
+    #PUMP POWER CALCULATION (kW)
+    dff3['PUMP_POWER'] = MFR * (dff3['H_2'] - dff3['H_1'])
+
+    #NET POWER (kW)
+    dff3['NET_POWER'] = dff3['TURBINE_POWER'] - dff3['PUMP_POWER']
+
+    #SYSTEM HEAT INPUT CALCULATION
+    dff3['HEAT_INPUT'] = MFR * (dff3['H_3'] - dff3['H_2'])
+
+    #THERMAL EFFICIENCY (%) CALCULATION
+    dff3['EFFICIENCY'] = (dff3['NET_POWER'] / dff3['HEAT_INPUT']) * 100
+
+    #
+    dff3 = dff3[['REFRIGERANT', 'TURBINE_POWER', 'PUMP_POWER', 'NET_POWER','HEAT_INPUT', 'EFFICIENCY']]
+
+    dff3 = dff3.round(3)
+
+    csv_string = dff3.to_csv(index=False, encoding='utf-8')
+    csv_string = "data:text/csv;charset=utf-8," + urllib.quote(csv_string)
+    return csv_string
 
 
 if __name__ == '__main__':
