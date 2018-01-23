@@ -640,7 +640,7 @@ def update_download_link(slider_1, slider_2, slider_3, slider_4, dropdown_3, dro
     dff3 = dff3.round(3)
 
     csv_string = dff3.to_csv(index=False, encoding='utf-8')
-    csv_string = "data:text/csv;charset=utf-8," + urllib.quote(csv_string)
+    csv_string = "data:text/csv;charset=utf-8," + urllib3.quote(csv_string)
     return csv_string
 
 
