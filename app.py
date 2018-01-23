@@ -199,11 +199,11 @@ app.layout = html.Div(
 
 
         html.Div([
-            dcc.Graph(id='graph3', config={'displayModeBar': False}, style={'max-height': '400', 'height': '60vh'}),
+            dcc.Graph(id='graph3', config={'displayModeBar': False}, style={'max-height': '380', 'height': '60vh'}),
 
         ],
             className='row',
-            style={'margin-bottom': '20'}
+            style={'margin-bottom': '15'}
         ),
 
         html.Div([
@@ -217,7 +217,11 @@ app.layout = html.Div(
         selected_row_indices=[],
         id='table'
     ),
-    html.Button('Download Results', id='button')
+    html.Div([
+    html.Button('EXPORT CSV', id='button')
+    ],
+    style={'display': 'inline-block', 'float':'right', 'padding-top': '5'}
+    )
     ]),
 
 
@@ -236,13 +240,14 @@ app.layout = html.Div(
     style={
         'width': '85%',
         'max-width': '1400',
+        'max-height': '3500',
         'margin-left': 'auto',
         'margin-right': 'auto',
         'font-family': 'overpass',
         'background-color': '#F3F3F3',
         'padding': '40',
         'padding-top': '10',
-        'padding-bottom': '10',
+        'padding-bottom': '55',
     },
 )
 
@@ -331,7 +336,7 @@ def display_table(slider_1, slider_2, slider_3, slider_4, dropdown_3, input_1):
     dff3['EFFICIENCY'] = (dff3['NET_POWER'] / dff3['HEAT_INPUT']) * 100
 
     #
-    dff3 = dff3[['REFRIGERANT', 'TURBINE_POWER', 'PUMP_POWER', 'HEAT_INPUT', 'EFFICIENCY']]
+    dff3 = dff3[['REFRIGERANT', 'TURBINE_POWER', 'PUMP_POWER', 'NET_POWER','HEAT_INPUT', 'EFFICIENCY']]
 
     dff3 = dff3.round(3)
 
