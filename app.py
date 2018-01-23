@@ -633,7 +633,7 @@ def update_download_link(slider_1, slider_2, slider_3, slider_4, dropdown_3, dro
     dff3['EFFICIENCY'] = (dff3['NET_POWER'] / dff3['HEAT_INPUT']) * 100
 
     #
-    dff3 = dff3[['REFRIGERANT', 'TURBINE_POWER', 'PUMP_POWER', 'NET_POWER','HEAT_INPUT', 'EFFICIENCY']]
+    dff3 = dff3[['REFRIGERANT', 'T_1', 'T_3', 'TURBINE_POWER', 'PUMP_POWER', 'NET_POWER','HEAT_INPUT', 'EFFICIENCY']]
 
     dff3 = dff3.round(3)
 
