@@ -212,9 +212,9 @@ app.layout = html.Div(
 
         # optional - sets the order of columns
         rows=[{}],
-        row_selectable=True,
+        row_selectable=False,
         filterable=False,
-        sortable=True,
+        sortable=False,
         selected_row_indices=[],
         id='table'
     )]),
