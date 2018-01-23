@@ -13,6 +13,7 @@ import dash_table_experiments as dt
 import plotly
 import base64
 import urllib3
+from urllib import parse as urlparse
 
 
 app = dash.Dash(__name__)
