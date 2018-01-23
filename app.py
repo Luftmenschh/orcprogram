@@ -646,18 +646,15 @@ def update_download_link(slider_1, slider_2, slider_3, slider_4, dropdown_3, dro
     dff3 = dff3.round(3)
 
 
-    #csv_string = dff3.to_csv(index=False, encoding='utf-8')
-    csv_string = dff3.to_csv('orc_model_data.csv', index=False)
-
-    return csv_string
+    csv_string = dff3.to_csv(index=False, encoding='utf-8')
 
     #csv_string = "data:text/csv;charset=utf-8," + urllib.quote(csv_string)
 
-    #return "data:text/csv;charset=utf-8," + urllib.quote(csv_string)
-    #try:
-        #from urllib.parse import quote
-    #except ImportError:
-        #from urllib import quote
+    return "data:text/csv;charset=utf-8," + urllib.quote(csv_string)
+    try:
+        from urllib.parse import quote
+    except ImportError:
+        from urllib import quote
     #return csv_string
 
 
