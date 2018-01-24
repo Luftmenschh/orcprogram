@@ -364,8 +364,6 @@ def display_table(slider_1, slider_2, slider_3, slider_4, dropdown_3, input_1):
 
     dff3 = dff3.round(2)
 
-
-
     #
     dff3 = dff3[['REFRIGERANT', 'T_1', 'T_3', 'MFR', 'PUMP_EFF', 'TURBINE_EFF', 'TURBINE_POWER', 'PUMP_POWER', 'NET_POWER','HEAT_INPUT', 'EFFICIENCY']]
 
