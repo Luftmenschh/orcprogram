@@ -68,7 +68,7 @@ app.layout = html.Div(
             html.H1(
                 'ORCa System',
                 className='seven columns',
-                style={'text-align': 'center'}
+                style={'text-align': 'center', 'font-size': '2.65em'}
             )
         ],
             className='row'
@@ -265,7 +265,7 @@ app.layout = html.Div(
         'background-color': '#F3F3F3',
         'padding': '40',
         'padding-top': '10',
-        'padding-bottom': '55',
+        'padding-bottom': '10',
     },
 )
 
@@ -365,7 +365,7 @@ def display_table(slider_1, slider_2, slider_3, slider_4, dropdown_3, input_1):
     dff3 = dff3.round(2)
 
     #
-    dff3 = dff3[['REFRIGERANT', 'T_1', 'T_3', 'MFR', 'PUMP_EFF', 'TURBINE_EFF', 'TURBINE_POWER', 'PUMP_POWER', 'NET_POWER','HEAT_INPUT', 'EFFICIENCY']]
+    dff3 = dff3[['REFRIGERANT', 'MFR', 'T_1', 'T_3', 'PUMP_EFF', 'TURBINE_EFF', 'TURBINE_POWER', 'PUMP_POWER', 'NET_POWER','HEAT_INPUT', 'EFFICIENCY']]
 
     dff3 = dff3.round(3)
 
