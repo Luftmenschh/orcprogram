@@ -155,7 +155,7 @@ app.layout = html.Div(
 
             html.Div([
                 html.Label('ORC System Schematic'),
-                html.Img(src='https://github.com/ndaly06/orcprogram/blob/master/orcschematic2.png?raw=true',
+                html.Img(src='https://github.com/ndaly06/orcprogram/blob/master/orcschematic3.png?raw=true',
                     style={
                     'max-height': '250px',
                     'max-width': '500px',
