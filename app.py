@@ -357,11 +357,17 @@ def display_table(slider_1, slider_2, slider_3, slider_4, dropdown_3, input_1):
     dff3 = dff3[dff3['T_1'] == x]
     dff3 = dff3[dff3['T_3'] == y]
 
+    dff3['PUMP_EFF'] = PUMP_EFF
+    dff3['TURBINE_EFF'] = TURBINE_EFF
+    dff3['MFR'] = MFR
+
 
     dff3 = dff3.round(2)
 
+
+
     #
-    dff3 = dff3[['REFRIGERANT', 'TURBINE_POWER', 'PUMP_POWER', 'NET_POWER','HEAT_INPUT', 'EFFICIENCY', 'T_1', 'T_3']]
+    dff3 = dff3[['REFRIGERANT', 'T_1', 'T_3', 'MFR', 'PUMP_EFF', 'TURBINE_EFF', 'TURBINE_POWER', 'PUMP_POWER', 'NET_POWER','HEAT_INPUT', 'EFFICIENCY']]
 
     dff3 = dff3.round(3)
 
