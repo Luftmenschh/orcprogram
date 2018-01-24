@@ -257,7 +257,7 @@ app.layout = html.Div(
     ],
     style={
         'width': '85%',
-        'max-width': '1400',
+        'max-width': '1100',
         'max-height': '3500',
         'margin-left': 'auto',
         'margin-right': 'auto',
@@ -314,31 +314,28 @@ def compute_amount(slider_4):
 
 def display_table(slider_1, slider_2, slider_3, slider_4, dropdown_3, input_1):
     if dropdown_3 is None:
-        return df.to_dict('records')
+
+        return dff3.to_dict('records')
 
     dff = df[df.REFRIGERANT.str.contains('|'.join(dropdown_3))]
-    dff2 = dff[dff['T_1'] == slider_1]
-    dff3 = dff2[dff2['T_3'] == slider_2]
     MFR = float(input_1)
     PUMP_EFF = float(slider_3)
     TURBINE_EFF = float(slider_4)
+    x = float(slider_1)
+    y = float(slider_2)
 
+    dff2 = dff
 
+    dff2 = dff[dff.REFRIGERANT.str.contains('|'.join(dropdown_3))]
+
+    dff3 = dff2
     #CALCULATES ENTHALPY AT STATE 2
     #dff3['H_2'] = dff3['H_2_ISENTROPIC'] + (PUMP_EFF / 100) / (dff3['H_2_ISENTROPIC'] - dff3['H_1'])
     dff3['H_2'] = dff3['H_2_ISENTROPIC'] + (PUMP_EFF / 100) * (dff3['H_2_ISENTROPIC'] - dff3['H_1'])
     #dff3['H_2'] = dff3['H_1'] + (PUMP_EFF / 100) * (dff3['H_2_ISENTROPIC'] - dff3['H_1'])
 
     #CALCULATES ENTHALPY AT STATE 4
-    dff3['H_4'] = (dff3['H_3'] - (TURBINE_EFF / 100) * (dff3['H_3'] - dff3['H_4_ISENTROPIC']))
-
-    #dff3 = dff3.round(2)
-
-    #CALCULATES ENTHALPY AT STATE 2
-    dff3['H_2'] = dff3['H_1'] + (PUMP_EFF / 100) * (dff3['H_2_ISENTROPIC'] - dff3['H_1'])
-
-    #CALCULATES ENTHALPY AT STATE 4
-    dff3['H_4'] = (dff3['H_3'] - (TURBINE_EFF / 100) * (dff3['H_3'] - dff3['H_4_ISENTROPIC']))
+    dff3['H_4'] = (dff3['H_3'] - ((TURBINE_EFF / 100) * (dff3['H_3'] - dff3['H_4_ISENTROPIC'])))
 
     #TURBINE POWER CALCULATION (kW)
     dff3['TURBINE_POWER'] = MFR * (dff3['H_3'] - dff3['H_4'])
@@ -349,14 +346,22 @@ def display_table(slider_1, slider_2, slider_3, slider_4, dropdown_3, input_1):
     #NET POWER (kW)
     dff3['NET_POWER'] = dff3['TURBINE_POWER'] - dff3['PUMP_POWER']
 
-    #SYSTEM HEAT INPUT CALCULATION
+    #SYSTEM HEAT INPUT
     dff3['HEAT_INPUT'] = MFR * (dff3['H_3'] - dff3['H_2'])
 
-    #THERMAL EFFICIENCY (%) CALCULATION
+    #THERMAL EFFICIENCY
     dff3['EFFICIENCY'] = (dff3['NET_POWER'] / dff3['HEAT_INPUT']) * 100
 
+    dff3 = dff3[dff3['EFFICIENCY'] > 0]
+
+    dff3 = dff3[dff3['T_1'] == x]
+    dff3 = dff3[dff3['T_3'] == y]
+
+
+    dff3 = dff3.round(2)
+
     #
-    dff3 = dff3[['REFRIGERANT', 'TURBINE_POWER', 'PUMP_POWER', 'NET_POWER','HEAT_INPUT', 'EFFICIENCY']]
+    dff3 = dff3[['REFRIGERANT', 'TURBINE_POWER', 'PUMP_POWER', 'NET_POWER','HEAT_INPUT', 'EFFICIENCY', 'T_1', 'T_3']]
 
     dff3 = dff3.round(3)
 
@@ -367,7 +372,7 @@ def display_table(slider_1, slider_2, slider_3, slider_4, dropdown_3, input_1):
 
 
 
-#ENTHALPY COMPARISONGRAPH CALLBACK FUNCTION
+#ENTHALPY COMPARISON GRAPH CALLBACK FUNCTION
 @app.callback(
     dash.dependencies.Output('graph1', 'figure'),
     [dash.dependencies.Input('slider_1', 'value'),
