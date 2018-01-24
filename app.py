@@ -59,7 +59,7 @@ app.layout = html.Div(
                 src="http://www.qub.ac.uk/qol/qollogin-files/Queens-shield-logo-red.png",
                 className='two columns',
                 style={
-                    'height': '65px',
+                    'height': '60px',
                     'width': '180px',
                     'float': 'left',
                     'position': 'relative',
@@ -73,7 +73,7 @@ app.layout = html.Div(
         ],
             className='row'
         ),
-        html.Hr(style={'margin': '0', 'margin-bottom': '5'}),
+        html.Hr(style={'margin': '0', 'margin-bottom': '4'}),
         html.Div([
             html.Div([
 
@@ -257,7 +257,7 @@ app.layout = html.Div(
     ],
     style={
         'width': '85%',
-        'max-width': '1100',
+        'max-width': '1000',
         'max-height': '3500',
         'margin-left': 'auto',
         'margin-right': 'auto',
