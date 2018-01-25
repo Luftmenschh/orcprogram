@@ -13,12 +13,6 @@ import dash_table_experiments as dt
 import plotly
 import base64
 import urllib
-#import urllib.parse
-
-#from urllib.parse import quote
-
-#import urllib3.parse
-#from urllib import parse as urlparse
 
 
 app = dash.Dash(__name__)
@@ -29,6 +23,218 @@ app.config['suppress_callback_exceptions']=True
 df = pd.read_csv('https://github.com/ndaly06/orcprogram/blob/master/refrigerant_data.csv?raw=true')
 df2 = df[['REFRIGERANT', 'T_1_K', 'T_3_K', 'H_1', 'H_2_ISENTROPIC', 'H_3', 'H_4_ISENTROPIC']]
 df2 = df2.round(2)
+
+tab1_layout = html.Div([
+	html.Div([
+                html.Label('ORC System Schematic'),
+                html.Img(src='https://github.com/ndaly06/orcprogram/blob/master/orcschematic3.png?raw=true',
+                    style={
+                    'max-height': '250px',
+                    'max-width': '500px',
+                    'position':'relative'}),
+
+            ],
+            className='row',
+                style={'margin-bottom': '20'}
+
+            ),
+
+	])
+
+
+tab2_layout = html.Div([
+
+	html.H6('Input Parameters'),
+	html.Hr(style={'margin': '0', 'margin-bottom': '2'}),
+
+	html.Label('Organic Rankine Cycle Configuration:'),
+                dcc.Dropdown(
+                    id='dropdown_1',
+                    placeholder='Subcritical',
+                    disabled=True,
+                ),
+
+    html.Label('Heat Source:'),
+                dcc.Dropdown(
+                    id='dropdown_2',
+                    placeholder='Geothermal Water',
+                    disabled=True,
+                ),
+
+    html.Label('Select Refrigerant:'),
+                dcc.Dropdown(
+                    id='dropdown_3',
+                    options=[{'label': i, 'value': i} for i in df.REFRIGERANT.unique()],
+                    placeholder='Select Refrigerant',
+                    multi=True,
+                    value=['R134a', 'R141b', 'R410a', 'R113'],
+                ),
+
+    html.Label('Mass Flow Rate (kg/s)',style={'width': '200'}),
+                dcc.Input(
+                            id='input_1',
+                            type='number',
+                            value='12',
+                            min='1',
+                            style={'max-width': '150px'}
+                        ),
+
+    html.Label(id='pump_temp_value'),
+           dcc.Slider(
+                        id='slider_1',
+                        min=1,
+                        max=200,
+                        step=1,
+                        value=10
+                        ),
+
+    html.Label(id='turbine_temp_value'),
+                    dcc.Slider(
+                        id='slider_2',
+                        min=1,
+                        max=200,
+                        value=60,
+                    ),
+
+                html.Label(
+                        id='pump_eff_value'),
+                    dcc.Slider(
+                        id='slider_3',
+                        min=1,
+                        max=100,
+                        value=60,
+                    ),
+
+                html.Label(
+                        id='turbine_eff_value'),
+                    dcc.Slider(
+                        id='slider_4',
+                        min=1,
+                        max=100,
+                        value=80,
+                    ),
+
+                html.Hr(style={'margin': '2', 'margin-bottom': '2'}),
+
+                html.H6('Model Results'),
+
+                html.Hr(style={'margin': '2', 'margin-bottom': '2'}),
+
+
+                html.Div([
+
+
+
+
+                html.Div([
+                	dcc.Graph(id='graph1', config={'displayModeBar': False}, style={'max-height': '350', 'height': '40vh'}),
+                	],
+                	className='five columns'
+                	),
+
+                html.Div([
+                	dcc.Graph(id='graph2', config={'displayModeBar': False}, style={'max-height': '350', 'height': '40vh'}),
+                	],
+                	className='seven columns'
+                	),
+
+                ],
+                className='row',
+                style={'margin-bottom': '20'}
+                )
+                ]),
+
+
+tab3_layout = html.Div([
+
+	html.H6('Parametric Analysis'),
+	html.Hr(style={'margin': '0', 'margin-bottom': '2'}),
+
+    html.Label('Select Refrigerant:'),
+                dcc.Dropdown(
+                    id='dropdown_3',
+                    options=[{'label': i, 'value': i} for i in df.REFRIGERANT.unique()],
+                    placeholder='Select Refrigerant',
+                    multi=True,
+                    value=['R134a', 'R141b', 'R410a', 'R113'],
+                ),
+
+    html.Label('Mass Flow Rate (kg/s)',style={'width': '200'}),
+                dcc.Input(
+                            id='input_1',
+                            type='number',
+                            value='12',
+                            min='1',
+                            style={'max-width': '150px'}
+                        ),
+
+    html.Label(id='pump_temp_value'),
+           dcc.Slider(
+                        id='slider_1',
+                        min=1,
+                        max=200,
+                        step=1,
+                        value=10
+                        ),
+
+    html.Label(id='turbine_temp_value'),
+                    dcc.Slider(
+                        id='slider_2',
+                        min=1,
+                        max=200,
+                        value=60,
+                    ),
+
+                html.Label(
+                        id='pump_eff_value'),
+                    dcc.Slider(
+                        id='slider_3',
+                        min=1,
+                        max=100,
+                        value=60,
+                    ),
+
+                html.Label(
+                        id='turbine_eff_value'),
+                    dcc.Slider(
+                        id='slider_4',
+                        min=1,
+                        max=100,
+                        value=80,
+                    ),
+
+                html.Label('Select Variable Parameter:'),
+	html.Div([
+                dcc.Dropdown(
+                    id='dropdown_4',
+                    placeholder='Select Parameter',
+                    options=[
+                    {'label': 'Turbine Power (kW)', 'value': 'TURBINE_POWER'},
+                    {'label': 'Pump Power (kW)', 'value': 'PUMP_POWER'},
+                    {'label': 'Net Power (kW)', 'value': 'NET_POWER'},
+                    {'label': 'Heat Input (kJ/K)', 'value': 'HEAT_INPUT'},
+                    {'label': 'Thermal Efficiency (%)', 'value': 'EFFICIENCY'}
+                    ],
+                    value='TURBINE_POWER'
+                )
+                ],
+                className='row'),
+
+	html.Div([
+            dcc.Graph(id='graph3', config={'displayModeBar': False}, style={'max-height': '380', 'height': '60vh'}),
+
+        ],
+            className='row',
+            style={'margin-bottom': '15'}
+        ),
+
+	])
+
+tab4_layout = html.Div([
+
+	])
+
+
 
 
 
@@ -65,191 +271,28 @@ app.layout = html.Div(
         html.Hr(style={'margin': '0', 'margin-bottom': '4'}),
 
 
-
-        html.Div([
-            html.Div([
-
-                html.Label('Organic Rankine Cycle Configuration:'),
-                dcc.Dropdown(
-                    id='dropdown_1',
-                    placeholder='Subcritical',
-                    disabled=True,
-                ),
-
-                html.Label('Heat Source:'),
-                dcc.Dropdown(
-                    id='dropdown_2',
-                    placeholder='Geothermal Water',
-                    disabled=True,
-                ),
-
-                html.Div([
-                html.Label('Select Refrigerant:'),
-                dcc.Dropdown(
-                    id='dropdown_3',
-                    options=[{'label': i, 'value': i} for i in df.REFRIGERANT.unique()],
-                    placeholder='Select Refrigerant',
-                    multi=True,
-                    value=['R134a', 'R141b', 'R410a', 'R113'],
-                ),
-
-                html.Label('Mass Flow Rate (kg/s)',style={'width': '200'}),
-                        dcc.Input(
-                            id='input_1',
-                            type='number',
-                            value='12',
-                            min='1',
-                            style={'max-width': '150px'}
-                        )
-                ],
-
-                ),
-
-                html.Label(id='pump_temp_value'),
-                dcc.Slider(
-                        id='slider_1',
-                        min=1,
-                        max=200,
-                        step=1,
-                        value=10
-                        ),
-
-                html.Label(
-                        id='turbine_temp_value'),
-                    dcc.Slider(
-                        id='slider_2',
-                        min=1,
-                        max=200,
-                        value=60,
-                    ),
-
-                html.Label(
-                        id='pump_eff_value'),
-                    dcc.Slider(
-                        id='slider_3',
-                        min=1,
-                        max=100,
-                        value=60,
-                    ),
-
-                html.Label(
-                        id='turbine_eff_value'),
-                    dcc.Slider(
-                        id='slider_4',
-                        min=1,
-                        max=100,
-                        value=80,
-                    ),
-
-            ],
-                className='six columns',
-            ),
-
-            html.Div([
-                html.Label('ORC System Schematic'),
-                html.Img(src='https://github.com/ndaly06/orcprogram/blob/master/orcschematic3.png?raw=true',
-                    style={
-                    'max-height': '250px',
-                    'max-width': '500px',
-                    'position':'relative'}),
-
-            ],
-                className=' columns',
-                style={'display': 'inline-block', 'position': 'absolute'}
-            ),
-        ],
-            className='row',
-            style={'margin-bottom': '10'}
+        dcc.Tabs(
+            tabs=[
+                {'label': 'ORC Schematic', 'value': 1},
+                {'label': 'System Modelling', 'value': 2},
+                {'label': 'Parametric Analysis', 'value': 3},
+                {'label': 'Modelling Results', 'value': 4}
+              ],
+            value=2,
+            id='tabs',
+            #vertical=vertical
         ),
-
-
-        html.Div([
-            html.Div([
-                dcc.Graph(id='graph2', config={'displayModeBar': False}, style={'max-height': '350', 'height': '50vh'}),
-            ],
-                className='five columns'
-            ),
-            html.Div([
-                dcc.Graph(id='graph1', config={'displayModeBar': False}, style={'max-height': '350', 'height': '50vh'}),
-            ],
-                className='seven columns'
-            ),
-
-            html.Div([
-            html.H6('Parameteric Analysis'),
-                dcc.Dropdown(
-                    id='dropdown_4',
-                    placeholder='Select Parameter',
-                    options=[
-                    {'label': 'Turbine Power (kW)', 'value': 'TURBINE_POWER'},
-                    {'label': 'Pump Power (kW)', 'value': 'PUMP_POWER'},
-                    {'label': 'Net Power (kW)', 'value': 'NET_POWER'},
-                    {'label': 'Heat Input (kJ/K)', 'value': 'HEAT_INPUT'},
-                    {'label': 'Thermal Efficiency (%)', 'value': 'EFFICIENCY'}
-                    ],
-                    value='TURBINE_POWER'
-                )
-                ],
-                className='row'),
-
-        ],
-            className='row',
-            style={'margin-bottom': '30'}
-        ),
-
-
-        html.Div([
-            dcc.Graph(id='graph3', config={'displayModeBar': False}, style={'max-height': '380', 'height': '60vh'}),
-
-        ],
-            className='row',
-            style={'margin-bottom': '15'}
-        ),
-
-        html.Div([
-    html.H6('ORC Model Results'),
-    dt.DataTable(
-
-        rows=[{}],
-        row_selectable=False,
-        filterable=False,
-        sortable=False,
-        selected_row_indices=[],
-        id='table'
-    ),
-
-    #html.Div([
-    #html.A('EXPORT CSV',
-        #id='download_button',
-
-        #download="orc_model_data.csv",
-        #href="",
-        #download="123.csv",
-        #download="https://github.com/ndaly06/orcprogram/blob/master/orc_model_data.csv?raw=true",
-        #href="https://github.com/ndaly06/orcprogram/blob/master/orc_model_data.csv?raw=true",
-        #target="_blank"
-        #)
-    #],
-    #style={'display': 'inline-block', 'float':'right', 'padding-top': '5'}
-    #)
-]),
+        html.Div(id='tab-layout'),
 
 
 
-        html.P(
-            hidden='',
-            id='raw_container',
-            style={'display': 'none'}
-        ),
-        html.P(
-            hidden='',
-            id='filtered_container',
-            style={'display': 'none'}
-        )
+
+
+
     ],
     style={
         'width': '85%',
-        'max-width': '950',
+        'max-width': '1000',
         'max-height': '3500',
         'margin-left': 'auto',
         'margin-right': 'auto',
@@ -260,6 +303,34 @@ app.layout = html.Div(
         'padding-bottom': '10',
     },
 )
+
+
+
+@app.callback(dash.dependencies.Output('tab-layout', 'children'),
+	[dash.dependencies.Input('tabs', 'value')])
+
+def call_tab_layout(tab_value):
+	if tab_value == 1:
+		return tab1_layout
+	elif tab_value == 2:
+		return tab2_layout
+	elif tab_value == 3:
+		return tab3_layout
+	else:
+		html.Div()
+
+
+#sending data to hidden div from tab1
+@app.callback(dash.dependencies.Output('graph-data-json-dump', 'children'),
+              [dash.dependencies.Input('store-data-hidden-div', 'n_clicks')])
+
+def store_data_to_hidden_div(nclick):
+	if nclick >0:
+		df = pd.DataFrame({'x_axis':[6,4,9],
+			'y_axis':[4,2,7]})
+		return df.to_json(orient = 'split')
+
+
 
 
 #PUMP TEMPERATURE CALLBACK
@@ -367,71 +438,8 @@ def display_table(slider_1, slider_2, slider_3, slider_4, dropdown_3, input_1):
 
 
 
-
-#ENTHALPY COMPARISON GRAPH CALLBACK FUNCTION
 @app.callback(
     dash.dependencies.Output('graph1', 'figure'),
-    [dash.dependencies.Input('slider_1', 'value'),
-    dash.dependencies.Input('slider_2', 'value'),
-    dash.dependencies.Input('slider_3', 'value'),
-    dash.dependencies.Input('slider_4', 'value'),
-    dash.dependencies.Input('dropdown_3', 'value'),
-    dash.dependencies.Input('input_1', 'value')
-    ])
-
-def produce_graph(slider_1, slider_2, slider_3, slider_4, dropdown_3, input_1):
-
-    dff = df[df.REFRIGERANT.str.contains('|'.join(dropdown_3))]
-    dff2 = dff[dff['T_1'] == slider_1]
-    dff3 = dff2[dff2['T_3'] == slider_2]
-    MFR = float(input_1)
-    PUMP_EFF = float(slider_3)
-    TURBINE_EFF = float(slider_4)
-
-    #CALCULATES ENTHALPY AT STATE 2
-    #dff3['H_2'] = dff3['H_2_ISENTROPIC'] + (PUMP_EFF / 100) / (dff3['H_2_ISENTROPIC'] - dff3['H_1'])
-    dff3['H_2'] = dff3['H_2_ISENTROPIC'] + (PUMP_EFF / 100) * (dff3['H_2_ISENTROPIC'] - dff3['H_1'])
-    #dff3['H_2'] = dff3['H_1'] + (PUMP_EFF / 100) * (dff3['H_2_ISENTROPIC'] - dff3['H_1'])
-
-    #CALCULATES ENTHALPY AT STATE 4
-    dff3['H_4'] = (dff3['H_3'] - (TURBINE_EFF / 100) * (dff3['H_3'] - dff3['H_4_ISENTROPIC']))
-
-    #TURBINE POWER CALCULATION (kW)
-    dff3['TURBINE_POWER'] = MFR * (dff3['H_3'] - dff3['H_4'])
-
-    #PUMP POWER CALCULATION (kW)
-    dff3['PUMP_POWER'] = MFR * (dff3['H_2'] - dff3['H_1'])
-
-    #NET POWER (kW)
-    dff3['NET_POWER'] = dff3['TURBINE_POWER'] - dff3['PUMP_POWER']
-
-    #SYSTEM HEAT INPUT
-    dff3['HEAT_INPUT'] = MFR * (dff3['H_3'] - dff3['H_2'])
-
-    #THERMAL EFFICIENCY
-    dff3['EFFICIENCY'] = (dff3['NET_POWER'] / dff3['HEAT_INPUT']) * 100
-
-
-    dff3 = dff3.round(2)
-
-
-    return {
-    'data': [
-                {'x': dff3['REFRIGERANT'], 'y': dff3['H_1'], 'type': 'bar', 'name': 'State 1'},
-                {'x': dff3['REFRIGERANT'], 'y': dff3['H_2'], 'type': 'bar', 'name': 'State 2'},
-                {'x': dff3['REFRIGERANT'], 'y': dff3['H_3'], 'type': 'bar', 'name': 'State 3'},
-                {'x': dff3['REFRIGERANT'], 'y': dff3['H_4'], 'type': 'bar', 'name': 'State 4'}
-
-                ],
-                'layout': {
-                        'title': 'Refrigerant State Enthalpy Comparison',
-                        "xaxis": { "title": "Refrigerant", "fixedrange": True, 'zeroline':True, 'showline':True},
-                        "yaxis": { "title": "Enthalpy (kJ/kg)", "fixedrange": True, 'zeroline':True, 'showline':True}
-    }
-    }
-
-@app.callback(
-    dash.dependencies.Output('graph2', 'figure'),
     [dash.dependencies.Input('slider_1', 'value'),
     dash.dependencies.Input('slider_2', 'value'),
     dash.dependencies.Input('slider_3', 'value'),
@@ -506,6 +514,68 @@ def produce_graph(slider_1, slider_2, slider_3, slider_4, dropdown_3, input_1):
                         "yaxis": { "title": "Refrigerant", "fixedrange": True, 'zeroline':True, 'showline':True}
                         }
 }
+
+
+@app.callback(
+    dash.dependencies.Output('graph2', 'figure'),
+    [dash.dependencies.Input('slider_1', 'value'),
+    dash.dependencies.Input('slider_2', 'value'),
+    dash.dependencies.Input('slider_3', 'value'),
+    dash.dependencies.Input('slider_4', 'value'),
+    dash.dependencies.Input('dropdown_3', 'value'),
+    dash.dependencies.Input('input_1', 'value')
+    ])
+
+def produce_graph(slider_1, slider_2, slider_3, slider_4, dropdown_3, input_1):
+
+    dff = df[df.REFRIGERANT.str.contains('|'.join(dropdown_3))]
+    dff2 = dff[dff['T_1'] == slider_1]
+    dff3 = dff2[dff2['T_3'] == slider_2]
+    MFR = float(input_1)
+    PUMP_EFF = float(slider_3)
+    TURBINE_EFF = float(slider_4)
+
+    #CALCULATES ENTHALPY AT STATE 2
+    #dff3['H_2'] = dff3['H_2_ISENTROPIC'] + (PUMP_EFF / 100) / (dff3['H_2_ISENTROPIC'] - dff3['H_1'])
+    dff3['H_2'] = dff3['H_2_ISENTROPIC'] + (PUMP_EFF / 100) * (dff3['H_2_ISENTROPIC'] - dff3['H_1'])
+    #dff3['H_2'] = dff3['H_1'] + (PUMP_EFF / 100) * (dff3['H_2_ISENTROPIC'] - dff3['H_1'])
+
+    #CALCULATES ENTHALPY AT STATE 4
+    dff3['H_4'] = (dff3['H_3'] - (TURBINE_EFF / 100) * (dff3['H_3'] - dff3['H_4_ISENTROPIC']))
+
+    #TURBINE POWER CALCULATION (kW)
+    dff3['TURBINE_POWER'] = MFR * (dff3['H_3'] - dff3['H_4'])
+
+    #PUMP POWER CALCULATION (kW)
+    dff3['PUMP_POWER'] = MFR * (dff3['H_2'] - dff3['H_1'])
+
+    #NET POWER (kW)
+    dff3['NET_POWER'] = dff3['TURBINE_POWER'] - dff3['PUMP_POWER']
+
+    #SYSTEM HEAT INPUT
+    dff3['HEAT_INPUT'] = MFR * (dff3['H_3'] - dff3['H_2'])
+
+    #THERMAL EFFICIENCY
+    dff3['EFFICIENCY'] = (dff3['NET_POWER'] / dff3['HEAT_INPUT']) * 100
+
+
+    dff3 = dff3.round(2)
+
+
+    return {
+    'data': [
+                {'x': dff3['REFRIGERANT'], 'y': dff3['H_1'], 'type': 'bar', 'name': 'State 1'},
+                {'x': dff3['REFRIGERANT'], 'y': dff3['H_2'], 'type': 'bar', 'name': 'State 2'},
+                {'x': dff3['REFRIGERANT'], 'y': dff3['H_3'], 'type': 'bar', 'name': 'State 3'},
+                {'x': dff3['REFRIGERANT'], 'y': dff3['H_4'], 'type': 'bar', 'name': 'State 4'}
+
+                ],
+                'layout': {
+                        'title': 'Refrigerant State Enthalpy Comparison',
+                        "xaxis": { "title": "Refrigerant", "fixedrange": True, 'zeroline':True, 'showline':True},
+                        "yaxis": { "title": "Enthalpy (kJ/kg)", "fixedrange": True, 'zeroline':True, 'showline':True}
+    }
+    }
 
 
 @app.callback(
@@ -595,70 +665,8 @@ def produce_graph(slider_1, slider_2, slider_3, slider_4, dropdown_3, dropdown_4
 }
 
 
-@app.callback(
-    dash.dependencies.Output('download_button', 'href'),
-    [dash.dependencies.Input('slider_1', 'value'),
-        dash.dependencies.Input('slider_2', 'value'),
-        dash.dependencies.Input('slider_3', 'value'),
-        dash.dependencies.Input('slider_4', 'value'),
-        dash.dependencies.Input('dropdown_3', 'value'),
-        dash.dependencies.Input('dropdown_4', 'value'),
-        dash.dependencies.Input('input_1', 'value')
-        ])
-
-def update_download_button(slider_1, slider_2, slider_3, slider_4, dropdown_3, dropdown_4, input_1):
-
-    dff = df[df.REFRIGERANT.str.contains('|'.join(dropdown_3))]
-    dff2 = dff[dff['T_1'] == slider_1]
-    dff3 = dff2[dff2['T_3'] == slider_2]
-    MFR = float(input_1)
-    PUMP_EFF = float(slider_3)
-    TURBINE_EFF = float(slider_4)
-
-    dff3['PUMP_EFF'] = float(slider_3)
-    dff3['TURBINE_EFF'] = float(slider_4)
 
 
-    #CALCULATES ENTHALPY AT STATE 2
-    #dff3['H_2'] = dff3['H_2_ISENTROPIC'] + (PUMP_EFF / 100) / (dff3['H_2_ISENTROPIC'] - dff3['H_1'])
-    dff3['H_2'] = dff3['H_2_ISENTROPIC'] + (PUMP_EFF / 100) * (dff3['H_2_ISENTROPIC'] - dff3['H_1'])
-    #dff3['H_2'] = dff3['H_1'] + (PUMP_EFF / 100) * (dff3['H_2_ISENTROPIC'] - dff3['H_1'])
-
-    #CALCULATES ENTHALPY AT STATE 4
-    dff3['H_4'] = (dff3['H_3'] - (TURBINE_EFF / 100) * (dff3['H_3'] - dff3['H_4_ISENTROPIC']))
-
-    #dff3 = dff3.round(2)
-
-    #CALCULATES ENTHALPY AT STATE 2
-    dff3['H_2'] = dff3['H_1'] + (PUMP_EFF / 100) * (dff3['H_2_ISENTROPIC'] - dff3['H_1'])
-
-    #CALCULATES ENTHALPY AT STATE 4
-    dff3['H_4'] = (dff3['H_3'] - (TURBINE_EFF / 100) * (dff3['H_3'] - dff3['H_4_ISENTROPIC']))
-
-    #TURBINE POWER CALCULATION (kW)
-    dff3['TURBINE_POWER'] = MFR * (dff3['H_3'] - dff3['H_4'])
-
-    #PUMP POWER CALCULATION (kW)
-    dff3['PUMP_POWER'] = MFR * (dff3['H_2'] - dff3['H_1'])
-
-    #NET POWER (kW)
-    dff3['NET_POWER'] = dff3['TURBINE_POWER'] - dff3['PUMP_POWER']
-
-    #SYSTEM HEAT INPUT CALCULATION
-    dff3['HEAT_INPUT'] = MFR * (dff3['H_3'] - dff3['H_2'])
-
-    #THERMAL EFFICIENCY (%) CALCULATION
-    dff3['EFFICIENCY'] = (dff3['NET_POWER'] / dff3['HEAT_INPUT']) * 100
-
-    #
-    dff3 = dff3[['REFRIGERANT', 'T_1', 'T_3', 'PUMP_EFF', 'TURBINE_EFF', 'TURBINE_POWER', 'PUMP_POWER', 'NET_POWER','HEAT_INPUT', 'EFFICIENCY']]
-
-    dff3 = dff3.round(3)
-
-    #csv_string = dff3.to_csv(index=False, encoding='utf-8')
-
-    #csv_string = "data:text/csv;charset=utf-8," + urllib.quote(csv_string)
-    #return csv_string
 
 
 
