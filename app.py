@@ -49,7 +49,7 @@ app.layout = html.Div(
                 className='two columns',
                 style={
                     'height': '60px',
-                    'width': '180px',
+                    'width': '170px',
                     'float': 'left',
                     'position': 'relative',
                 },
