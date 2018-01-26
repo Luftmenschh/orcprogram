@@ -249,7 +249,7 @@ app.layout = html.Div(
     ],
     style={
         'width': '85%',
-        'max-width': '950',
+        'max-width': '970',
         'max-height': '3500',
         'margin-left': 'auto',
         'margin-right': 'auto',
