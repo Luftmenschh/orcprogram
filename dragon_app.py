@@ -41,8 +41,8 @@ app.layout = html.Div(
                 src="https://github.com/ndaly06/orcprogram/blob/master/analyifit_logo.png?raw=true",
                 className='two columns',
                 style={
-                    'height': '150',
-                    'width': '200',
+                    'height': '100',
+                    'width': '220',
                     'float': 'left',
                     'position': 'relative',
                 },
