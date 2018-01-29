@@ -38,10 +38,10 @@ app.layout = html.Div(
     [
         html.Div([
             html.Img(
-                src="/Users/nialdaly/orcprogram/analyifit_logo.png",
+                src="https://github.com/ndaly06/orcprogram/blob/master/analyifit_logo.png?raw=true",
                 className='two columns',
                 style={
-                    'height': '50',
+                    'height': '150',
                     'width': '200',
                     'float': 'left',
                     'position': 'relative',
