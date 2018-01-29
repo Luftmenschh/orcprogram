@@ -41,10 +41,11 @@ app.layout = html.Div(
                 src="https://github.com/ndaly06/orcprogram/blob/master/analyifit_logo.png?raw=true",
                 className='eight columns',
                 style={
-                    'height': '75',
-                    'width': '250',
+                    'height': '60',
+                    'width': '240',
                     'float': 'left',
                     'position': 'centre',
+                    'margin-top': '0'
                 },
             ),
 
@@ -70,6 +71,13 @@ app.layout = html.Div(
                     multi=True,
                 ),
 
+            html.Label('Select Movement:'),
+                dcc.Dropdown(
+                    id='dropdown_2',
+                    options=[{'label': i, 'value': i} for i in df.Athlete.unique()],
+                    placeholder='Select Athlete',
+                    multi=True,
+                ),
             ],
                 className='six columns',
             ),
@@ -260,6 +268,9 @@ def display_table(dropdown_1):
 
     dff3 = dff2
 
+    dff3 = dff3.drop('Date', axis=1)
+
+    dff3 = dff3.drop_duplicates()
     #
 
     return dff3.to_dict('records')
