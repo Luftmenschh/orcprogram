@@ -1,5 +1,5 @@
-Date,Athlete,Age ,Height (cm),Weight (kg)
-29/01/2018,Nial,22,177.8,92
-29/01/2018,Conan ,21,,87
-29/01/2018,Cathal,21,,73
-30/01/2018,Nial,22,177.8,92
+Date,Athlete,Sex,Age ,Height (cm),Weight (kg)
+29/01/2018,Nial,Male,22,177.8,92
+29/01/2018,Conan ,Male,21,187.96,87
+29/01/2018,Cathal,Male,21,182.88,73
+30/01/2018,Nial,Male,22,177.8,92

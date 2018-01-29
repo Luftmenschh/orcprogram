@@ -73,8 +73,9 @@ app.layout = html.Div(
             ],
                 className='six columns',
             ),
-            html.Label('Athlete Indicators'),
             html.Div([
+                html.Label('Athlete Data'),
+
                 dt.DataTable(
                     rows=[{}],
         row_selectable=False,
@@ -84,7 +85,7 @@ app.layout = html.Div(
         id='table'
     ),
             ],
-                className='two columns',
+                className='six columns',
             ),
             html.Div([
             ],
@@ -260,7 +261,6 @@ def display_table(dropdown_1):
     dff3 = dff2
 
     #
-    dff3 = dff3[['Athlete', 'Height', 'Weight (kg)']]
 
     return dff3.to_dict('records')
 
