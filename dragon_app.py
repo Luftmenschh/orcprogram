@@ -588,7 +588,7 @@ def display_table(dropdown_1):
     dff3 = dff2
 
     #
-    dff3 = dff3[['Athlete', 'Age', 'Height', 'Weight']]
+    dff3 = dff3[['Athlete', 'Age', 'Height', 'Weight (kg)']]
 
     return dff3.to_dict('records')
 
