@@ -56,26 +56,33 @@ app.layout = html.Div(
             html.Div([
                 html.Label('Select Date:'),
                 dcc.Dropdown(
-                    id='dropdown_1',
+                    id='dropdown_3',
                     options=[{'label': i, 'value': i} for i in df.Date.unique()],
-                    placeholder='Select Athlete',
+                    placeholder='Select Date',
                     multi=True,
-                    value=['Cathal', 'Conan'],
                 ),
 
             html.Label('Select Athlete:'),
                 dcc.Dropdown(
-                    id='dropdown_3',
+                    id='dropdown_1',
                     options=[{'label': i, 'value': i} for i in df.Athlete.unique()],
                     placeholder='Select Athlete',
                     multi=True,
-                    value=['Cathal', 'Conan'],
                 ),
 
             ],
                 className='six columns',
             ),
             html.Div([
+                dt.DataTable(
+                    rows=[{}],
+        row_selectable=False,
+        filterable=False,
+        sortable=False,
+        selected_row_indices=[],
+        id='table'
+    ),
+
                 html.Label('Option settings:'),
                 dcc.RadioItems(
                     id='option_selector',
@@ -562,6 +569,28 @@ def make_scatter_plot(hidden, ticker, graph_toggles,
         figure = dict(data=data, layout=layout)
         return figure
 
+@app.callback(
+    dash.dependencies.Output('table', 'rows'),
+    [dash.dependencies.Input('dropdown_1', 'value'),
+    #dash.dependencies.Input('table', 'selected_row_indices')
+
+    ])
+
+def display_table(dropdown_1):
+    if dropdown_1 is None:
+
+        return dff3.to_dict('records')
+
+    dff = df[df.Athlete.str.contains('|'.join(dropdown_1))]
+
+    dff2 = dff
+
+    dff3 = dff2
+
+    #
+    dff3 = dff3[['Athlete', 'Age', 'Height', 'Weight']]
+
+    return dff3.to_dict('records')
 
 
 if __name__ == '__main__':
