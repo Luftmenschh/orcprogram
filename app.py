@@ -150,11 +150,11 @@ app.layout = html.Div(
                 html.Img(src='https://github.com/ndaly06/orcprogram/blob/master/orcschematic3.png?raw=true',
                     style={
                     'max-height': '250px',
-                    'max-width': '490px',
+                    'max-width': '80%',
                     'position':'relative'}),
 
             ],
-                className=' columns',
+                className='five columns',
                 style={'display': 'inline-block', 'position': 'absolute'}
             ),
         ],
@@ -424,7 +424,7 @@ def produce_graph(slider_1, slider_2, slider_3, slider_4, dropdown_3, input_1):
 
                 ],
                 'layout': {
-                        'title': 'Refrigerant State Enthalpy Comparison',
+                        'title': 'Refrigerant State Enthalpy Analysis',
                         "xaxis": { "title": "Refrigerant", "fixedrange": True, 'zeroline':True, 'showline':True},
                         "yaxis": { "title": "Enthalpy (kJ/kg)", "fixedrange": True, 'zeroline':True, 'showline':True}
     }
@@ -503,7 +503,7 @@ def produce_graph(slider_1, slider_2, slider_3, slider_4, dropdown_3, input_1):
 
                 ],
                 'layout': {
-                        'title': 'Refrigerant Thermal Efficiency Comparison',
+                        'title': 'Refrigerant Thermal Efficiency Analysis',
                         "xaxis": { "title": "Thermal Efficiency (%)", "fixedrange": True, 'zeroline':True, 'showline':True},
                         "yaxis": { "title": "Refrigerant", "fixedrange": True, 'zeroline':True, 'showline':True}
                         }
@@ -593,7 +593,7 @@ def produce_graph(slider_1, slider_2, slider_3, slider_4, dropdown_3, dropdown_4
             ],
         'layout':
         {
-        'title': 'Refrigerant Performance Comparison',
+        'title': 'Refrigerant Performance Analysis',
         "xaxis": { "title": "Turbine Inlet Temperature, T3 (°C)", "fixedrange": True, 'showline':False, 'zeroline':True},
         "yaxis": { "title": dropdown_4, "fixedrange": True, 'zeroline':True, 'showline':True}
         }
