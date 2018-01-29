@@ -15,7 +15,7 @@ import base64
 import urllib
 
 
-
+df = pd.read_csv('https://github.com/ndaly06/orcprogram/blob/master/athlete_data.csv?raw=true')
 
 
 app = dash.Dash(__name__)
@@ -39,41 +39,39 @@ app.layout = html.Div(
         html.Div([
             html.Img(
                 src="https://github.com/ndaly06/orcprogram/blob/master/analyifit_logo.png?raw=true",
-                className='two columns',
-                style={
-                    'height': '100',
-                    'width': '220',
-                    'float': 'left',
-                    'position': 'relative',
-                },
-            ),
-            html.H1(
-                'analyfit view',
                 className='eight columns',
-                style={'text-align': 'center'}
-            ),
-            html.Img(
-                src="https://s3-us-west-1.amazonaws.com/plotly-tutorials/logo/new-branding/dash-logo-by-plotly-stripe.png",
-                className='two columns',
                 style={
-                    'height': '60',
-                    'width': '135',
-                    'float': 'right',
-                    'position': 'relative',
+                    'height': '75',
+                    'width': '250',
+                    'float': 'left',
+                    'position': 'centre',
                 },
             ),
+
         ],
             className='row'
         ),
-        html.Hr(style={'margin': '0', 'margin-bottom': '5'}),
+        html.Hr(style={'margin': '0', 'margin-bottom': '1'}),
         html.Div([
             html.Div([
-                html.Label('Select Athlete:'),
+                html.Label('Select Date:'),
                 dcc.Dropdown(
-                    id='ticker_dropdown',
-
-                    value='SPY',
+                    id='dropdown_1',
+                    options=[{'label': i, 'value': i} for i in df.Date.unique()],
+                    placeholder='Select Athlete',
+                    multi=True,
+                    value=['Cathal', 'Conan'],
                 ),
+
+            html.Label('Select Athlete:'),
+                dcc.Dropdown(
+                    id='dropdown_3',
+                    options=[{'label': i, 'value': i} for i in df.Athlete.unique()],
+                    placeholder='Select Athlete',
+                    multi=True,
+                    value=['Cathal', 'Conan'],
+                ),
+
             ],
                 className='six columns',
             ),
