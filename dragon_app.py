@@ -23,7 +23,9 @@ server = app.server
 app.config['suppress_callback_exceptions']=True
 
 external_css = ["https://fonts.googleapis.com/css?family=Overpass:300,300i",
-                "https://cdn.rawgit.com/plotly/dash-app-stylesheets/dab6f937fd5548cebf4c6dc7e93a10ac438f5efb/dash-technical-charting.css"]
+              "https://cdn.rawgit.com/plotly/dash-app-stylesheets/dab6f937fd5548cebf4c6dc7e93a10ac438f5efb/dash-technical-charting.css"]
+
+
 
 for css in external_css:
     app.css.append_css({"external_url": css})
@@ -39,7 +41,7 @@ app.layout = html.Div(
         html.Div([
             html.Img(
                 src="https://github.com/ndaly06/orcprogram/blob/master/analyifit_logo.png?raw=true",
-                className='eight columns',
+                className='four columns',
                 style={
                     'height': '60',
                     'width': '240',
@@ -224,18 +226,12 @@ app.layout = html.Div(
             style={'display': 'none'}
         )
     ],
-    style={
-        'width': '85%',
-        'max-width': '1200',
-        'margin-left': 'auto',
-        'margin-right': 'auto',
-        'font-family': 'overpass',
-        'background-color': '#F3F3F3',
-        'padding': '40',
-        'padding-top': '20',
-        'padding-bottom': '20',
-    },
-)
+
+    style={'padding': '0px 10px 15px 10px',
+          'marginLeft': 'auto', 'marginRight': 'auto', "width": "1100px",
+          'boxShadow': '0px 0px 5px 5px rgba(204,204,204,0.4)'})
+
+
 
 
 # Cache raw data
