@@ -62,7 +62,7 @@ app.layout = html.Div(
             html.Div([
                 html.Label('Select Date:'),
                 dcc.Dropdown(
-                    id='dropdown_3',
+                    id='dropdown_1',
                     options=[{'label': i, 'value': i} for i in df.Date.unique()],
                     placeholder='Select Date',
                     multi=True,
@@ -70,15 +70,16 @@ app.layout = html.Div(
 
             html.Label('Select Athlete:'),
                 dcc.Dropdown(
-                    id='dropdown_1',
+                    id='dropdown_2',
                     options=[{'label': i, 'value': i} for i in df.Athlete.unique()],
                     placeholder='Select Athlete',
                     multi=True,
+                    value=['Cathal', 'Nial', 'Eoin']
                 ),
 
             html.Label('Select Movement:'),
                 dcc.Dropdown(
-                    id='dropdown_2',
+                    id='dropdown_3',
                     options=[{'label': i, 'value': i} for i in df.Athlete.unique()],
                     placeholder='Select Movement',
                     multi=True,
@@ -234,29 +235,16 @@ app.layout = html.Div(
 
 
 
-# Cache raw data
-@app.callback(Output('raw_container', 'hidden'),
-              [Input('ticker_dropdown', 'value')])
-def cache_raw_data(ticker):
-
-    global raw_data
-    raw_data = get_raw_data(ticker)
-    print('Loaded raw data')
-
-    return 'loaded'
-
 
 
 
 
 @app.callback(
     dash.dependencies.Output('table', 'rows'),
-    [dash.dependencies.Input('dropdown_1', 'value'),
-    #dash.dependencies.Input('table', 'selected_row_indices')
-
+    [dash.dependencies.Input('dropdown_2', 'value'),
     ])
 
-def display_table(dropdown_1):
+def display_table(dropdown_2):
     if dropdown_1 is None:
 
         return dff3.to_dict('records')
@@ -273,6 +261,35 @@ def display_table(dropdown_1):
     #
 
     return dff3.to_dict('records')
+
+
+@app.callback(
+    dash.dependencies.Output('graph1', 'figure'),
+    [
+    dash.dependencies.Input('dropdown_2', 'value'),
+    ])
+
+def produce_graph(dropdown_2):
+
+    df = pd.read_csv(pd.read_csv('https://github.com/ndaly06/orcprogram/blob/master/athlete_strength_data.csv?raw=true'))
+
+    dff = df[df.Athlete.str.contains('|'.join(dropdown_3))]
+
+
+
+    return {
+    'data': [
+                {'x': dff['Athlete'], 'y': dff['Deadlift'], 'type': 'bar', 'name': 'Deadlift 1RM (kg)'},
+                {'x': dff['Athlete'], 'y': dff['Deadlift'], 'type': 'bar', 'name': 'Deadlift 1RM (kg)'},
+
+
+                ],
+                'layout': {
+                        'title': 'Athlete Strength Analysis',
+                        "xaxis": { "title": "Refrigerant", "fixedrange": True, 'zeroline':True, 'showline':True},
+                        "yaxis": { "title": "Enthalpy (kJ/kg)", "fixedrange": True, 'zeroline':True, 'showline':True}
+    }
+    }
 
 
 if __name__ == '__main__':
