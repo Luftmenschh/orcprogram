@@ -96,14 +96,12 @@ app.layout = html.Div(
         filterable=False,
         sortable=False,
         selected_row_indices=[],
-        id='table'
+        id='table',
+
     ),
             ],
                 className='six columns',
-            ),
-            html.Div([
-            ],
-                className='five columns'
+                style={'max-height': '250', 'height': '30vh'}
             ),
         ],
             className='row',
@@ -112,97 +110,24 @@ app.layout = html.Div(
         html.Div([
             html.Div([
                 html.Label('Implied volatility settings:'),
-                html.Div([
-                    dcc.RadioItems(
-                        id='iv_selector',
-                        options=[
-                            {'label': 'Calculate IV ', 'value': True},
-                            {'label': 'Use given IV ', 'value': False},
-                        ],
-                        value=True,
-                        labelStyle={'display': 'inline-block'},
-                    ),
-                    dcc.RadioItems(
-                        id='calendar_selector',
-                        options=[
-                            {'label': 'Trading calendar ', 'value': True},
-                            {'label': 'Annual calendar ', 'value': False},
-                        ],
-                        value=True,
-                        labelStyle={'display': 'inline-block'},
-                    )
-                ],
-                    style={'display': 'inline-block', 'margin-right': '10', 'margin-bottom': '10'}
-                ),
-                html.Div([
-                    html.Div([
-                        html.Label('Risk-free rate (%)'),
-                        dcc.Input(
-                            id='rf_input',
-                            placeholder='Risk-free rate',
-                            type='number',
-                            value='0.0',
-                            style={'width': '125'}
-                        )
-                    ],
-                        style={'display': 'inline-block'}
-                    ),
-                    html.Div([
-                        html.Label('Dividend rate (%)'),
-                        dcc.Input(
-                            id='div_input',
-                            placeholder='Dividend interest rate',
-                            type='number',
-                            value='0.0',
-                            style={'width': '125'}
-                        )
-                    ],
-                        style={'display': 'inline-block'}
-                    ),
-                ],
-                    style={'display': 'inline-block', 'position': 'relative', 'bottom': '10'}
-                )
+
+
             ],
                 className='six columns',
                 style={'display': 'inline-block'}
-            ),
-            html.Div([
-                html.Label('Chart settings:'),
-                dcc.RadioItems(
-                    id='log_selector',
-                    options=[
-                        {'label': 'Log surface', 'value': 'log'},
-                        {'label': 'Linear surface', 'value': 'linear'},
-                    ],
-                    value='log',
-                    labelStyle={'display': 'inline-block'}
-                ),
-                dcc.Checklist(
-                    id='graph_toggles',
-                    options=[
-                        {'label': 'Flat shading', 'value': 'flat'},
-                        {'label': 'Discrete contour', 'value': 'discrete'},
-                        {'label': 'Error bars', 'value': 'box'},
-                        {'label': 'Lock camera', 'value': 'lock'}
-                    ],
-                    values=['flat', 'box', 'lock'],
-                    labelStyle={'display': 'inline-block'}
-                )
-            ],
-                className='six columns'
             ),
         ],
             className='row'
         ),
         html.Div([
-            dcc.Graph(id='iv_surface', style={'max-height': '600', 'height': '60vh'}),
+            dcc.Graph(id='graph2', style={'max-height': '600', 'height': '60vh'}),
         ],
             className='row',
             style={'margin-bottom': '20'}
         ),
         html.Div([
             html.Div([
-                dcc.Graph(id='iv_heatmap', style={'max-height': '350', 'height': '35vh'}),
+                dcc.Graph(id='graph3', style={'max-height': '350', 'height': '50vh'}),
             ],
                 className='five columns'
             ),
@@ -245,11 +170,11 @@ app.layout = html.Div(
     ])
 
 def display_table(dropdown_2):
-    if dropdown_1 is None:
+    if dropdown_2 is None:
 
         return dff3.to_dict('records')
 
-    dff = df[df.Athlete.str.contains('|'.join(dropdown_1))]
+    dff = df[df.Athlete.str.contains('|'.join(dropdown_2))]
 
     dff2 = dff
 
@@ -264,30 +189,35 @@ def display_table(dropdown_2):
 
 
 @app.callback(
-    dash.dependencies.Output('graph1', 'figure'),
+    dash.dependencies.Output('graph2', 'figure'),
     [
     dash.dependencies.Input('dropdown_2', 'value'),
     ])
 
 def produce_graph(dropdown_2):
 
-    df = pd.read_csv(pd.read_csv('https://github.com/ndaly06/orcprogram/blob/master/athlete_strength_data.csv?raw=true'))
+    df = pd.read_csv('https://github.com/ndaly06/orcprogram/blob/master/athlete_strength_data.csv?raw=true')
 
-    dff = df[df.Athlete.str.contains('|'.join(dropdown_3))]
+    dff = df[df.Athlete.str.contains('|'.join(dropdown_2))]
 
 
 
     return {
     'data': [
                 {'x': dff['Athlete'], 'y': dff['Deadlift'], 'type': 'bar', 'name': 'Deadlift 1RM (kg)'},
-                {'x': dff['Athlete'], 'y': dff['Deadlift'], 'type': 'bar', 'name': 'Deadlift 1RM (kg)'},
+                {'x': dff['Athlete'], 'y': dff['Clean'], 'type': 'bar', 'name': 'S. Clean 1RM (kg)'},
+                {'x': dff['Athlete'], 'y': dff['Back Squat'], 'type': 'bar', 'name': 'B. Squat 1RM (kg)'},
+                {'x': dff['Athlete'], 'y': dff['Front Squat'], 'type': 'bar', 'name': 'F. Squat 1RM (kg)'},
+
+                {'x': dff['Athlete'], 'y': dff['Front Squat'], 'type': 'bar', 'name': 'F. Squat 1RM (kg)'},
+
 
 
                 ],
                 'layout': {
                         'title': 'Athlete Strength Analysis',
-                        "xaxis": { "title": "Refrigerant", "fixedrange": True, 'zeroline':True, 'showline':True},
-                        "yaxis": { "title": "Enthalpy (kJ/kg)", "fixedrange": True, 'zeroline':True, 'showline':True}
+                        "xaxis": { "title": "Athlete", "fixedrange": True, 'zeroline':True, 'showline':True},
+                        "yaxis": { "title": "Weight (kg)", "fixedrange": True, 'zeroline':True, 'showline':True}
     }
     }
 
