@@ -44,9 +44,12 @@ app.layout = html.Div(
                     'height': '60',
                     'width': '240',
                     'float': 'left',
-                    'position': 'centre',
-                    'margin-top': '0'
+                    'position': 'relative',
+                    'top': '0px',
+                    'left': '0px'
+
                 },
+
             ),
 
         ],
@@ -75,7 +78,7 @@ app.layout = html.Div(
                 dcc.Dropdown(
                     id='dropdown_2',
                     options=[{'label': i, 'value': i} for i in df.Athlete.unique()],
-                    placeholder='Select Athlete',
+                    placeholder='Select Movement',
                     multi=True,
                 ),
             ],
