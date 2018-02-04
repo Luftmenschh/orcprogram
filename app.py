@@ -3,17 +3,17 @@
 from __future__ import division
 
 #IMPORTS THE MODULES/PACKAGES USED BY THE COMPUTER PROGRAM
+import base64
 import dash
 import dash_core_components as dcc
 import dash_html_components as html
-#import plotly.graph_objs as go
-import pandas as pd
-import numpy as np
-from dash.dependencies import Input, Output, State
 import dash_table_experiments as dt
+from dash.dependencies import Input, Output, State
+import pandas as pd
 import plotly
-import base64
+import numpy as np
 import urllib
+
 
 #INITIATES THE PROGRAM
 app = dash.Dash(__name__)
@@ -169,39 +169,45 @@ html.Div([
     #ADDS THE ORC SCHEMATIC TO THE PROGRAM
     html.Img(src='https://github.com/ndaly06/orcprogram/blob/master/orcschematic3.png?raw=true',
         #SETS THE IMAGE STYLING
-        style={
-        'max-height': '250px',
+        style={'max-height': '250px',
         'max-width': '80%',
         'position':'relative'}
-        ),
+        )
+    ],
+    className='five columns',
+    style={'display': 'inline-block', 'position': 'absolute'}
+    )
+],
+className='row',
+style={'margin-bottom': '10'}
+),
 
-            ],
-                className='five columns',
-                style={'display': 'inline-block', 'position': 'absolute'}
+
+html.Div([
+    html.Div([
+        #ADDS THE GRAPH SHOWING REFRIGERANT THERMAL EFFICIENCY ANALYSIS
+        dcc.Graph(id='graph2',
+            #HIDES THE DISPLAY BAR
+            config={'displayModeBar': False},
+            #SETS THE GRAPH STYLING
+            style={'max-height': '350', 'height': '50vh'}
             ),
         ],
-            className='row',
-            style={'margin-bottom': '10'}
+        className='five columns'
         ),
 
+    html.Div([
+        dcc.Graph(id='graph1',
+            config={'displayModeBar': False},
+            style={'max-height': '350', 'height': '50vh'})
+        ],
+        className='seven columns'
+        ),
 
-        html.Div([
-            html.Div([
-                dcc.Graph(id='graph2', config={'displayModeBar': False}, style={'max-height': '350', 'height': '50vh'}),
-            ],
-                className='five columns'
-            ),
-            html.Div([
-                dcc.Graph(id='graph1', config={'displayModeBar': False}, style={'max-height': '350', 'height': '50vh'}),
-            ],
-                className='seven columns'
-            ),
-
-            html.Div([
-            html.H6('Parameteric Analysis'),
-                dcc.Dropdown(
-                    id='dropdown_4',
-                    placeholder='Select Parameter',
+    html.Div([
+        html.H6('Parameteric Analysis'),
+        dcc.Dropdown(id='dropdown_4',
+            placeholder='Select Parameter',
                     options=[
                     {'label': 'Turbine Power (kW)', 'value': 'TURBINE_POWER'},
                     {'label': 'Pump Power (kW)', 'value': 'PUMP_POWER'},
@@ -217,7 +223,7 @@ html.Div([
         ],
             className='row',
             style={'margin-bottom': '30'}
-        ),
+    ),
 
 
         html.Div([
