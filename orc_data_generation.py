@@ -36,7 +36,6 @@ r134a_data_3['REFRIGERANT']= 'R134a'
 
 r134a_data_1['T_1_K']= r134a_data_1['T_1'] + 273.15
 r134a_data_3['T_3_K']= r134a_data_3['T_3'] + 273.15
-
 #
 r134a_data = pd.concat([r134a_data_1, r134a_data_3], axis=1)
 r134a_data_randomized = pd.DataFrame(list(product(r134a_data.T_1_K, r134a_data.T_3_K)), columns=['T_1_K', 'T_3_K'])

@@ -2,6 +2,7 @@
 #ENABLES CORRECT DIVISION IN PYTHON
 from __future__ import division
 
+#IMPORTS THE MODULES/PACKAGES USED BY THE COMPUTER PROGRAM
 import dash
 import dash_core_components as dcc
 import dash_html_components as html
@@ -13,145 +14,166 @@ import dash_table_experiments as dt
 import plotly
 import base64
 import urllib
-#import urllib.parse
 
-#from urllib.parse import quote
-
-#import urllib3.parse
-#from urllib import parse as urlparse
-
-
+#INITIATES THE PROGRAM
 app = dash.Dash(__name__)
 server = app.server
 app.config['suppress_callback_exceptions']=True
 
-
+#READS THE ORC REFRIGERANT DATASET FROM GITHUB(ONLINE LOACTION WHERE THE DATASET IS HOSTED)
 df = pd.read_csv('https://github.com/ndaly06/orcprogram/blob/master/refrigerant_data.csv?raw=true')
 df2 = df[['REFRIGERANT', 'T_1_K', 'T_3_K', 'H_1', 'H_2_ISENTROPIC', 'H_3', 'H_4_ISENTROPIC']]
 df2 = df2.round(2)
 
-
-
-#
+#EXTERNAL CSS FOR STYLING THE PROGRAM'S GUI
 external_css = ["https://fonts.googleapis.com/css?family=Overpass:300,300i",
                 "https://cdn.rawgit.com/plotly/dash-app-stylesheets/dab6f937fd5548cebf4c6dc7e93a10ac438f5efb/dash-technical-charting.css"]
-
 
 for css in external_css:
     app.css.append_css({"external_url": css})
 
-
+#
 app.layout = html.Div(
     [
-        html.Div([
-            html.Img(
-                src="http://www.qub.ac.uk/qol/qollogin-files/Queens-shield-logo-red.png",
-                className='two columns',
-                style={
-                    'height': '60px',
-                    'width': '170px',
-                    'float': 'left',
-                    'position': 'relative',
-                },
+    html.Div([
+        #ADDS THE QUB LOGO TO THE PROGRAM
+        html.Img(
+            src="http://www.qub.ac.uk/qol/qollogin-files/Queens-shield-logo-red.png",
+            className='two columns',
+            style={
+            'height': '60px',
+            'width': '170px',
+            'float': 'left',
+            'position': 'relative',
+            }
             ),
-            html.H1(
-                'ORCAnalysis',
-                className='seven columns',
-                style={'text-align': 'center', 'font-size': '2.65em'}
+        #SETS PROGRAM TITLE
+        html.H1(
+            'ORCAnalysis',
+            className='seven columns',
+            style={'text-align': 'center', 'font-size': '2.65em'}
             )
         ],
-            className='row'
-        ),
-        html.Hr(style={'margin': '0', 'margin-bottom': '4'}),
+        className='row'
+    ),
+    #ADDS HORIZONTAL (SEPARATES HEADER FROM THE DATA INPUT SECTION)
+    html.Hr(style={'margin': '0', 'margin-bottom': '4'}),
 
-
-
+    html.Div([
         html.Div([
+            #ADDS THE LABEL FOR DROPDOWN 1 (ORC CONFIGURATION SELECTION)
+            html.Label('Organic Rankine Cycle Configuration:'),
+            #ADDS DROPDOWN 1
+            dcc.Dropdown(
+                id='dropdown_1',
+                #SETS THE PLACEHOLDER (FIXED NAME)
+                placeholder='Subcritical',
+                #SETS THE DROPDOWN AS UNACTIONABLE
+                disabled=True,
+                ),
+            #ADDS THE LABEL FOR DROPDOWN 2 (HEAT SOURCE SELECTION)
+            html.Label('Heat Source:'),
+            #ADDS DROPDOWN 2
+            dcc.Dropdown(
+                id='dropdown_2',
+                #SETS THE PLACEHOLDER (FIXED NAME)
+                placeholder='Geothermal Water',
+                #SETS THE DROPDOWN AS UNACTIONABLE
+                disabled=True
+                ),
             html.Div([
-
-                html.Label('Organic Rankine Cycle Configuration:'),
-                dcc.Dropdown(
-                    id='dropdown_1',
-                    placeholder='Subcritical',
-                    disabled=True,
-                ),
-
-                html.Label('Heat Source:'),
-                dcc.Dropdown(
-                    id='dropdown_2',
-                    placeholder='Geothermal Water',
-                    disabled=True,
-                ),
-
-                html.Div([
+                #ADDS THE LABEL FOR DROPDOWN 3 (REFRIGERANT SELECTION)
                 html.Label('Select Refrigerant:'),
+                #ADDS DROPDOWN 3
                 dcc.Dropdown(
                     id='dropdown_3',
+                    #SEARCHES THE ORC REFRIGERANT DATASET AND ADDS EACH UNIQUE REFRIGERANT NAME TO THE DROPDOWN SELECTION
                     options=[{'label': i, 'value': i} for i in df.REFRIGERANT.unique()],
+                    #SETS THE PLACEHOLDER (FIXED NAME)
                     placeholder='Select Refrigerant',
+                    #ALLOWS MULTIPLE FLUIDS TO BE SELECTED
                     multi=True,
-                    value=['R134a', 'R141b', 'R410a', 'R113'],
+                    #SETS THE INITIAL FLUID SELECTION TO BE SET
+                    value=['R134a', 'R141b', 'R410a', 'R113']
+                    ),
+                #ADDS THE LABEL FOR INPUT BOX 1 (MASS FLOW RATE)
+                html.Label('Mass Flow Rate (kg/s)',
+                    #SETS THE INPUT BOX WIDTH
+                    style={'width': '200'}
+                    ),
+                #ADDS INPUT BOX 1
+                dcc.Input(id='input_1',
+                    type='number',
+                    #SETS THE INITIAL VALUE AT 12
+                    value='12',
+                    #SETS A MINIMUM VALUE AT 1
+                    min='1',
+                    #SETS THE MAX-WIDTH OF THE INPUT BOX AS 150px
+                    style={'max-width': '150px'}
+                    )
+                ]
                 ),
-
-                html.Label('Mass Flow Rate (kg/s)',style={'width': '200'}),
-                        dcc.Input(
-                            id='input_1',
-                            type='number',
-                            value='12',
-                            min='1',
-                            style={'max-width': '150px'}
-                        )
-                ],
-
+            #ADDS THE LABEL FOR SLIDER 1 (REFRIGERANT TEMPERATURE VALUE)
+            html.Label(id='pump_temp_value'),
+            #ADDS SLIDER 1
+            dcc.Slider(id='slider_1',
+                #SETS THE MINIMUM SLIDER VALUE AT 1
+                min=1,
+                #SETS THE MAXIMUM SLIDER VALUE AT 200
+                max=200,
+                #SETS THE STEP VALUE AT 1
+                step=1,
+                #SETS THE INITIAL VALUE AT 10
+                value=10
                 ),
-
-                html.Label(id='pump_temp_value'),
-                dcc.Slider(
-                        id='slider_1',
-                        min=1,
-                        max=200,
-                        step=1,
-                        value=10
-                        ),
-
-                html.Label(
-                        id='turbine_temp_value'),
-                    dcc.Slider(
-                        id='slider_2',
-                        min=1,
-                        max=200,
-                        value=60,
-                    ),
-
-                html.Label(
-                        id='pump_eff_value'),
-                    dcc.Slider(
-                        id='slider_3',
-                        min=1,
-                        max=100,
-                        value=60,
-                    ),
-
-                html.Label(
-                        id='turbine_eff_value'),
-                    dcc.Slider(
-                        id='slider_4',
-                        min=1,
-                        max=100,
-                        value=80,
-                    ),
-
+            #ADDS THE LABEL FOR SLIDER 2 (TURBINE TEMPERATURE VALUE)
+            html.Label(id='turbine_temp_value'),
+            #ADDS SLIDER 2
+            dcc.Slider(id='slider_2',
+                #SETS TNE MINIMUM SLIDER VALUE AT 1
+                min=1,
+                #SETS THE MAXIMUM SLDER VALUE AT 200
+                max=200,
+                #SETS THE INITIAL VALUE AT 60
+                value=60
+                ),
+            #ADDS THE LABEL FOR SLIDER 3 (REFRIGERANT PUMP EFFICIENCY VALUE)
+            html.Label(id='pump_eff_value'),
+            #ADDS SLIDER 3
+            dcc.Slider(id='slider_3',
+                #SETS THE MINIMUM SLIDER VALUE AT 1
+                min=1,
+                #SETS THE MAXIMUM SLIDER VALUE AT 100
+                max=100,
+                #SETS THE INITIAL SLIDER VALUE AT 60
+                value=60
+                ),
+            #ADDS THE LABEL FOR SLIDER 4 (TURBINE EFFICIENCY VALUE)
+            html.Label(id='turbine_eff_value'),
+            #ADDS SLIDER 4
+            dcc.Slider(id='slider_4',
+                #SETS THE MINIMUM SLIDER VALUE AT 1
+                min=1,
+                #SETS THE MAXIMUM SLIDER VALUE AT 100
+                max=100,
+                #SETS THE INITIAL SLIDER VALUE AT 80
+                value=80
+                )
             ],
-                className='six columns',
+            className='six columns'
             ),
 
-            html.Div([
-                html.Label('ORC System Schematic'),
-                html.Img(src='https://github.com/ndaly06/orcprogram/blob/master/orcschematic3.png?raw=true',
-                    style={
-                    'max-height': '250px',
-                    'max-width': '80%',
-                    'position':'relative'}),
+html.Div([
+    #ADDS THE ORC SYSTEM SCHEMATIC LABEL
+    html.Label('ORC System Schematic'),
+    #ADDS THE ORC SCHEMATIC TO THE PROGRAM
+    html.Img(src='https://github.com/ndaly06/orcprogram/blob/master/orcschematic3.png?raw=true',
+        #SETS THE IMAGE STYLING
+        style={
+        'max-height': '250px',
+        'max-width': '80%',
+        'position':'relative'}
+        ),
 
             ],
                 className='five columns',
@@ -660,10 +682,6 @@ def update_download_button(slider_1, slider_2, slider_3, slider_4, dropdown_3, d
 
     dff3 = dff3.round(3)
 
-    #csv_string = dff3.to_csv(index=False, encoding='utf-8')
-
-    #csv_string = "data:text/csv;charset=utf-8," + urllib.quote(csv_string)
-    #return csv_string
 
 
 
