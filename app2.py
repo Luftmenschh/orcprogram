@@ -667,9 +667,5 @@ def produce_graph(slider_1, slider_2, slider_3, slider_4, dropdown_3, dropdown_4
 
 
 
-
-
-
-
 if __name__ == '__main__':
     app.run_server(debug=True)

@@ -182,98 +182,120 @@ className='row',
 style={'margin-bottom': '10'}
 ),
 
-
 html.Div([
-    html.Div([
-        #ADDS THE GRAPH SHOWING REFRIGERANT THERMAL EFFICIENCY ANALYSIS
-        dcc.Graph(id='graph2',
-            #HIDES THE DISPLAY BAR
-            config={'displayModeBar': False},
-            #SETS THE GRAPH STYLING
-            style={'max-height': '350', 'height': '50vh'}
-            ),
-        ],
-        className='five columns'
-        ),
-
-    html.Div([
-        dcc.Graph(id='graph1',
-            config={'displayModeBar': False},
-            style={'max-height': '350', 'height': '50vh'})
-        ],
-        className='seven columns'
-        ),
-
-    html.Div([
-        html.H6('Parameteric Analysis'),
-        dcc.Dropdown(id='dropdown_4',
-            placeholder='Select Parameter',
-                    options=[
-                    {'label': 'Turbine Power (kW)', 'value': 'TURBINE_POWER'},
-                    {'label': 'Pump Power (kW)', 'value': 'PUMP_POWER'},
-                    {'label': 'Net Power (kW)', 'value': 'NET_POWER'},
-                    {'label': 'Heat Input (kJ/K)', 'value': 'HEAT_INPUT'},
-                    {'label': 'Thermal Efficiency (%)', 'value': 'EFFICIENCY'}
-                    ],
-                    value='TURBINE_POWER'
-                )
-                ],
-                className='row'),
-
-        ],
-            className='row',
-            style={'margin-bottom': '30'}
-    ),
-
-
-        html.Div([
-            dcc.Graph(id='graph3', config={'displayModeBar': False}, style={'max-height': '380', 'height': '60vh'}),
-
-        ],
-            className='row',
-            style={'margin-bottom': '15'}
-        ),
-
-        html.Div([
     html.H6('ORC Model Results'),
     dt.DataTable(
-
         rows=[{}],
         row_selectable=False,
         filterable=False,
         sortable=False,
         selected_row_indices=[],
         id='table'
+        )
+    ]),
+
+html.Div([
+    html.Div([
+        #ADDS THE GRAPH SHOWING REFRIGERANT THERMAL EFFICIENCY ANALYSIS
+        dcc.Graph(id='graph1',
+            #HIDES THE DISPLAY BAR
+            config={'displayModeBar': False},
+            #SETS THE GRAPH STYLING
+            style={'max-height': '350', 'height': '50vh'}
+            )
+        ],
+        className='five columns'
+        ),
+
+    html.Div([
+        #ADDS THE GRAPH SHOWING REFRIGERANT STATE ENTHALPY ANALYSIS
+        dcc.Graph(id='graph2',
+            #HIDES THE DISPLAY BAR
+            config={'displayModeBar': False},
+            #SETS THE GRAPH STYLING
+            style={'max-height': '350', 'height': '50vh'}
+            )
+        ],
+        className='seven columns'
+        ),
+
+    html.Div([
+        #ADDS THE LABEL FOR DROPDOWN 4 (PARAMETRIC ANALYSIS)
+        html.H6('Parameteric Analysis'),
+        #ADDS DROPDOWN 4
+        dcc.Dropdown(id='dropdown_4',
+            placeholder='Select Parameter',
+            options=[
+            {'label': 'Turbine Power (kW)', 'value': 'Turbine Power (kW)'},
+            {'label': 'Pump Power (kW)', 'value': 'Pump Power (kW)'},
+            {'label': 'Net Power (kW)', 'value': 'Net Power (kW)'},
+            {'label': 'Heat Input (kJ/K)', 'value': 'Heat Input (kJ/K)'},
+            {'label': 'Thermal Efficiency (%)', 'value': 'Thermal Efficiency (%)'}
+            ],
+            #SETS THE INITIAL VALUE AS TURBINE_POWER
+            value='Turbine Power (kW)'
+            )
+        ],
+        className='row')
+    ],
+    className='row',
+    style={'margin-bottom': '30'}
     ),
 
-    #html.Div([
-    #html.A('EXPORT CSV',
-        #id='download_button',
+html.Div([
+    dcc.Graph(id='graph3', config={'displayModeBar': False}, style={'max-height': '380', 'height': '60vh'}),
 
-        #download="orc_model_data.csv",
-        #href="",
-        #download="123.csv",
-        #download="https://github.com/ndaly06/orcprogram/blob/master/orc_model_data.csv?raw=true",
-        #href="https://github.com/ndaly06/orcprogram/blob/master/orc_model_data.csv?raw=true",
-        #target="_blank"
-        #)
-    #],
-    #style={'display': 'inline-block', 'float':'right', 'padding-top': '5'}
-    #)
-]),
+        ],
+            className='row',
+            style={'margin-bottom': '15'}
+        ),
+
+html.Div([
+        #ADDS THE LABEL FOR DROPDOWN 4 (PARAMETRIC ANALYSIS)
+        #html.H6('Parameteric Analysis'),
+        #ADDS DROPDOWN 4
+        dcc.Dropdown(id='dropdown_5',
+            placeholder='Select Parameter',
+            options=[
+            {'label': 'Turbine Power (kW)', 'value': 'Turbine Power (kW)'},
+            {'label': 'Pump Power (kW)', 'value': 'Pump Power (kW)'},
+            {'label': 'Net Power (kW)', 'value': 'Net Power (kW)'},
+            {'label': 'Heat Input (kJ/K)', 'value': 'Heat Input (kJ/K)'},
+            {'label': 'Thermal Efficiency (%)', 'value': 'Thermal Efficiency (%)'}
+            ],
+            #SETS THE INITIAL VALUE AS TURBINE_POWER
+            value='Net Power (kW)'
+            )
+        ],
+        className='row',
+        style={'margin-bottom': '15'}),
+
+html.Div([
+    dcc.Graph(id='graph4', config={'displayModeBar': False}, style={'max-height': '380', 'height': '60vh'}),
+
+        ],
+            className='row',
+            style={'margin-bottom': '15'}
+        ),
 
 
 
-        html.P(
+
+
+
+
+
+
+html.P(
             hidden='',
             id='raw_container',
             style={'display': 'none'}
         ),
-        html.P(
+html.P(
             hidden='',
             id='filtered_container',
             style={'display': 'none'}
-        )
+            )
     ],
     style={
         'width': '85%',
@@ -286,33 +308,38 @@ html.Div([
         'padding': '40',
         'padding-top': '10',
         'padding-bottom': '10',
-    },
-)
+
+})
 
 
-#PUMP TEMPERATURE CALLBACK
+
+
+
+
+
+
+#PUMP TEMPERATURE CALLBACK FUNCTION
 @app.callback(Output('pump_temp_value', 'children'),
               [Input('slider_1', 'value')])
 
 def compute_amount(slider_1):
     return u'Condenser Outlet Temperature, T1: {} (°C)'.format(slider_1)
 
-
-#TURBINE TEMPERATURE CALLBACK
+#TURBINE TEMPERATURE CALLBACK FUNCTION
 @app.callback(Output('turbine_temp_value', 'children'),
               [Input('slider_2', 'value')])
 
 def compute_amount(slider_2):
     return u'Turbine Inlet Temperature, T3: {} (°C)'.format(slider_2)
 
-#PUMP ISENTROPIC EFFICIENCY CALLBACK
+#PUMP ISENTROPIC EFFICIENCY CALLBACK FUNCTION
 @app.callback(Output('pump_eff_value', 'children'),
               [Input('slider_3', 'value')])
 
 def compute_amount(slider_3):
     return u'Pump Isentropic Efficiency: {} (%)'.format(slider_3)
 
-#TURBINE ISENTROPIC EFFICIENCY CALLBACK
+#TURBINE ISENTROPIC EFFICIENCY CALLBACK FUNCTION
 @app.callback(Output('turbine_eff_value', 'children'),
               [Input('slider_4', 'value')])
 
@@ -327,65 +354,53 @@ def compute_amount(slider_4):
     dash.dependencies.Input('slider_3', 'value'),
     dash.dependencies.Input('slider_4', 'value'),
     dash.dependencies.Input('dropdown_3', 'value'),
-    dash.dependencies.Input('input_1', 'value'),
-    #dash.dependencies.Input('table', 'selected_row_indices')
-
+    dash.dependencies.Input('input_1', 'value')
     ])
 
 def display_table(slider_1, slider_2, slider_3, slider_4, dropdown_3, input_1):
     if dropdown_3 is None:
-
         return dff3.to_dict('records')
 
     dff = df[df.REFRIGERANT.str.contains('|'.join(dropdown_3))]
     MFR = float(input_1)
-    PUMP_EFF = float(slider_3)
-    TURBINE_EFF = float(slider_4)
+    Pump_Eff = float(slider_3)
+    Turbine_Eff = float(slider_4)
     x = float(slider_1)
     y = float(slider_2)
 
     dff2 = dff
-
     dff2 = dff[dff.REFRIGERANT.str.contains('|'.join(dropdown_3))]
-
     dff3 = dff2
-    #CALCULATES ENTHALPY AT STATE 2
-    #dff3['H_2'] = dff3['H_2_ISENTROPIC'] + (PUMP_EFF / 100) / (dff3['H_2_ISENTROPIC'] - dff3['H_1'])
-    dff3['H_2'] = dff3['H_2_ISENTROPIC'] + (PUMP_EFF / 100) * (dff3['H_2_ISENTROPIC'] - dff3['H_1'])
-    #dff3['H_2'] = dff3['H_1'] + (PUMP_EFF / 100) * (dff3['H_2_ISENTROPIC'] - dff3['H_1'])
-
+    dff3['H_2'] = dff3['H_2_ISENTROPIC'] + (Pump_Eff / 100) * (dff3['H_2_ISENTROPIC'] - dff3['H_1'])
     #CALCULATES ENTHALPY AT STATE 4
-    dff3['H_4'] = (dff3['H_3'] - ((TURBINE_EFF / 100) * (dff3['H_3'] - dff3['H_4_ISENTROPIC'])))
-
+    dff3['H_4'] = (dff3['H_3'] - ((Turbine_Eff / 100) * (dff3['H_3'] - dff3['H_4_ISENTROPIC'])))
     #TURBINE POWER CALCULATION (kW)
-    dff3['TURBINE_POWER'] = MFR * (dff3['H_3'] - dff3['H_4'])
+    dff3['Turbine Power'] = MFR * (dff3['H_3'] - dff3['H_4'])
 
     #PUMP POWER CALCULATION (kW)
-    dff3['PUMP_POWER'] = MFR * (dff3['H_2'] - dff3['H_1'])
+    dff3['Pump Power'] = MFR * (dff3['H_2'] - dff3['H_1'])
 
     #NET POWER (kW)
-    dff3['NET_POWER'] = dff3['TURBINE_POWER'] - dff3['PUMP_POWER']
+    dff3['Net Power'] = dff3['Turbine Power'] - dff3['Pump Power']
 
     #SYSTEM HEAT INPUT
-    dff3['HEAT_INPUT'] = MFR * (dff3['H_3'] - dff3['H_2'])
+    dff3['Heat Input'] = MFR * (dff3['H_3'] - dff3['H_2'])
 
     #THERMAL EFFICIENCY
-    dff3['EFFICIENCY'] = (dff3['NET_POWER'] / dff3['HEAT_INPUT']) * 100
+    dff3['Efficiency'] = (dff3['Net Power'] / dff3['Heat Input']) * 100
 
-    dff3 = dff3[dff3['EFFICIENCY'] > 0]
+    dff3 = dff3[dff3['Efficiency'] > 0]
 
     dff3 = dff3[dff3['T_1'] == x]
     dff3 = dff3[dff3['T_3'] == y]
 
-    dff3['PUMP_EFF'] = PUMP_EFF
-    dff3['TURBINE_EFF'] = TURBINE_EFF
+    dff3['Pump Eff'] = Pump_Eff
+    dff3['Turbine Eff'] = Turbine_Eff
     dff3['MFR'] = MFR
-
-
     dff3 = dff3.round(2)
 
     #
-    dff3 = dff3[['REFRIGERANT', 'MFR', 'T_1', 'T_3', 'PUMP_EFF', 'TURBINE_EFF', 'TURBINE_POWER', 'PUMP_POWER', 'NET_POWER','HEAT_INPUT', 'EFFICIENCY']]
+    dff3 = dff3[['REFRIGERANT', 'MFR', 'T_1', 'T_3', 'Pump Eff', 'Turbine Eff', 'Turbine Power', 'Pump Power', 'Net Power','Heat Input', 'Efficiency']]
 
     dff3 = dff3.round(3)
 
@@ -395,8 +410,6 @@ def display_table(slider_1, slider_2, slider_3, slider_4, dropdown_3, input_1):
 
 
 
-
-#ENTHALPY COMPARISON GRAPH CALLBACK FUNCTION
 @app.callback(
     dash.dependencies.Output('graph1', 'figure'),
     [dash.dependencies.Input('slider_1', 'value'),
@@ -413,51 +426,66 @@ def produce_graph(slider_1, slider_2, slider_3, slider_4, dropdown_3, input_1):
     dff2 = dff[dff['T_1'] == slider_1]
     dff3 = dff2[dff2['T_3'] == slider_2]
     MFR = float(input_1)
-    PUMP_EFF = float(slider_3)
-    TURBINE_EFF = float(slider_4)
+    Pump_Eff = float(slider_3)
+    Turbine_Eff = float(slider_4)
 
     #CALCULATES ENTHALPY AT STATE 2
-    #dff3['H_2'] = dff3['H_2_ISENTROPIC'] + (PUMP_EFF / 100) / (dff3['H_2_ISENTROPIC'] - dff3['H_1'])
-    dff3['H_2'] = dff3['H_2_ISENTROPIC'] + (PUMP_EFF / 100) * (dff3['H_2_ISENTROPIC'] - dff3['H_1'])
-    #dff3['H_2'] = dff3['H_1'] + (PUMP_EFF / 100) * (dff3['H_2_ISENTROPIC'] - dff3['H_1'])
+    dff3['H_2'] = dff3['H_2_ISENTROPIC'] + (Pump_Eff / 100) * (dff3['H_2_ISENTROPIC'] - dff3['H_1'])
 
     #CALCULATES ENTHALPY AT STATE 4
-    dff3['H_4'] = (dff3['H_3'] - (TURBINE_EFF / 100) * (dff3['H_3'] - dff3['H_4_ISENTROPIC']))
+    dff3['H_4'] = (dff3['H_3'] - (Turbine_Eff / 100) * (dff3['H_3'] - dff3['H_4_ISENTROPIC']))
 
     #TURBINE POWER CALCULATION (kW)
-    dff3['TURBINE_POWER'] = MFR * (dff3['H_3'] - dff3['H_4'])
+    dff3['Turbine Power (kW)'] = MFR * (dff3['H_3'] - dff3['H_4'])
 
     #PUMP POWER CALCULATION (kW)
-    dff3['PUMP_POWER'] = MFR * (dff3['H_2'] - dff3['H_1'])
+    dff3['Pump Power (kW)'] = MFR * (dff3['H_2'] - dff3['H_1'])
 
     #NET POWER (kW)
-    dff3['NET_POWER'] = dff3['TURBINE_POWER'] - dff3['PUMP_POWER']
+    dff3['Net Power (kW)'] = dff3['Turbine Power (kW)'] - dff3['Pump Power (kW)']
 
     #SYSTEM HEAT INPUT
-    dff3['HEAT_INPUT'] = MFR * (dff3['H_3'] - dff3['H_2'])
+    dff3['Heat Input (kJ/K)'] = MFR * (dff3['H_3'] - dff3['H_2'])
 
     #THERMAL EFFICIENCY
-    dff3['EFFICIENCY'] = (dff3['NET_POWER'] / dff3['HEAT_INPUT']) * 100
-
-
+    dff3['Efficiency'] = (dff3['Net Power (kW)'] / dff3['Heat Input (kJ/K)']) * 100
     dff3 = dff3.round(2)
+
+    dz1 = dff3[dff3['REFRIGERANT'] == 'R11']
+    dz2 = dff3[dff3['REFRIGERANT'] == 'R141b']
+    dz3 = dff3[dff3['REFRIGERANT'] == 'R218']
+    dz4 = dff3[dff3['REFRIGERANT'] == 'R134a']
+    dz5 = dff3[dff3['REFRIGERANT'] == 'R113']
+    dz6 = dff3[dff3['REFRIGERANT'] == 'R410a']
+    dz7 = dff3[dff3['REFRIGERANT'] == 'R236ea']
+    dz8 = dff3[dff3['REFRIGERANT'] == 'R227ea']
+    dz9 = dff3[dff3['REFRIGERANT'] == 'R245ca']
+    dz10 = dff3[dff3['REFRIGERANT'] == 'R600a']
 
 
     return {
     'data': [
-                {'x': dff3['REFRIGERANT'], 'y': dff3['H_1'], 'type': 'bar', 'name': 'State 1'},
-                {'x': dff3['REFRIGERANT'], 'y': dff3['H_2'], 'type': 'bar', 'name': 'State 2'},
-                {'x': dff3['REFRIGERANT'], 'y': dff3['H_3'], 'type': 'bar', 'name': 'State 3'},
-                {'x': dff3['REFRIGERANT'], 'y': dff3['H_4'], 'type': 'bar', 'name': 'State 4'}
+                {'x': dz1['Efficiency'], 'y': dz1['REFRIGERANT'], 'type': 'bar', 'orientation': 'h', 'width': '0.5', 'name': 'R11'},
+                {'x': dz2['Efficiency'], 'y': dz2['REFRIGERANT'], 'type': 'bar', 'orientation': 'h', 'width': '0.5', 'name': 'R141b'},
+                {'x': dz3['Efficiency'], 'y': dz3['REFRIGERANT'], 'type': 'bar', 'orientation': 'h', 'width': '0.5', 'name': 'R218'},
+                {'x': dz4['Efficiency'], 'y': dz4['REFRIGERANT'], 'type': 'bar', 'orientation': 'h', 'width': '0.5', 'name': 'R134a'},
+                {'x': dz5['Efficiency'], 'y': dz5['REFRIGERANT'], 'type': 'bar', 'orientation': 'h', 'width': '0.5', 'name': 'R113'},
+                {'x': dz6['Efficiency'], 'y': dz6['REFRIGERANT'], 'type': 'bar', 'orientation': 'h', 'width': '0.5', 'name': 'R410a'},
+                {'x': dz7['Efficiency'], 'y': dz7['REFRIGERANT'], 'type': 'bar', 'orientation': 'h', 'width': '0.5', 'name': 'R236ea'},
+                {'x': dz8['Efficiency'], 'y': dz8['REFRIGERANT'], 'type': 'bar', 'orientation': 'h', 'width': '0.5', 'name': 'R227ea'},
+                {'x': dz9['Efficiency'], 'y': dz9['REFRIGERANT'], 'type': 'bar', 'orientation': 'h', 'width': '0.5', 'name': 'R245ca'},
+                {'x': dz10['Efficiency'], 'y': dz10['REFRIGERANT'], 'type': 'bar', 'orientation': 'h', 'width': '0.5', 'name': 'R600a'}
 
                 ],
                 'layout': {
-                        'title': 'Refrigerant State Enthalpy Analysis',
-                        "xaxis": { "title": "Refrigerant", "fixedrange": True, 'zeroline':True, 'showline':True},
-                        "yaxis": { "title": "Enthalpy (kJ/kg)", "fixedrange": True, 'zeroline':True, 'showline':True}
-    }
-    }
+                        'title': 'Refrigerant Thermal Efficiency Analysis',
+                        "xaxis": { "title": "Thermal Efficiency (%)", "fixedrange": True, 'zeroline':True, 'showline':True},
+                        "yaxis": { "title": "Refrigerant", "fixedrange": True, 'zeroline':True, 'showline':True}
+                        }
+}
 
+
+#ENTHALPY COMPARISON GRAPH CALLBACK FUNCTION
 @app.callback(
     dash.dependencies.Output('graph2', 'figure'),
     [dash.dependencies.Input('slider_1', 'value'),
@@ -474,68 +502,48 @@ def produce_graph(slider_1, slider_2, slider_3, slider_4, dropdown_3, input_1):
     dff2 = dff[dff['T_1'] == slider_1]
     dff3 = dff2[dff2['T_3'] == slider_2]
     MFR = float(input_1)
-    PUMP_EFF = float(slider_3)
-    TURBINE_EFF = float(slider_4)
+    Pump_Eff = float(slider_3)
+    Turbine_Eff = float(slider_4)
 
     #CALCULATES ENTHALPY AT STATE 2
-    #dff3['H_2'] = dff3['H_2_ISENTROPIC'] + (PUMP_EFF / 100) / (dff3['H_2_ISENTROPIC'] - dff3['H_1'])
-    dff3['H_2'] = dff3['H_2_ISENTROPIC'] + (PUMP_EFF / 100) * (dff3['H_2_ISENTROPIC'] - dff3['H_1'])
-    #dff3['H_2'] = dff3['H_1'] + (PUMP_EFF / 100) * (dff3['H_2_ISENTROPIC'] - dff3['H_1'])
+    dff3['H_2'] = dff3['H_2_ISENTROPIC'] + (Pump_Eff / 100) * (dff3['H_2_ISENTROPIC'] - dff3['H_1'])
 
     #CALCULATES ENTHALPY AT STATE 4
-    dff3['H_4'] = (dff3['H_3'] - (TURBINE_EFF / 100) * (dff3['H_3'] - dff3['H_4_ISENTROPIC']))
+    dff3['H_4'] = (dff3['H_3'] - (Turbine_Eff / 100) * (dff3['H_3'] - dff3['H_4_ISENTROPIC']))
 
     #TURBINE POWER CALCULATION (kW)
-    dff3['TURBINE_POWER'] = MFR * (dff3['H_3'] - dff3['H_4'])
+    dff3['Turbine Power (kW)'] = MFR * (dff3['H_3'] - dff3['H_4'])
 
     #PUMP POWER CALCULATION (kW)
-    dff3['PUMP_POWER'] = MFR * (dff3['H_2'] - dff3['H_1'])
+    dff3['Pump Power (kW)'] = MFR * (dff3['H_2'] - dff3['H_1'])
 
     #NET POWER (kW)
-    dff3['NET_POWER'] = dff3['TURBINE_POWER'] - dff3['PUMP_POWER']
+    dff3['Net Power (kW)'] = dff3['Turbine Power (kW)'] - dff3['Pump Power (kW)']
 
     #SYSTEM HEAT INPUT
-    dff3['HEAT_INPUT'] = MFR * (dff3['H_3'] - dff3['H_2'])
+    dff3['Heat Input (kJ/K)'] = MFR * (dff3['H_3'] - dff3['H_2'])
 
     #THERMAL EFFICIENCY
-    dff3['EFFICIENCY'] = (dff3['NET_POWER'] / dff3['HEAT_INPUT']) * 100
+    dff3['Efficiency'] = (dff3['Net Power (kW)'] / dff3['Heat Input (kJ/K)']) * 100
 
     dff3 = dff3.round(2)
 
-    dz1 = dff3[dff3['REFRIGERANT'] == 'R11']
-    dz2 = dff3[dff3['REFRIGERANT'] == 'R141b']
-    dz3 = dff3[dff3['REFRIGERANT'] == 'R218']
-    dz4 = dff3[dff3['REFRIGERANT'] == 'R134a']
-    dz5 = dff3[dff3['REFRIGERANT'] == 'R113']
-    dz6 = dff3[dff3['REFRIGERANT'] == 'R410a']
-    dz7 = dff3[dff3['REFRIGERANT'] == 'R236ea']
-    dz8 = dff3[dff3['REFRIGERANT'] == 'R227ea']
-    dz9 = dff3[dff3['REFRIGERANT'] == 'R245ca']
-    dz10 = dff3[dff3['REFRIGERANT'] == 'R600a']
-
-
-
     return {
     'data': [
-                {'x': dz1['EFFICIENCY'], 'y': dz1['REFRIGERANT'], 'type': 'bar', 'orientation': 'h', 'width': '0.5', 'name': 'R11'},
-                {'x': dz2['EFFICIENCY'], 'y': dz2['REFRIGERANT'], 'type': 'bar', 'orientation': 'h', 'width': '0.5', 'name': 'R141b'},
-                {'x': dz3['EFFICIENCY'], 'y': dz3['REFRIGERANT'], 'type': 'bar', 'orientation': 'h', 'width': '0.5', 'name': 'R218'},
-                {'x': dz4['EFFICIENCY'], 'y': dz4['REFRIGERANT'], 'type': 'bar', 'orientation': 'h', 'width': '0.5', 'name': 'R134a'},
-                {'x': dz5['EFFICIENCY'], 'y': dz5['REFRIGERANT'], 'type': 'bar', 'orientation': 'h', 'width': '0.5', 'name': 'R113'},
-                {'x': dz6['EFFICIENCY'], 'y': dz6['REFRIGERANT'], 'type': 'bar', 'orientation': 'h', 'width': '0.5', 'name': 'R410a'},
-                {'x': dz7['EFFICIENCY'], 'y': dz7['REFRIGERANT'], 'type': 'bar', 'orientation': 'h', 'width': '0.5', 'name': 'R236ea'},
-                {'x': dz8['EFFICIENCY'], 'y': dz8['REFRIGERANT'], 'type': 'bar', 'orientation': 'h', 'width': '0.5', 'name': 'R227ea'},
-                {'x': dz9['EFFICIENCY'], 'y': dz9['REFRIGERANT'], 'type': 'bar', 'orientation': 'h', 'width': '0.5', 'name': 'R245ca'},
-                {'x': dz10['EFFICIENCY'], 'y': dz10['REFRIGERANT'], 'type': 'bar', 'orientation': 'h', 'width': '0.5', 'name': 'R600a'}
-
+                {'x': dff3['REFRIGERANT'], 'y': dff3['H_1'], 'type': 'bar', 'name': 'State 1'},
+                {'x': dff3['REFRIGERANT'], 'y': dff3['H_2'], 'type': 'bar', 'name': 'State 2'},
+                {'x': dff3['REFRIGERANT'], 'y': dff3['H_3'], 'type': 'bar', 'name': 'State 3'},
+                {'x': dff3['REFRIGERANT'], 'y': dff3['H_4'], 'type': 'bar', 'name': 'State 4'}
 
                 ],
                 'layout': {
-                        'title': 'Refrigerant Thermal Efficiency Analysis',
-                        "xaxis": { "title": "Thermal Efficiency (%)", "fixedrange": True, 'zeroline':True, 'showline':True},
-                        "yaxis": { "title": "Refrigerant", "fixedrange": True, 'zeroline':True, 'showline':True}
-                        }
-}
+                        'title': 'Refrigerant State Enthalpy Analysis',
+                        "xaxis": { "title": "Refrigerant", "fixedrange": True, 'zeroline':True, 'showline':True},
+                        "yaxis": { "title": "Enthalpy (kJ/kg)", "fixedrange": True, 'zeroline':True, 'showline':True}
+    }}
+
+
+
 
 
 @app.callback(
@@ -553,8 +561,8 @@ def produce_graph(slider_1, slider_2, slider_3, slider_4, dropdown_3, dropdown_4
 
     dff = df[df.REFRIGERANT.str.contains('|'.join(dropdown_3))]
     MFR = float(input_1)
-    PUMP_EFF = float(slider_3)
-    TURBINE_EFF = float(slider_4)
+    Pump_Eff = float(slider_3)
+    Turbine_Eff = float(slider_4)
     x = float(slider_1)
     y = dropdown_4
 
@@ -563,35 +571,33 @@ def produce_graph(slider_1, slider_2, slider_3, slider_4, dropdown_3, dropdown_4
     dff2 = dff[dff.REFRIGERANT.str.contains('|'.join(dropdown_3))]
 
     dff3 = dff2
+
     #CALCULATES ENTHALPY AT STATE 2
-    #dff3['H_2'] = dff3['H_2_ISENTROPIC'] + (PUMP_EFF / 100) / (dff3['H_2_ISENTROPIC'] - dff3['H_1'])
-    dff3['H_2'] = dff3['H_2_ISENTROPIC'] + (PUMP_EFF / 100) * (dff3['H_2_ISENTROPIC'] - dff3['H_1'])
-    #dff3['H_2'] = dff3['H_1'] + (PUMP_EFF / 100) * (dff3['H_2_ISENTROPIC'] - dff3['H_1'])
+    dff3['H_2'] = dff3['H_2_ISENTROPIC'] + (Pump_Eff / 100) * (dff3['H_2_ISENTROPIC'] - dff3['H_1'])
 
     #CALCULATES ENTHALPY AT STATE 4
-    dff3['H_4'] = (dff3['H_3'] - ((TURBINE_EFF / 100) * (dff3['H_3'] - dff3['H_4_ISENTROPIC'])))
+    dff3['H_4'] = (dff3['H_3'] - ((Turbine_Eff / 100) * (dff3['H_3'] - dff3['H_4_ISENTROPIC'])))
 
     #TURBINE POWER CALCULATION (kW)
-    dff3['TURBINE_POWER'] = MFR * (dff3['H_3'] - dff3['H_4'])
+    dff3['Turbine Power (kW)'] = MFR * (dff3['H_3'] - dff3['H_4'])
 
     #PUMP POWER CALCULATION (kW)
-    dff3['PUMP_POWER'] = MFR * (dff3['H_2'] - dff3['H_1'])
+    dff3['Pump Power (kW)'] = MFR * (dff3['H_2'] - dff3['H_1'])
 
     #NET POWER (kW)
-    dff3['NET_POWER'] = dff3['TURBINE_POWER'] - dff3['PUMP_POWER']
+    dff3['Net Power (kW)'] = dff3['Turbine Power (kW)'] - dff3['Pump Power (kW)']
 
     #SYSTEM HEAT INPUT
-    dff3['HEAT_INPUT'] = MFR * (dff3['H_3'] - dff3['H_2'])
+    dff3['Heat Input (kJ/K)'] = MFR * (dff3['H_3'] - dff3['H_2'])
 
     #THERMAL EFFICIENCY
-    dff3['EFFICIENCY'] = (dff3['NET_POWER'] / dff3['HEAT_INPUT']) * 100
+    dff3['Thermal Efficiency (%)'] = (dff3['Net Power (kW)'] / dff3['Heat Input (kJ/K)']) * 100
 
-    dff3 = dff3[dff3['EFFICIENCY'] > 0]
+    dff3 = dff3[dff3['Thermal Efficiency (%)'] > 0]
 
     dff3 = dff3[dff3['T_1'] == x]
-
-
     dff3 = dff3.round(2)
+
 
     dz1 = dff3[dff3['REFRIGERANT'] == 'R11']
     dz2 = dff3[dff3['REFRIGERANT'] == 'R141b']
@@ -616,77 +622,108 @@ def produce_graph(slider_1, slider_2, slider_3, slider_4, dropdown_3, dropdown_4
             {'x': dz8['T_3'], 'y': dz8[y], 'type': 'line', 'name': 'R227ea'},
             {'x': dz9['T_3'], 'y': dz9[y], 'type': 'line', 'name': 'R245ca'},
             {'x': dz10['T_3'], 'y': dz10[y], 'type': 'line', 'name': 'R600a'}
+            ],
+        'layout':
+        {
+        'title': 'Refrigerant Performance Analysis',
+        "xaxis": { "title": "Turbine Inlet Temperature (°C)", "fixedrange": True, 'showline':False, 'zeroline':True},
+        "yaxis": { "title": dropdown_4, "fixedrange": True, 'zeroline':True, 'showline':True}
+        }
+}
+
+
+
+
+
+@app.callback(
+    dash.dependencies.Output('graph4', 'figure'),
+    [dash.dependencies.Input('slider_1', 'value'),
+    dash.dependencies.Input('slider_2', 'value'),
+    dash.dependencies.Input('slider_3', 'value'),
+    dash.dependencies.Input('slider_4', 'value'),
+    dash.dependencies.Input('dropdown_3', 'value'),
+    dash.dependencies.Input('dropdown_5', 'value'),
+    dash.dependencies.Input('input_1', 'value')
+    ])
+
+def produce_graph(slider_1, slider_2, slider_3, slider_4, dropdown_3, dropdown_5, input_1):
+
+    dff = df[df.REFRIGERANT.str.contains('|'.join(dropdown_3))]
+    MFR = float(input_1)
+    Pump_Eff = float(slider_3)
+    Turbine_Eff = float(slider_4)
+    x = float(slider_1)
+    y = dropdown_5
+
+    dff2 = dff
+
+    dff2 = dff[dff.REFRIGERANT.str.contains('|'.join(dropdown_3))]
+
+    dff3 = dff2
+
+    #CALCULATES ENTHALPY AT STATE 2
+    dff3['H_2'] = dff3['H_2_ISENTROPIC'] + (Pump_Eff / 100) * (dff3['H_2_ISENTROPIC'] - dff3['H_1'])
+
+    #CALCULATES ENTHALPY AT STATE 4
+    dff3['H_4'] = (dff3['H_3'] - ((Turbine_Eff / 100) * (dff3['H_3'] - dff3['H_4_ISENTROPIC'])))
+
+    #TURBINE POWER CALCULATION (kW)
+    dff3['Turbine Power (kW)'] = MFR * (dff3['H_3'] - dff3['H_4'])
+
+    #PUMP POWER CALCULATION (kW)
+    dff3['Pump Power (kW)'] = MFR * (dff3['H_2'] - dff3['H_1'])
+
+    #NET POWER (kW)
+    dff3['Net Power (kW)'] = dff3['Turbine Power (kW)'] - dff3['Pump Power (kW)']
+
+    #SYSTEM HEAT INPUT
+    dff3['Heat Input (kJ/K)'] = MFR * (dff3['H_3'] - dff3['H_2'])
+
+    #THERMAL EFFICIENCY
+    dff3['Thermal Efficiency (%)'] = (dff3['Net Power (kW)'] / dff3['Heat Input (kJ/K)']) * 100
+
+    dff3 = dff3[dff3['Thermal Efficiency (%)'] > 0]
+
+    dff3 = dff3[dff3['T_1'] == x]
+
+    dff3['P_3'] = dff3['P_3'] / 1000
+
+
+    dff3 = dff3.round(2)
+
+    dz1 = dff3[dff3['REFRIGERANT'] == 'R11']
+    dz2 = dff3[dff3['REFRIGERANT'] == 'R141b']
+    dz3 = dff3[dff3['REFRIGERANT'] == 'R218']
+    dz4 = dff3[dff3['REFRIGERANT'] == 'R134a']
+    dz5 = dff3[dff3['REFRIGERANT'] == 'R113']
+    dz6 = dff3[dff3['REFRIGERANT'] == 'R410a']
+    dz7 = dff3[dff3['REFRIGERANT'] == 'R236ea']
+    dz8 = dff3[dff3['REFRIGERANT'] == 'R227ea']
+    dz9 = dff3[dff3['REFRIGERANT'] == 'R245ca']
+    dz10 = dff3[dff3['REFRIGERANT'] == 'R600a']
+
+    return {
+        'data': [
+            {'x': dz1['P_3'], 'y': dz1[y], 'type': 'line', 'name': 'R11'},
+            {'x': dz2['P_3'], 'y': dz2[y], 'type': 'line', 'name': 'R141b'},
+            {'x': dz3['P_3'], 'y': dz3[y], 'type': 'line', 'name': 'R218'},
+            {'x': dz4['P_3'], 'y': dz4[y], 'type': 'line', 'name': 'R134a'},
+            {'x': dz5['P_3'], 'y': dz5[y], 'type': 'line', 'name': 'R113'},
+            {'x': dz6['P_3'], 'y': dz6[y], 'type': 'line', 'name': 'R410a'},
+            {'x': dz7['P_3'], 'y': dz7[y], 'type': 'line', 'name': 'R236ea'},
+            {'x': dz8['P_3'], 'y': dz8[y], 'type': 'line', 'name': 'R227ea'},
+            {'x': dz9['P_3'], 'y': dz9[y], 'type': 'line', 'name': 'R245ca'},
+            {'x': dz10['P_3'], 'y': dz10[y], 'type': 'line', 'name': 'R600a'}
 
 
             ],
         'layout':
         {
         'title': 'Refrigerant Performance Analysis',
-        "xaxis": { "title": "Turbine Inlet Temperature, T3 (°C)", "fixedrange": True, 'showline':False, 'zeroline':True},
-        "yaxis": { "title": dropdown_4, "fixedrange": True, 'zeroline':True, 'showline':True}
+        "xaxis": { "title": "Turbine Inlet Pressure (kPa)", "fixedrange": True, 'showline':False, 'zeroline':True},
+        "yaxis": { "title": dropdown_5, "fixedrange": True, 'zeroline':True, 'showline':True}
         }
 }
-
-
-@app.callback(
-    dash.dependencies.Output('download_button', 'href'),
-    [dash.dependencies.Input('slider_1', 'value'),
-        dash.dependencies.Input('slider_2', 'value'),
-        dash.dependencies.Input('slider_3', 'value'),
-        dash.dependencies.Input('slider_4', 'value'),
-        dash.dependencies.Input('dropdown_3', 'value'),
-        dash.dependencies.Input('dropdown_4', 'value'),
-        dash.dependencies.Input('input_1', 'value')
-        ])
-
-def update_download_button(slider_1, slider_2, slider_3, slider_4, dropdown_3, dropdown_4, input_1):
-
-    dff = df[df.REFRIGERANT.str.contains('|'.join(dropdown_3))]
-    dff2 = dff[dff['T_1'] == slider_1]
-    dff3 = dff2[dff2['T_3'] == slider_2]
-    MFR = float(input_1)
-    PUMP_EFF = float(slider_3)
-    TURBINE_EFF = float(slider_4)
-
-    dff3['PUMP_EFF'] = float(slider_3)
-    dff3['TURBINE_EFF'] = float(slider_4)
-
-
-    #CALCULATES ENTHALPY AT STATE 2
-    #dff3['H_2'] = dff3['H_2_ISENTROPIC'] + (PUMP_EFF / 100) / (dff3['H_2_ISENTROPIC'] - dff3['H_1'])
-    dff3['H_2'] = dff3['H_2_ISENTROPIC'] + (PUMP_EFF / 100) * (dff3['H_2_ISENTROPIC'] - dff3['H_1'])
-    #dff3['H_2'] = dff3['H_1'] + (PUMP_EFF / 100) * (dff3['H_2_ISENTROPIC'] - dff3['H_1'])
-
-    #CALCULATES ENTHALPY AT STATE 4
-    dff3['H_4'] = (dff3['H_3'] - (TURBINE_EFF / 100) * (dff3['H_3'] - dff3['H_4_ISENTROPIC']))
-
-    #dff3 = dff3.round(2)
-
-    #CALCULATES ENTHALPY AT STATE 2
-    dff3['H_2'] = dff3['H_1'] + (PUMP_EFF / 100) * (dff3['H_2_ISENTROPIC'] - dff3['H_1'])
-
-    #CALCULATES ENTHALPY AT STATE 4
-    dff3['H_4'] = (dff3['H_3'] - (TURBINE_EFF / 100) * (dff3['H_3'] - dff3['H_4_ISENTROPIC']))
-
-    #TURBINE POWER CALCULATION (kW)
-    dff3['TURBINE_POWER'] = MFR * (dff3['H_3'] - dff3['H_4'])
-
-    #PUMP POWER CALCULATION (kW)
-    dff3['PUMP_POWER'] = MFR * (dff3['H_2'] - dff3['H_1'])
-
-    #NET POWER (kW)
-    dff3['NET_POWER'] = dff3['TURBINE_POWER'] - dff3['PUMP_POWER']
-
-    #SYSTEM HEAT INPUT CALCULATION
-    dff3['HEAT_INPUT'] = MFR * (dff3['H_3'] - dff3['H_2'])
-
-    #THERMAL EFFICIENCY (%) CALCULATION
-    dff3['EFFICIENCY'] = (dff3['NET_POWER'] / dff3['HEAT_INPUT']) * 100
-
-    #
-    dff3 = dff3[['REFRIGERANT', 'T_1', 'T_3', 'PUMP_EFF', 'TURBINE_EFF', 'TURBINE_POWER', 'PUMP_POWER', 'NET_POWER','HEAT_INPUT', 'EFFICIENCY']]
-
-    dff3 = dff3.round(3)
 
 
 
