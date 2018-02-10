@@ -120,7 +120,7 @@ app.layout = html.Div(
                 #SETS THE MINIMUM SLIDER VALUE AT 1
                 min=1,
                 #SETS THE MAXIMUM SLIDER VALUE AT 200
-                max=200,
+                max=213,
                 #SETS THE STEP VALUE AT 1
                 step=1,
                 #SETS THE INITIAL VALUE AT 10
@@ -133,7 +133,7 @@ app.layout = html.Div(
                 #SETS TNE MINIMUM SLIDER VALUE AT 1
                 min=1,
                 #SETS THE MAXIMUM SLDER VALUE AT 200
-                max=200,
+                max=213,
                 #SETS THE INITIAL VALUE AT 60
                 value=60
                 ),
