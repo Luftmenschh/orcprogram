@@ -19,8 +19,6 @@ from plotly.graph_objs import *
 init_notebook_mode(connected=False)
 
 
-
-
 #CREATES THE R134a DATASETS
 r134a_temp_1 = pd.Series(range(1,101))
 r134a_temp_3 = pd.Series(range(1,101))
@@ -36,6 +34,7 @@ r134a_data_3['REFRIGERANT']= 'R134a'
 
 r134a_data_1['T_1_K']= r134a_data_1['T_1'] + 273.15
 r134a_data_3['T_3_K']= r134a_data_3['T_3'] + 273.15
+
 #
 r134a_data = pd.concat([r134a_data_1, r134a_data_3], axis=1)
 r134a_data_randomized = pd.DataFrame(list(product(r134a_data.T_1_K, r134a_data.T_3_K)), columns=['T_1_K', 'T_3_K'])
@@ -43,7 +42,6 @@ r134a_data_randomized.insert(0, 'REFRIGERANT', 'R134a')
 
 r134a_data_randomized['T_1']= r134a_data_randomized['T_1_K'] - 273.15
 r134a_data_randomized['T_3']= r134a_data_randomized['T_3_K'] - 273.15
-
 
 
 #CREATES THE R141b DATASETS
@@ -121,7 +119,6 @@ r113_data_randomized['T_1']= r113_data_randomized['T_1_K'] - 273.15
 r113_data_randomized['T_3']= r113_data_randomized['T_3_K'] - 273.15
 
 
-
 #CREATES THE R236ea DATASETS
 r236ea_temp_1 = pd.Series(range(1,140))
 r236ea_temp_3 = pd.Series(range(1,140))
@@ -145,7 +142,6 @@ r236ea_data_randomized.insert(0, 'REFRIGERANT', 'R236ea')
 
 r236ea_data_randomized['T_1']= r236ea_data_randomized['T_1_K'] - 273.15
 r236ea_data_randomized['T_3']= r236ea_data_randomized['T_3_K'] - 273.15
-
 
 
 #CREATES THE R227ea DATASETS
@@ -198,7 +194,6 @@ r600a_data_randomized['T_1']= r600a_data_randomized['T_1_K'] - 273.15
 r600a_data_randomized['T_3']= r600a_data_randomized['T_3_K'] - 273.15
 
 
-
 #CREATES THE R245ca DATASETS
 r245ca_temp_1 = pd.Series(range(1,175))
 r245ca_temp_3 = pd.Series(range(1,175))
@@ -222,7 +217,6 @@ r245ca_data_randomized.insert(0, 'REFRIGERANT', 'R245ca')
 
 r245ca_data_randomized['T_1']= r245ca_data_randomized['T_1_K'] - 273.15
 r245ca_data_randomized['T_3']= r245ca_data_randomized['T_3_K'] - 273.15
-
 
 
 #CREATES THE R11 DATASETS
@@ -250,7 +244,6 @@ r11_data_randomized['T_1']= r11_data_randomized['T_1_K'] - 273.15
 r11_data_randomized['T_3']= r11_data_randomized['T_3_K'] - 273.15
 
 
-
 #CREATES THE R218 DATASETS
 r218_temp_1 = pd.Series(range(1,72))
 r218_temp_3 = pd.Series(range(1,72))
@@ -276,12 +269,87 @@ r218_data_randomized['T_1']= r218_data_randomized['T_1_K'] - 273.15
 r218_data_randomized['T_3']= r218_data_randomized['T_3_K'] - 273.15
 
 
+#CREATES THE R245fa DATASETS
+r245fa_temp_1 = pd.Series(range(1,154))
+r245fa_temp_3 = pd.Series(range(1,154))
+
+r245fa_data_1 = pd.DataFrame(r245fa_temp_1)
+r245fa_data_1 = r245fa_data_1.rename(columns = {0:'T_1'})
+
+r245fa_data_3 = pd.DataFrame(r245fa_temp_3)
+r245fa_data_3 = r245fa_data_3.rename(columns = {0:'T_3'})
+
+r245fa_data_1['REFRIGERANT']= 'R245fa'
+r245fa_data_3['REFRIGERANT']= 'R245fa'
+
+r245fa_data_1['T_1_K']= r245fa_data_1['T_1'] + 273.15
+r245fa_data_3['T_3_K']= r245fa_data_3['T_3'] + 273.15
+
+#
+r245fa_data = pd.concat([r245fa_data_1, r245fa_data_3], axis=1)
+r245fa_data_randomized = pd.DataFrame(list(product(r245fa_data.T_1_K, r245fa_data.T_3_K)), columns=['T_1_K', 'T_3_K'])
+r245fa_data_randomized.insert(0, 'REFRIGERANT', 'R245fa')
+
+r245fa_data_randomized['T_1']= r245fa_data_randomized['T_1_K'] - 273.15
+r245fa_data_randomized['T_3']= r245fa_data_randomized['T_3_K'] - 273.15
+
+
+#CREATES THE R236fa DATASETS
+r236fa_temp_1 = pd.Series(range(1,125))
+r236fa_temp_3 = pd.Series(range(1,125))
+
+r236fa_data_1 = pd.DataFrame(r236fa_temp_1)
+r236fa_data_1 = r236fa_data_1.rename(columns = {0:'T_1'})
+
+r236fa_data_3 = pd.DataFrame(r236fa_temp_3)
+r236fa_data_3 = r236fa_data_3.rename(columns = {0:'T_3'})
+
+r236fa_data_1['REFRIGERANT']= 'R236fa'
+r236fa_data_3['REFRIGERANT']= 'R236fa'
+
+r236fa_data_1['T_1_K']= r236fa_data_1['T_1'] + 273.15
+r236fa_data_3['T_3_K']= r236fa_data_3['T_3'] + 273.15
+
+#
+r236fa_data = pd.concat([r236fa_data_1, r236fa_data_3], axis=1)
+r236fa_data_randomized = pd.DataFrame(list(product(r236fa_data.T_1_K, r236fa_data.T_3_K)), columns=['T_1_K', 'T_3_K'])
+r236fa_data_randomized.insert(0, 'REFRIGERANT', 'R236fa')
+
+r236fa_data_randomized['T_1']= r236fa_data_randomized['T_1_K'] - 273.15
+r236fa_data_randomized['T_3']= r236fa_data_randomized['T_3_K'] - 273.15
+
+
+#CREATES THE R600 DATASETS
+r600_temp_1 = pd.Series(range(1,152))
+r600_temp_3 = pd.Series(range(1,152))
+
+r600_data_1 = pd.DataFrame(r600_temp_1)
+r600_data_1 = r600_data_1.rename(columns = {0:'T_1'})
+
+r600_data_3 = pd.DataFrame(r600_temp_3)
+r600_data_3 = r600_data_3.rename(columns = {0:'T_3'})
+
+r600_data_1['REFRIGERANT']= 'R600'
+r600_data_3['REFRIGERANT']= 'R600'
+
+r600_data_1['T_1_K']= r600_data_1['T_1'] + 273.15
+r600_data_3['T_3_K']= r600_data_3['T_3'] + 273.15
+
+#
+r600_data = pd.concat([r600_data_1, r600_data_3], axis=1)
+r600_data_randomized = pd.DataFrame(list(product(r600_data.T_1_K, r600_data.T_3_K)), columns=['T_1_K', 'T_3_K'])
+r600_data_randomized.insert(0, 'REFRIGERANT', 'R600')
+
+r600_data_randomized['T_1']= r600_data_randomized['T_1_K'] - 273.15
+r600_data_randomized['T_3']= r600_data_randomized['T_3_K'] - 273.15
+
+
 
 
 
 
 #COMBINES THE REFRIGERANT DATASETS
-data = pd.concat([r134a_data_randomized, r141b_data_randomized, r410a_data_randomized, r113_data_randomized, r236ea_data_randomized, r227ea_data_randomized, r600a_data_randomized, r245ca_data_randomized, r11_data_randomized, r218_data_randomized])
+data = pd.concat([r134a_data_randomized, r141b_data_randomized, r410a_data_randomized, r113_data_randomized, r236ea_data_randomized, r227ea_data_randomized, r600a_data_randomized, r245ca_data_randomized, r11_data_randomized, r218_data_randomized, r245fa_data_randomized, r236fa_data_randomized, r600_data_randomized])
 
 
 data['T_4_K'] = data['T_1_K']

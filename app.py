@@ -10,6 +10,7 @@ import dash_html_components as html
 import dash_table_experiments as dt
 from dash.dependencies import Input, Output, State
 import pandas as pd
+import plotly.graph_objs as go
 import plotly
 import numpy as np
 import urllib
@@ -210,7 +211,6 @@ html.Div([
     html.Div([
         #ADDS THE GRAPH SHOWING REFRIGERANT STATE ENTHALPY ANALYSIS
         dcc.Graph(id='graph2',
-            #HIDES THE DISPLAY BAR
             config={'displayModeBar': False},
             #SETS THE GRAPH STYLING
             style={'max-height': '350', 'height': '50vh'}
@@ -243,7 +243,9 @@ html.Div([
     ),
 
 html.Div([
-    dcc.Graph(id='graph3', config={'displayModeBar': False}, style={'max-height': '380', 'height': '60vh'}),
+    dcc.Graph(id='graph3',
+        config={'displayModeBar': True},
+        style={'max-height': '380', 'height': '60vh'}),
 
         ],
             className='row',
@@ -277,14 +279,6 @@ html.Div([
             className='row',
             style={'margin-bottom': '15'}
         ),
-
-
-
-
-
-
-
-
 
 html.P(
             hidden='',
@@ -451,30 +445,36 @@ def produce_graph(slider_1, slider_2, slider_3, slider_4, dropdown_3, input_1):
     dff3['Efficiency'] = (dff3['Net Power (kW)'] / dff3['Heat Input (kJ/K)']) * 100
     dff3 = dff3.round(2)
 
-    dz1 = dff3[dff3['REFRIGERANT'] == 'R11']
-    dz2 = dff3[dff3['REFRIGERANT'] == 'R141b']
-    dz3 = dff3[dff3['REFRIGERANT'] == 'R218']
-    dz4 = dff3[dff3['REFRIGERANT'] == 'R134a']
-    dz5 = dff3[dff3['REFRIGERANT'] == 'R113']
-    dz6 = dff3[dff3['REFRIGERANT'] == 'R410a']
-    dz7 = dff3[dff3['REFRIGERANT'] == 'R236ea']
-    dz8 = dff3[dff3['REFRIGERANT'] == 'R227ea']
-    dz9 = dff3[dff3['REFRIGERANT'] == 'R245ca']
-    dz10 = dff3[dff3['REFRIGERANT'] == 'R600a']
+    dz1 = dff3[dff3['REFRIGERANT'] == 'R245fa']
+    dz2 = dff3[dff3['REFRIGERANT'] == 'R245ca']
+    dz3 = dff3[dff3['REFRIGERANT'] == 'R236fa']
+    dz4 = dff3[dff3['REFRIGERANT'] == 'R227ea']
+    dz5 = dff3[dff3['REFRIGERANT'] == 'R600']
+    dz6 = dff3[dff3['REFRIGERANT'] == 'R600a']
+    dz7 = dff3[dff3['REFRIGERANT'] == 'R134a']
+    dz8 = dff3[dff3['REFRIGERANT'] == 'R236ea']
+    dz9 = dff3[dff3['REFRIGERANT'] == 'R11']
+    dz10 = dff3[dff3['REFRIGERANT'] == 'R141b']
+    dz11 = dff3[dff3['REFRIGERANT'] == 'R218']
+    dz12 = dff3[dff3['REFRIGERANT'] == 'R113']
+    dz13 = dff3[dff3['REFRIGERANT'] == 'R410a']
 
 
     return {
     'data': [
-                {'x': dz1['Efficiency'], 'y': dz1['REFRIGERANT'], 'type': 'bar', 'orientation': 'h', 'width': '0.5', 'name': 'R11'},
-                {'x': dz2['Efficiency'], 'y': dz2['REFRIGERANT'], 'type': 'bar', 'orientation': 'h', 'width': '0.5', 'name': 'R141b'},
-                {'x': dz3['Efficiency'], 'y': dz3['REFRIGERANT'], 'type': 'bar', 'orientation': 'h', 'width': '0.5', 'name': 'R218'},
-                {'x': dz4['Efficiency'], 'y': dz4['REFRIGERANT'], 'type': 'bar', 'orientation': 'h', 'width': '0.5', 'name': 'R134a'},
-                {'x': dz5['Efficiency'], 'y': dz5['REFRIGERANT'], 'type': 'bar', 'orientation': 'h', 'width': '0.5', 'name': 'R113'},
-                {'x': dz6['Efficiency'], 'y': dz6['REFRIGERANT'], 'type': 'bar', 'orientation': 'h', 'width': '0.5', 'name': 'R410a'},
-                {'x': dz7['Efficiency'], 'y': dz7['REFRIGERANT'], 'type': 'bar', 'orientation': 'h', 'width': '0.5', 'name': 'R236ea'},
-                {'x': dz8['Efficiency'], 'y': dz8['REFRIGERANT'], 'type': 'bar', 'orientation': 'h', 'width': '0.5', 'name': 'R227ea'},
-                {'x': dz9['Efficiency'], 'y': dz9['REFRIGERANT'], 'type': 'bar', 'orientation': 'h', 'width': '0.5', 'name': 'R245ca'},
-                {'x': dz10['Efficiency'], 'y': dz10['REFRIGERANT'], 'type': 'bar', 'orientation': 'h', 'width': '0.5', 'name': 'R600a'}
+                {'x': dz1['Efficiency'], 'y': dz1['REFRIGERANT'], 'type': 'bar', 'orientation': 'h', 'width': '0.5', 'name': 'R245fa'},
+                {'x': dz2['Efficiency'], 'y': dz2['REFRIGERANT'], 'type': 'bar', 'orientation': 'h', 'width': '0.5', 'name': 'R245ca'},
+                {'x': dz3['Efficiency'], 'y': dz3['REFRIGERANT'], 'type': 'bar', 'orientation': 'h', 'width': '0.5', 'name': 'R236fa'},
+                {'x': dz4['Efficiency'], 'y': dz4['REFRIGERANT'], 'type': 'bar', 'orientation': 'h', 'width': '0.5', 'name': 'R227ea'},
+                {'x': dz5['Efficiency'], 'y': dz5['REFRIGERANT'], 'type': 'bar', 'orientation': 'h', 'width': '0.5', 'name': 'R600'},
+                {'x': dz6['Efficiency'], 'y': dz6['REFRIGERANT'], 'type': 'bar', 'orientation': 'h', 'width': '0.5', 'name': 'R600a'},
+                {'x': dz7['Efficiency'], 'y': dz7['REFRIGERANT'], 'type': 'bar', 'orientation': 'h', 'width': '0.5', 'name': 'R134a'},
+                {'x': dz8['Efficiency'], 'y': dz8['REFRIGERANT'], 'type': 'bar', 'orientation': 'h', 'width': '0.5', 'name': 'R236ea'},
+                {'x': dz9['Efficiency'], 'y': dz9['REFRIGERANT'], 'type': 'bar', 'orientation': 'h', 'width': '0.5', 'name': 'R11'},
+                {'x': dz10['Efficiency'], 'y': dz10['REFRIGERANT'], 'type': 'bar', 'orientation': 'h', 'width': '0.5', 'name': 'R141b'},
+                {'x': dz11['Efficiency'], 'y': dz11['REFRIGERANT'], 'type': 'bar', 'orientation': 'h', 'width': '0.5', 'name': 'R218'},
+                {'x': dz12['Efficiency'], 'y': dz12['REFRIGERANT'], 'type': 'bar', 'orientation': 'h', 'width': '0.5', 'name': 'R113'},
+                {'x': dz13['Efficiency'], 'y': dz13['REFRIGERANT'], 'type': 'bar', 'orientation': 'h', 'width': '0.5', 'name': 'R410a'}
 
                 ],
                 'layout': {
@@ -599,35 +599,42 @@ def produce_graph(slider_1, slider_2, slider_3, slider_4, dropdown_3, dropdown_4
     dff3 = dff3.round(2)
 
 
-    dz1 = dff3[dff3['REFRIGERANT'] == 'R11']
-    dz2 = dff3[dff3['REFRIGERANT'] == 'R141b']
-    dz3 = dff3[dff3['REFRIGERANT'] == 'R218']
-    dz4 = dff3[dff3['REFRIGERANT'] == 'R134a']
-    dz5 = dff3[dff3['REFRIGERANT'] == 'R113']
-    dz6 = dff3[dff3['REFRIGERANT'] == 'R410a']
-    dz7 = dff3[dff3['REFRIGERANT'] == 'R236ea']
-    dz8 = dff3[dff3['REFRIGERANT'] == 'R227ea']
-    dz9 = dff3[dff3['REFRIGERANT'] == 'R245ca']
-    dz10 = dff3[dff3['REFRIGERANT'] == 'R600a']
+    dz1 = dff3[dff3['REFRIGERANT'] == 'R245fa']
+    dz2 = dff3[dff3['REFRIGERANT'] == 'R245ca']
+    dz3 = dff3[dff3['REFRIGERANT'] == 'R236fa']
+    dz4 = dff3[dff3['REFRIGERANT'] == 'R227ea']
+    dz5 = dff3[dff3['REFRIGERANT'] == 'R600']
+    dz6 = dff3[dff3['REFRIGERANT'] == 'R600a']
+    dz7 = dff3[dff3['REFRIGERANT'] == 'R134a']
+    dz8 = dff3[dff3['REFRIGERANT'] == 'R236ea']
+    dz9 = dff3[dff3['REFRIGERANT'] == 'R11']
+    dz10 = dff3[dff3['REFRIGERANT'] == 'R141b']
+    dz11 = dff3[dff3['REFRIGERANT'] == 'R218']
+    dz12 = dff3[dff3['REFRIGERANT'] == 'R113']
+    dz13 = dff3[dff3['REFRIGERANT'] == 'R410a']
+
 
     return {
         'data': [
-            {'x': dz1['T_3'], 'y': dz1[y], 'type': 'line', 'name': 'R11'},
-            {'x': dz2['T_3'], 'y': dz2[y], 'type': 'line', 'name': 'R141b'},
-            {'x': dz3['T_3'], 'y': dz3[y], 'type': 'line', 'name': 'R218'},
-            {'x': dz4['T_3'], 'y': dz4[y], 'type': 'line', 'name': 'R134a'},
-            {'x': dz5['T_3'], 'y': dz5[y], 'type': 'line', 'name': 'R113'},
-            {'x': dz6['T_3'], 'y': dz6[y], 'type': 'line', 'name': 'R410a'},
-            {'x': dz7['T_3'], 'y': dz7[y], 'type': 'line', 'name': 'R236ea'},
-            {'x': dz8['T_3'], 'y': dz8[y], 'type': 'line', 'name': 'R227ea'},
-            {'x': dz9['T_3'], 'y': dz9[y], 'type': 'line', 'name': 'R245ca'},
-            {'x': dz10['T_3'], 'y': dz10[y], 'type': 'line', 'name': 'R600a'}
+            {'x': dz1['T_3'], 'y': dz1[y], 'type': 'line', 'name': 'R245fa'},
+            {'x': dz2['T_3'], 'y': dz2[y], 'type': 'line', 'name': 'R245ca'},
+            {'x': dz3['T_3'], 'y': dz3[y], 'type': 'line', 'name': 'R236fa'},
+            {'x': dz4['T_3'], 'y': dz4[y], 'type': 'line', 'name': 'R227ea'},
+            {'x': dz5['T_3'], 'y': dz5[y], 'type': 'line', 'name': 'R600'},
+            {'x': dz6['T_3'], 'y': dz6[y], 'type': 'line', 'name': 'R600a'},
+            {'x': dz7['T_3'], 'y': dz7[y], 'type': 'line', 'name': 'R134a'},
+            {'x': dz8['T_3'], 'y': dz8[y], 'type': 'line', 'name': 'R236ea'},
+            {'x': dz9['T_3'], 'y': dz9[y], 'type': 'line', 'name': 'R11'},
+            {'x': dz10['T_3'], 'y': dz10[y], 'type': 'line', 'name': 'R141b'},
+            {'x': dz11['T_3'], 'y': dz11[y], 'type': 'line', 'name': 'R218'},
+            {'x': dz12['T_3'], 'y': dz12[y], 'type': 'line', 'name': 'R113'},
+            {'x': dz13['T_3'], 'y': dz13[y], 'type': 'line', 'name': 'R410a'}
             ],
         'layout':
         {
         'title': 'Refrigerant Performance Analysis',
-        "xaxis": { "title": "Turbine Inlet Temperature (°C)", "fixedrange": True, 'showline':False, 'zeroline':True},
-        "yaxis": { "title": dropdown_4, "fixedrange": True, 'zeroline':True, 'showline':True}
+        "xaxis": { "title": "Turbine Inlet Temperature (°C)", "fixedrange": False, 'showline':False, 'zeroline':True},
+        "yaxis": { "title": dropdown_4, "fixedrange": False, 'zeroline':False, 'showline':True}
         }
 }
 
@@ -691,31 +698,38 @@ def produce_graph(slider_1, slider_2, slider_3, slider_4, dropdown_3, dropdown_5
 
     dff3 = dff3.round(2)
 
-    dz1 = dff3[dff3['REFRIGERANT'] == 'R11']
-    dz2 = dff3[dff3['REFRIGERANT'] == 'R141b']
-    dz3 = dff3[dff3['REFRIGERANT'] == 'R218']
-    dz4 = dff3[dff3['REFRIGERANT'] == 'R134a']
-    dz5 = dff3[dff3['REFRIGERANT'] == 'R113']
-    dz6 = dff3[dff3['REFRIGERANT'] == 'R410a']
-    dz7 = dff3[dff3['REFRIGERANT'] == 'R236ea']
-    dz8 = dff3[dff3['REFRIGERANT'] == 'R227ea']
-    dz9 = dff3[dff3['REFRIGERANT'] == 'R245ca']
-    dz10 = dff3[dff3['REFRIGERANT'] == 'R600a']
+
+
+    dz1 = dff3[dff3['REFRIGERANT'] == 'R245fa']
+    dz2 = dff3[dff3['REFRIGERANT'] == 'R245ca']
+    dz3 = dff3[dff3['REFRIGERANT'] == 'R236fa']
+    dz4 = dff3[dff3['REFRIGERANT'] == 'R227ea']
+    dz5 = dff3[dff3['REFRIGERANT'] == 'R600']
+    dz6 = dff3[dff3['REFRIGERANT'] == 'R600a']
+    dz7 = dff3[dff3['REFRIGERANT'] == 'R134a']
+    dz8 = dff3[dff3['REFRIGERANT'] == 'R236ea']
+    dz9 = dff3[dff3['REFRIGERANT'] == 'R11']
+    dz10 = dff3[dff3['REFRIGERANT'] == 'R141b']
+    dz11 = dff3[dff3['REFRIGERANT'] == 'R218']
+    dz12 = dff3[dff3['REFRIGERANT'] == 'R113']
+    dz13 = dff3[dff3['REFRIGERANT'] == 'R410a']
+
 
     return {
-        'data': [
-            {'x': dz1['P_3'], 'y': dz1[y], 'type': 'line', 'name': 'R11'},
-            {'x': dz2['P_3'], 'y': dz2[y], 'type': 'line', 'name': 'R141b'},
-            {'x': dz3['P_3'], 'y': dz3[y], 'type': 'line', 'name': 'R218'},
-            {'x': dz4['P_3'], 'y': dz4[y], 'type': 'line', 'name': 'R134a'},
-            {'x': dz5['P_3'], 'y': dz5[y], 'type': 'line', 'name': 'R113'},
-            {'x': dz6['P_3'], 'y': dz6[y], 'type': 'line', 'name': 'R410a'},
-            {'x': dz7['P_3'], 'y': dz7[y], 'type': 'line', 'name': 'R236ea'},
-            {'x': dz8['P_3'], 'y': dz8[y], 'type': 'line', 'name': 'R227ea'},
-            {'x': dz9['P_3'], 'y': dz9[y], 'type': 'line', 'name': 'R245ca'},
-            {'x': dz10['P_3'], 'y': dz10[y], 'type': 'line', 'name': 'R600a'}
-
-
+    'data': [
+            {'x': dz1['P_3'], 'y': dz1[y], 'type': 'line', 'name': 'R245fa'},
+            {'x': dz2['P_3'], 'y': dz2[y], 'type': 'line', 'name': 'R245ca'},
+            {'x': dz3['P_3'], 'y': dz3[y], 'type': 'line', 'name': 'R236fa'},
+            {'x': dz4['P_3'], 'y': dz4[y], 'type': 'line', 'name': 'R227ea'},
+            {'x': dz5['P_3'], 'y': dz5[y], 'type': 'line', 'name': 'R600'},
+            {'x': dz6['P_3'], 'y': dz6[y], 'type': 'line', 'name': 'R600a'},
+            {'x': dz7['P_3'], 'y': dz7[y], 'type': 'line', 'name': 'R134a'},
+            {'x': dz8['P_3'], 'y': dz8[y], 'type': 'line', 'name': 'R236ea'},
+            {'x': dz9['P_3'], 'y': dz9[y], 'type': 'line', 'name': 'R11'},
+            {'x': dz10['P_3'], 'y': dz10[y], 'type': 'line', 'name': 'R141b'},
+            {'x': dz11['P_3'], 'y': dz11[y], 'type': 'line', 'name': 'R218'},
+            {'x': dz12['P_3'], 'y': dz12[y], 'type': 'line', 'name': 'R113'},
+            {'x': dz13['P_3'], 'y': dz13[y], 'type': 'line', 'name': 'R410a'}
             ],
         'layout':
         {
@@ -724,8 +738,6 @@ def produce_graph(slider_1, slider_2, slider_3, slider_4, dropdown_3, dropdown_5
         "yaxis": { "title": dropdown_5, "fixedrange": True, 'zeroline':True, 'showline':True}
         }
 }
-
-
 
 
 
