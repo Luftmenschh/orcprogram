@@ -546,7 +546,7 @@ def produce_graph(slider_1, slider_2, slider_3, slider_4, dropdown_3, input_1):
 
                 ],
                 'layout': {
-                        'title': 'Refrigerant Thermal Efficiency Analysis',
+                        'title': 'Refrigerant Efficiency Analysis',
                         "xaxis": { "title": "Thermal Efficiency (%)", "fixedrange": True, 'zeroline':True, 'showline':True},
                         "yaxis": { "title": "Refrigerant", "fixedrange": True, 'zeroline':True, 'showline':True}
                         }
