@@ -2,16 +2,15 @@
 #ENABLES CORRECT DIVISION IN PYTHON
 from __future__ import division
 
+import base64
 import dash
 import dash_core_components as dcc
 import dash_html_components as html
-import plotly.graph_objs as go
-import pandas as pd
-import numpy as np
-from dash.dependencies import Input, Output, State
 import dash_table_experiments as dt
+from dash.dependencies import Input, Output, State
+import pandas as pd
 import plotly
-import base64
+import numpy as np
 import urllib
 
 
