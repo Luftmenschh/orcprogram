@@ -34,7 +34,9 @@ tab1_layout = html.Div([
     html.Img(src='https://github.com/ndaly06/orcprogram/blob/master/orcschematic3.png?raw=true',
                     style={
                     'max-height': '300px',
-                    'max-width': '430px',
+                    #'max-width': '430px',
+                    'max-width': '43%',
+
                     'vertical-align': 'middle',
                     'float': 'right'}),
 
