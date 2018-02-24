@@ -25,7 +25,6 @@ df2 = df2.round(2)
 
 
 
-
 tab1_layout = html.Div([
 
 	#html.H6('Input Parameters'),
@@ -425,11 +424,6 @@ def call_tab_layout(tab_value):
         return tab3_layout
 
         #elif tab_value == 4:
-
-
-
-
-
 
 
 
