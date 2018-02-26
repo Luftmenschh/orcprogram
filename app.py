@@ -114,16 +114,23 @@ tab1_layout = html.Div([
                         value=80,
                     ),
 
+                    html.Hr(style={'margin': '2', 'margin-bottom': '2'}),
 
+                    html.H6('ORC Modelling Results'),
 
-                html.Hr(style={'margin': '2', 'margin-bottom': '2'}),
+                    dt.DataTable(
+                        rows=[{}],
+                        row_selectable=False,
+                        filterable=False,
+                        sortable=False,
+                        selected_row_indices=[],
+                        id='table'
+                        ),
 
-                html.Hr(style={'margin': '2', 'margin-bottom': '2'}),
+                    html.Hr(style={'margin': '2', 'margin-bottom': '2'}),
 
 
                 html.Div([
-
-
 
 
                 html.Div([
@@ -147,7 +154,7 @@ tab1_layout = html.Div([
 
 tab2_layout = html.Div([
 
-	#html.H6('Parametric Analysis'),
+
 	html.Hr(style={'margin': '0', 'margin-bottom': '2'}),
 
     html.Label('Select Refrigerant:'),
@@ -263,85 +270,6 @@ tab2_layout = html.Div([
 
 	])
 
-tab3_layout = html.Div([
-    html.Div([
-        #html.H6('Input Parameters'),
-    html.Hr(style={'margin': '0', 'margin-bottom': '2'}),
-
-    html.Label('Select Refrigerant:'),
-                dcc.Dropdown(
-                    id='dropdown_3',
-                    options=[{'label': i, 'value': i} for i in df.REFRIGERANT.unique()],
-                    placeholder='Select Refrigerant',
-                    multi=True,
-                    value=['R134a', 'R141b', 'R410a', 'R113'],
-                ),
-
-    html.Label('Mass Flow Rate (kg/s)',style={'width': '200'}),
-                dcc.Input(
-                            id='input_1',
-                            type='number',
-                            value='12',
-                            min='1',
-                            style={'max-width': '150px'}
-                        ),
-
-    html.Label(id='pump_temp_value'),
-           dcc.Slider(
-                        id='slider_1',
-                        min=1,
-                        max=200,
-                        step=1,
-                        value=10
-                        ),
-
-    html.Label(id='turbine_temp_value'),
-                    dcc.Slider(
-                        id='slider_2',
-                        min=1,
-                        max=200,
-                        value=60,
-                    ),
-
-                html.Label(
-                        id='pump_eff_value'),
-                    dcc.Slider(
-                        id='slider_3',
-                        min=1,
-                        max=100,
-                        value=60,
-                    ),
-
-                html.Label(
-                        id='turbine_eff_value'),
-                    dcc.Slider(
-                        id='slider_4',
-                        min=1,
-                        max=100,
-                        value=80,
-                    ),
-
-    html.H6('ORC Model Results'),
-
-    dt.DataTable(
-        rows=[{}],
-        row_selectable=False,
-        filterable=False,
-        sortable=False,
-        selected_row_indices=[],
-        id='table'
-        )
-
-            ],
-            className='row',
-                style={'margin-bottom': '100'}
-
-            ),
-
-    ])
-
-
-
 
 #
 external_css = ["https://fonts.googleapis.com/css?family=Overpass:300,300i",
@@ -379,13 +307,11 @@ app.layout = html.Div(
 
         dcc.Tabs(
             tabs=[
-                {'label': 'System Modelling', 'value': 1},
-                {'label': 'Parametric Analysis', 'value': 2},
-                {'label': 'Modelling Results', 'value': 3}
+                {'label': 'Modelling & Performance', 'value': 1},
+                {'label': 'Parametric Analysis', 'value': 2}
               ],
             value=1,
-            id='tabs',
-            #vertical=vertical
+            id='tabs'
         ),
 
         html.Div(id='tab-layout'),
@@ -422,11 +348,6 @@ def call_tab_layout(tab_value):
         return tab1_layout
     elif tab_value == 2:
         return tab2_layout
-    elif tab_value == 3:
-        return tab3_layout
-
-        #elif tab_value == 4:
-
 
 
 
