@@ -17,6 +17,7 @@ import urllib
 app = dash.Dash(__name__)
 server = app.server
 app.config['suppress_callback_exceptions']=True
+app.title = "ORCa"
 
 
 df = pd.read_csv('https://github.com/ndaly06/orcprogram/blob/master/refrigerant_data.csv?raw=true')
