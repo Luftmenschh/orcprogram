@@ -17,7 +17,7 @@ import urllib
 app = dash.Dash(__name__)
 server = app.server
 app.config['suppress_callback_exceptions']=True
-app.title = "ORCa"
+app.title = "ORC Simulator"
 
 
 df = pd.read_csv('https://github.com/ndaly06/orcprogram/blob/master/refrigerant_data.csv?raw=true')
@@ -296,7 +296,7 @@ app.layout = html.Div(
                 },
             ),
             html.H1(
-                'ORCa',
+                'ORCa Simulator',
                 className='seven columns',
                 style={'text-align': 'center', 'font-size': '2.65em'}
             )
