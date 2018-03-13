@@ -296,7 +296,7 @@ app.layout = html.Div(
                 },
             ),
             html.H1(
-                'ORCa Simulator',
+                'ORC Simulator',
                 className='seven columns',
                 style={'text-align': 'center', 'font-size': '2.65em'}
             )
