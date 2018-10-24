@@ -2,7 +2,7 @@
 
 Web application developed to model thermodynamics algorithms commonly associated with Organic Rankine Cycles.
 
-Tools
+Tools - Python/Flask/Heroku/HTML/CSS/Plotly Dash Library/CoolProp
 
 ## Background
 
